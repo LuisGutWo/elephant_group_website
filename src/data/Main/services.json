@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/imgs/serv-icons/4.png",
+    "title": "ROUTER CNC",
+    "text": "Servicio de corte y grabado 2D, y servicio de mecanizado 3D. Nuestra cama de corte es de 2000 x 3000 mm"
+  },
+  {
+    "id": 2,
+    "image": "/assets/imgs/serv-icons/1.png",
+    "title": "DISEÑO",
+    "text": "¿Necesitas un logotipo nuevo o una gráfica para tus redes sociales, etiquetas de productos o ilustraciones para tu marca."
+  },
+  {
+    "id": 3,
+    "image": "/assets/imgs/serv-icons/2.png",
+    "title": "IMPRENTA",
+    "text": "Diseñamos y también lo imprimimos; etiquetas, stickers, pendones, gigantografias, letreros y mas."
+  }
+]

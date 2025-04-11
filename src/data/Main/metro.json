@@ -1,0 +1,110 @@
+{
+  "filters": [
+    {
+      "id": 1,
+      "title": "Todos",
+      "filter": "*",
+      "count": "08"
+    },
+    {
+      "id": 2,
+      "title": "Cortes CNC",
+      "filter": ".cortes",
+      "count": "08"
+    },
+    {
+      "id": 3,
+      "title": "Diseño",
+      "filter": ".brand",
+      "count": "08"
+    },
+    {
+      "id": 4,
+      "title": "Imprenta",
+      "filter": ".app",
+      "count": "08"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "filter": "brand",
+      "image": "/dark/assets/imgs/works/grid/work-1-metro.png",
+      "type": "Diseño",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "3",
+      "height": "1"
+    },
+    {
+      "id": 2,
+      "filter": "cortes",
+      "image": "/dark/assets/imgs/works/grid/work-2-metro.png",
+      "type": "Cortes CNC",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "3",
+      "height": "2"
+    },
+    {
+      "id": 3,
+      "filter": "brand",
+      "image": "/dark/assets/imgs/works/grid/work-3-metro.png",
+      "type": "Diseño",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "6",
+      "height": "1"
+    },
+    {
+      "id": 4,
+      "filter": "cortes",
+      "image": "/dark/assets/imgs/works/grid/work-4-metro.png",
+      "type": "Cortes CNC",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "3",
+      "height": "2"
+    },
+    {
+      "id": 5,
+      "filter": "brand",
+      "image": "/dark/assets/imgs/works/grid/work-5-metro.png",
+      "type": "Diseño",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "6",
+      "height": "1"
+    },
+    {
+      "id": 6,
+      "filter": "app",
+      "image": "/dark/assets/imgs/works/grid/work-6-metro.png",
+      "type": "Diseño",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "6",
+      "height": "2"
+    },
+    {
+      "id": 7,
+      "filter": "app",
+      "image": "/dark/assets/imgs/works/grid/work-7-metro.png",
+      "type": "Diseño",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "3",
+      "height": "2"
+    },
+    {
+      "id": 8,
+      "filter": "brand",
+      "image": "/dark/assets/imgs/works/grid/work-8-metro.png",
+      "type": "Diseño",
+      "year": "2023",
+      "title": "Trabajo para la empresa ...",
+      "width": "3",
+      "height": "2"
+    }
+  ]
+}

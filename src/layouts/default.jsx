@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 //= Packages
 import Head from "next/head";
-import ReactWhatsappButton from "react-whatsapp-button";
+import WhatsAppButton from "@/common/WhatsAppButton";
 //= Scripts
 import correctStylesheetsOrder from "@/common/correctStylesheetsOrder";
 //= Components
@@ -32,18 +32,7 @@ const DefaultLayout = ({ children, lightMode }) => {
         )}
       </Head>
       <Cursor />
-      <ReactWhatsappButton
-        className="whatsapp-button"
-        countryCode="56"
-        phoneNumber="920390272"
-        message="Hola, somos Elephant Group... en que podemos ayudarte? "
-        animated
-        style={{
-          top: "50%",
-          left: "unset",
-          right: "3%",
-        }}
-      />
+      <WhatsAppButton />
       <ProgressScroll />
       {children}
     </>

@@ -1,8 +1,11 @@
 import React from "react";
 //= Components
 import StatementSplitter from "@/components/Common/StatementSplitter";
+//= Assets
+const catalogoPDF = `${process.env.PUBLIC_URL || ''}/catalogo_impresion.pdf`
 //= Data
 import data from "@/data/Main/services.json";
+import Link from "next/link";
 
 function Services({ lightMode }) {
   return (
@@ -21,8 +24,14 @@ function Services({ lightMode }) {
             <div className="col-lg-4 d-flex align-items-center">
               <div className="text">
                 <p>
-                  Nuestra misión es convertirnos en un asesor publicitario confiable para nuestros clientes, proporcionando estrategias claras para lograr una imagen visual empresarial más profesional y efectiva.
+                  Nuestra misión es convertirnos en un asesor publicitario
+                  confiable para nuestros clientes, proporcionando estrategias
+                  claras para lograr una imagen visual empresarial más
+                  profesional y efectiva.
                 </p>
+                <Link href={catalogoPDF} passHref className="btn btn-3 mt-30">
+                  <span className="ico"></span>Ver más servicios
+                </Link>
               </div>
             </div>
           </div>

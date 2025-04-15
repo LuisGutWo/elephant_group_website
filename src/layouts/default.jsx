@@ -28,7 +28,10 @@ const DefaultLayout = ({ children, lightMode }) => {
             <link rel="stylesheet" href="/light/assets/css/style.css" />
           </>
         ) : (
-          <link rel="stylesheet" href="/dark/assets/css/base.css" />
+          <>
+            <link rel="stylesheet" href="/dark/assets/css/plugins.css" />
+            <link rel="stylesheet" href="/dark/assets/css/style.css" />
+          </>
         )}
       </Head>
       <Cursor />

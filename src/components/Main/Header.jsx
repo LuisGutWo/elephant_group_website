@@ -87,13 +87,14 @@ function Header({ lightMode }) {
                                   d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"
                                 ></path>
                               </defs>
-                              <text>
+                              <text className="bg-dark">
                                 <textPath
                                   xlinkHref="#textcircle1"
                                   startOffset="50%"
                                   textAnchor="middle"
                                   textLength="900"
                                   fill="currentColor"
+                                  fontFamily="Poppins"
                                   fontSize="30px"
                                   fontWeight="700"
                                 >

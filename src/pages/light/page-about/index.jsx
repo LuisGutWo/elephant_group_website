@@ -37,6 +37,12 @@ function PageAboutLight() {
       <>
         <Head>
           <title>Elephant Group - Nosotros</title>
+          <meta name="description" content="Elephant Group - Nosotros" />
+          <meta
+            name="keywords"
+            content="Elephant Group, nosotros, publicidad, marketing"
+          />
+          <meta name="author" content="Elephant Group" />
         </Head>
 
         <Loader />

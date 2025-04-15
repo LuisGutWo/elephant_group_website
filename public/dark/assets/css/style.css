@@ -372,6 +372,30 @@ img {
 
 /* Buttons
 -----------------------------------------------------------------*/
+/* // /// WhatsApp Floating Button /// */
+.btn-wsp {
+  position: fixed;
+  cursor: pointer;
+  top: 50%;
+  right: 0;
+  z-index: 100;
+
+  & .wsp-image {
+    width: 9rem;
+    max-width: fit-content;
+    min-width: 3rem;
+    filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.624));
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: 1s ease-in-out;
+    transition: 1s ease-in-out;
+
+    &:hover {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+}
 .butn {
   border: 1px solid transparent;
 }
@@ -3064,7 +3088,7 @@ body.loaded {
   border-radius: 40px;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  min-height: auto;
+  min-height: initial;
   -webkit-transform: translate(0) !important;
   -ms-transform: translate(0) !important;
   transform: translate(0) !important;
@@ -5947,7 +5971,7 @@ footer .bg-pattern {
 }
 
 .back-image.states {
-  min-height: auto;
+  min-height: initial;
 }
 
 .back-image.states .box {
@@ -9555,6 +9579,7 @@ header.in-box {
     width: 100%;
 }
   .navbar .navbar-collapse {
+    background-color: #191919;
     max-height: 440px;
     overflow: auto;
   }
@@ -9573,10 +9598,6 @@ header.in-box {
   .navbar .logo {
     max-width: 80px !important;
     margin-left: 30px;
-  }
-  .navbar .navbar-collapse {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 15px;
   }
   .navbar .search-form {
     display: none;
@@ -9643,7 +9664,7 @@ header.in-box {
     min-height: 500px;
   }
   .crev-header {
-    min-height: auto;
+    min-height: initial;
   }
   .crev-header .caption h1 {
     font-size: 60px;
@@ -9678,7 +9699,7 @@ header.in-box {
     font-size: 90px;
   }
   .page-header {
-    min-height: auto;
+    min-height: initial;
     padding-bottom: 120px !important;
   }
   .page-header.blog-header {
@@ -9724,7 +9745,7 @@ header.in-box {
   }
   .works.thecontainer {
     width: 100%;
-    min-height: auto;
+    min-height: initial;
     display: block;
     padding: 70px 0 120px;
   }
@@ -9959,6 +9980,22 @@ header.in-box {
   .topnav .logo {
     width: 100px;
   }
+  /* // /// WhatsApp Floating Button /// */
+.btn-wsp {
+  & .wsp-image {
+    width: 6rem;
+    max-width: fit-content;
+    min-width: 2rem;
+
+    &:hover {
+      -webkit-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+  }
+}
+
+
+
   .hamenu {
     padding: 120px 15px 15px;
   }

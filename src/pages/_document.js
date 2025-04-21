@@ -25,10 +25,14 @@ export default function Document() {
           <link
             key={font}
             href={`https://fonts.googleapis.com/css2?family=${font}&display=swap`}
+            rel="stylesheet"
           />
         ))}
         {/* ------ Bootstrap Icons CDN ------ */}
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+          rel="stylesheet"
+        />
         {/* ------ Plugins and Core Style Css are imported directly in the JavaScript file ------ */}
         {/* Global styles are now imported in _app.js */}
       </Head>

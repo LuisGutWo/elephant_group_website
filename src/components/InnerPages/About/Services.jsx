@@ -60,6 +60,7 @@ function Services({ lightMode }) {
                 <h4 className="mb-30 pb-30 bord-thin-bottom" style={{ borderColor: lightMode ? "#fca311" : "#f8f9fa", color: lightMode ? "#fca311" : "#f8f9fa" }}>
                   <StatementSplitter statement={item.title} />
                 </h4>
+                <h6>{item.subtitle}</h6>
                 <p>{item.text}</p>
               </div>
             </div>

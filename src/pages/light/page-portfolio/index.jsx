@@ -11,7 +11,7 @@ import Header from '@/components/Portfolio/HeaderPortfolio';
 import GridPortfolioImages from '@/components/Portfolio/GridPortfolioImages';
 
 
-function PortfolioMetroLight() {
+function PagePortfolioLight() {
   useEffect(() => {
     if (document?.body) {
       document.body.classList.add('main-bg');
@@ -24,14 +24,14 @@ function PortfolioMetroLight() {
   }, []);
 
   const metadata = {
-    subTitle: "Nuestros Trabajos",
-    title: "Conócenos."
+    subTitle: "Portafolio",
+    title: "Nuestros trabajos."
   }
 
   return (
     <>
       <Head>
-        <title>Elephant Group - Trabajos</title>
+        <title>Elephant Group - Portafolio de Trabajos</title>
       </Head>
 
       <Loader />
@@ -45,6 +45,6 @@ function PortfolioMetroLight() {
   )
 }
 
-PortfolioMetroLight.getLayout = page => <Layout lightMode>{page}</Layout>
+PagePortfolioLight.getLayout = page => <Layout lightMode>{page}</Layout>
 
-export default PortfolioMetroLight;
+export default PagePortfolioLight;

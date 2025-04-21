@@ -20,7 +20,7 @@ function Intro() {
             <div className="imgs mb-80">
               <div className="img1 wow fadeInUp">
                 <img
-                  src="/dark/assets/imgs/about/elephant-blackbg-700x840.png"
+                  src="/light/assets/imgs/about/work-127.jpeg"
                   alt="Elephant Group fondo negro 700x840"
                   className="radius-10"
                 />
@@ -42,60 +42,71 @@ function Intro() {
                     <span className="up-text">Descubre el proceso</span>
                   </span>
                   <span className="sideup-text">
-                    <span className="up-text">detrás de nuestra empresa.</span>
+                    <span className="up-text">detrás de nuestra empresa</span>
                   </span>
                   <span className="sideup-text">
-                    <span className="up-text">Elephant Group.</span>
+                    <span className="up-text">
+                      <b>Elephant Group.</b>
+                    </span>
                   </span>
                 </h2>
               </div>
               <div className="accordion bord mt-40">
-                <div className="item mb-15 wow fadeInUp" data-wow-delay=".1s">
+                <div className="item mb-15 wow fadeInUp" data-wow-delay=".5s">
                   <div className="title" onClick={openAccordion}>
-                    <h6 className="fz-18">Router CNC</h6>
+                    <h6 className="fz-18">IMPRESION</h6>
                     <span className="ico"></span>
                   </div>
                   <div className="accordion-info">
                     <p className="fz-14">
-                      Ofrecemos servicio de corte y grabado en 2D, así como
-                      mecanizado en 3D. Nuestra cama de corte tiene dimensiones
-                      de 2000 x 3000 mm. Trabajamos con todo tipo de maderas,
-                      naturales o procesadas, además de una amplia variedad de
-                      materiales como plásticos de ingeniería, acrílicos,
-                      aluminio compuesto, HPL, poliestireno expandido, espumas,
-                      entre otros.
+                      <b>ADHESIVOS PVC</b>
+                      <br />
+                      El adhesivo PVC es un material versátil y resistente,
+                      ideal para aplicaciones en interiores y exteriores. Su
+                      alta resistencia y durabilidad lo convierten en una
+                      excelente alternativa para la impresión de etiquetas y
+                      letreros.
+                    </p>
+                    <br />
+                    <p className="fz-14">
+                      <b>TELA PVC</b>
+                      <br />
+                      La tela PVC es una material versátil y resistente, siendo
+                      una excelente opción para impresiones en gran formato. Es
+                      altamente duradero, resistente a la intemperie y fácil de
+                      limpiar, lo que lo convierte en una opción ideal para
+                      aplicaciones en exteriores.
+                    </p>
+                  </div>
+                </div>
+                <div className="item mb-15 wow fadeInUp" data-wow-delay=".1s">
+                  <div className="title" onClick={openAccordion}>
+                    <h6 className="fz-18">CORTE CNC</h6>
+                    <span className="ico"></span>
+                  </div>
+                  <div className="accordion-info">
+                    <p className="fz-14">
+                      Nuestro CNC es una herramienta de alta precisión que nos
+                      permite realizar cortes y grabados en una amplia variedad de
+                      materiales, como acrílicos, madera y aluminio compuesto.
+                      Gracias a su tecnología avanzada, podemos crear diseños
+                      personalizados y precisos.
                     </p>
                   </div>
                 </div>
                 <div className="item mb-15 wow fadeInUp" data-wow-delay=".3s">
                   <div className="title" onClick={openAccordion}>
-                    <h6 className="fz-18">Diseño</h6>
+                    <h6 className="fz-18">DISEÑO</h6>
                     <span className="ico"></span>
                   </div>
                   <div className="accordion-info">
                     <p className="fz-14">
-                      Diseñamos digitalmente todo lo que necesites para tu
-                      empresa, ya sea para web o impresión. Somos expertos en
-                      creación de imagen corporativa (logotipos), páginas web,
-                      etiquetas de productos, ilustraciones y gráficas para
-                      redes sociales.
-                    </p>
-                  </div>
-                </div>
-                <div className="item wow fadeInUp" data-wow-delay=".5s">
-                  <div className="title" onClick={openAccordion}>
-                    <h6 className="fz-18">Impresión</h6>
-                    <span className="ico"></span>
-                  </div>
-                  <div className="accordion-info">
-                    <p className="fz-14">
-                      En nuestra área de impresión y producción, entregamos
-                      productos finales de alta calidad y personalizados. Con
-                      nuestro asesoramiento, podrás determinar la mejor manera
-                      y el material ideal para ejecutar tus proyectos. Ofrecemos
-                      servicios de impresión digital y offset, gigantografías,
-                      pendones, papelería, stickers, etiquetas de productos y
-                      mucho más.
+                      En Elephant Group, nos especializamos en la <b>creación</b> y <b>diseño</b> de
+                      logotipos, papelería, publicidad digital y física, así como
+                      en la creación de contenido para redes sociales. Nuestro equipo
+                      de expertos en <b>diseno de letreros</b> y <b>rótulos</b> y
+                      <b>señalización</b> nos permite ofrecer soluciones
+                      personalizadas y atractivas para nuestros clientes.
                     </p>
                   </div>
                 </div>

@@ -3,18 +3,21 @@
     "id": 1,
     "image": "/assets/imgs/serv-icons/2.png",
     "title": "IMPRESION",
-    "text": "PLOTTER DE IMPRESION."
+    "subtitle": "PLOTTER DE IMPRESION.",
+    "text": "Impresión de gran formato, en adhesivo y tela PVC, tela Canvas, magnéticos, sintéticos vinilicos, empavonados, malla mesh."
   },
   {
     "id": 2,
     "image": "/assets/imgs/serv-icons/4.png",
     "title": "CORTE",
-    "text": "ROUTER CNC"
+    "subtitle": "ROUTER CNC",
+    "text": "Herramienta poderosa y precisa para la creación de letreros y una una variedad de otros productos cortados en materiales como trovicel, acrílicos, madera y aluminio compuesto."
   },
   {
     "id": 3,
     "image": "/assets/imgs/serv-icons/1.png",
     "title": "PUBLICIDAD",
-    "text": "ASESORÍA Y DISEÑO"
+    "subtitle": "ASESORÍA Y DISEÑO",
+    "text": "Diseño de logotipos, papelería, publicidad digital y física, diseño y creación de paginas web, diseño de letreros, rótulos y señalización. Diseño de etiquetas y empaques."
   }
 ]

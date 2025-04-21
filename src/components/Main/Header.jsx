@@ -59,24 +59,30 @@ function Header({ lightMode }) {
               ></div>
               <div className="container">
                 <div className="row">
-                  {/* <div className="col-lg-7">
-                    <div className="caption mt-30">
-                      <h5 className="main-colorbg inline">
-                        <span>{item.number || ""}</span>
-                      </h5>
-                    </div>
-                  </div> */}
                   <div
                     className="col-lg-12 offset-lg-1 valign"
                     style={{ marginTop: "10rem" }}
                   >
-                    <div className="ml-auto explore"> 
+                    <div className="ml-auto explore">
                       <Link
+                        className="btn circle btn-lg"
                         href={
                           lightMode
-                            ? "light/page-portfolio"
-                            : "dark/page-portfolio"
+                            ? "/light/page-portfolio"
+                            : "/dark/page-portfolio"
                         }
+                        title="Portfolio"
+                        data-swiper-parallax="300"
+                        data-swiper-parallax-scale="0.8"
+                        data-swiper-parallax-opacity="0"
+                        data-swiper-parallax-duration="1000"
+                        data-swiper-parallax-easing="ease-in-out"
+                        data-swiper-parallax-x="100%"
+                        data-swiper-parallax-y="100%"
+                        data-swiper-parallax-rotate="0"
+                        data-swiper-parallax-translateZ="0"
+                        data-swiper-parallax-translateY="0"
+                        data-swiper-parallax-translateX="0"
                       >
                         <div className="circle-button">
                           <div className="rotate-circle fz-30 text-dark">

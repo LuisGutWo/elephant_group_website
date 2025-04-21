@@ -33,6 +33,7 @@ function App({ Component, pageProps }) {
         "/assets/js/ScrollSmoother.min.js",
         "/showcase/assets/js/anime.min.js"
       ].map((src, index) => (
+        // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
         <Script key={index} strategy="beforeInteractive" src={src} onError={(e) => console.error(`Error loading script ${src}:`, e)} />
       ))}
 

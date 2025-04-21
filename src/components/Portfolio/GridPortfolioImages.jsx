@@ -5,7 +5,7 @@ import initIsotope from '@/common/initIsotope';
 //= Data
 import data from '@/data/Main/metro.json'
 
-function MetroGridPortfolio() {
+function GridPortfolioImages() {
   useEffect(() => {
     initIsotope();
   }, []);
@@ -37,8 +37,8 @@ function MetroGridPortfolio() {
                       </div>
                     </Link>
                     <div className="info">
-                      <h6><Link href="/dark/project-details1">{item.title}</Link></h6>
-                      <span className="sub-title tag"><Link href="/dark/project-details1">© {item.year} <br /> {item.type}</Link></span>
+                      <h6><Link href="/light/project-details">{item.title}</Link></h6>
+                      <span className="sub-title tag"><Link href="/light/project-details">© {item.year} <br /> {item.type}</Link></span>
                     </div>
                   </div>
                 </div>
@@ -51,4 +51,4 @@ function MetroGridPortfolio() {
   )
 }
 
-export default MetroGridPortfolio
+export default GridPortfolioImages

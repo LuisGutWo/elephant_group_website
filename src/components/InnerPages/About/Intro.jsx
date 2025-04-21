@@ -27,7 +27,7 @@ function Intro() {
               </div>
               <div className="img2 wow fadeInLeft">
                 <img
-                  src="/dark/assets/imgs/about/elephant-etiquetas-700x840.png"
+                  src="/light/assets/imgs/header/banner_impresion.png"
                   alt="Elephant Group etiquetas 700x840"
                   className="radius-10"
                 />

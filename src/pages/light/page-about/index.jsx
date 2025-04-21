@@ -28,7 +28,7 @@ function PageAboutLight() {
   const headerMetadata = {
     subTitle: "QUIENES SOMOS ?",
     title:
-      "Somos Elephant Group, una empresa que crea y produce implementos PUBLICITARIOS.",
+      "Somos Elephant Group, una empresa de la V Region con 6 años de experiencia, que CREA y PRODUCE implementos publicitarios.",
     text: "Nosotros",
   };
 

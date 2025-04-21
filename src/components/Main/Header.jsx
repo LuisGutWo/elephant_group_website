@@ -59,23 +59,23 @@ function Header({ lightMode }) {
               ></div>
               <div className="container">
                 <div className="row">
-                  <div className="col-lg-7">
+                  {/* <div className="col-lg-7">
                     <div className="caption mt-30">
                       <h5 className="main-colorbg inline">
                         <span>{item.number || ""}</span>
                       </h5>
                     </div>
-                  </div>
+                  </div> */}
                   <div
-                    className="col-lg-3 offset-lg-1 valign"
+                    className="col-lg-12 offset-lg-1 valign"
                     style={{ marginTop: "10rem" }}
                   >
-                    <div className="ml-auto explore">
+                    <div className="ml-auto explore"> 
                       <Link
                         href={
                           lightMode
-                            ? "light/portfolio-metro"
-                            : "dark/portfolio-metro"
+                            ? "light/page-portfolio"
+                            : "dark/page-portfolio"
                         }
                       >
                         <div className="circle-button">
@@ -87,7 +87,7 @@ function Header({ lightMode }) {
                                   d="M250,400 a150,150 0 0,1 0,-300a150,150 0 0,1 0,300Z"
                                 ></path>
                               </defs>
-                              <text className="bg-dark">
+                              <text className="text-dark">
                                 <textPath
                                   xlinkHref="#textcircle1"
                                   startOffset="50%"

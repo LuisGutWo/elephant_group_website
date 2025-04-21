@@ -60,11 +60,12 @@ function Clients({ lightMode }) {
             >
               {data.map((item) => (
                 <SwiperSlide key={item}>
-                  <div className="item">
+                  <div className="item d-flex justify-content-center align-items-center">
                     <div className="img icon-img-150">
                       <img
                         src={`/${lightMode ? "light" : "dark"}${item}`}
                         alt=""
+                        style={{ display: "block", margin: "0 auto" }}
                       />
                     </div>
                   </div>

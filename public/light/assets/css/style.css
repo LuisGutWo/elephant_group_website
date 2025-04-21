@@ -1420,6 +1420,7 @@ img.left {
 
 .bord-thin-bottom {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #f8f9fa;
 }
 
 .bord-thin-bottom.bord-dark {

@@ -97,7 +97,9 @@ function Portfolio({ lightMode } ) {
                           <div className="img">
                             <img src={item.image} alt="" />
                             <div className="cont">
-                              <span className="mb-5">{item.tag}</span>
+                              <span className="mb-5">{item.year}</span>
+                              <br />
+                              <span className="mb-5">{item.type}</span>
                               <h6 className="fz-18">{item.title}</h6>
                             </div>
                             <Link href="#" className="plink"></Link>

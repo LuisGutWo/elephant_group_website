@@ -19,7 +19,7 @@ function Services({ lightMode }) {
                   alt=""
                 />
               </div>
-              <h6 className="mb-15">{item.title}</h6>
+              <h4 className="mb-15" key={item.id} style={{ color: "#fca311"  }}>{item.title}</h4>
               <p>{item.text}</p>
               <Link
                 href={`/${

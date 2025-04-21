@@ -84,15 +84,13 @@ function Story() {
           </div>
           <div className="col-lg-8">
             <div className="cont mt-80">
-              <h4>
-                Comenzamos en 2018 en una pequeña oficina en la hermosa ciudad jardín. 
-                Con grandes sueños e ideas, nos embarcamos en este emocionante proyecto 
-                que ha sido una increíble aventura. Hoy, esos sueños han evolucionado, 
-                y nuestra creatividad es aún más poderosa. Gracias a esto, hemos tenido 
-                el privilegio de acompañar a cientos de clientes con soluciones de 
-                PUBLICIDAD, ayudándolos a establecerse e integrarse exitosamente en el 
-                mercado comercial.
-              </h4>
+              <h5>
+                Iniciamos en 2018 en una pequeña oficina en la ciudad jardín. 
+                Con grandes sueños, emprendimos este proyecto que ha sido una gran aventura. 
+                Hoy, esos sueños han crecido, y nuestra creatividad es más fuerte. 
+                Gracias a esto, hemos ayudado a cientos de clientes con soluciones de 
+                PUBLICIDAD, apoyándolos a integrarse exitosamente en el mercado.
+              </h5>
             </div>
           </div>
         </div>

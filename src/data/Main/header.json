@@ -2,25 +2,25 @@
   {
     "id": 1,
     "number": "01",
-    "background": "/light/assets/imgs/header/banner_cortes_cnc.png",
+    "background": "/light/assets/imgs/header/baner_new_1.png",
     "backgroundMobile": "/light/assets/imgs/header/banner-mobile1-520x642.png"
   },
   {
     "id": 2,
     "number": "02",
-    "background": "/light/assets/imgs/header/banner_impresion.png",
+    "background": "/light/assets/imgs/header/baner_new_2.png",
     "backgroundMobile": "/light/assets/imgs/header/banner-mobile2-520x642.png"
   },
   {
     "id": 3,
     "number": "03",
-    "background": "/light/assets/imgs/header/banner_diseno.png",
+    "background": "/light/assets/imgs/header/baner_new_3.png",
     "backgroundMobile": "/light/assets/imgs/header/banner-mobile3-520x642.png"
   },
   {
     "id": 4,
     "number": "04",
-    "background": "/light/assets/imgs/header/main-banner-elephantgroup.png",
+    "background": "/light/assets/imgs/header/baner_new_4.png",
     "backgroundMobile": "/light/assets/imgs/header/banner-mobile4-520x642.png"
   }
 ]

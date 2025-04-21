@@ -8,7 +8,7 @@ import Loader from "@/components/Common/Loader";
 import Navbar from "@/components/Common/MainNavbar";
 import Footer from "@/components/Main/Footer";
 import Header from "@/components/Portfolio/HeaderPortfolio";
-import Metro from "@/components/Portfolio/MetroGridPortfolio";
+import Metro from "@/components/Portfolio/GridPortfolioImages";
 
 function PortfolioMetro() {
   useEffect(() => {

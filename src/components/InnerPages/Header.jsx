@@ -23,6 +23,12 @@ function Header({ data, subBg }) {
                 durante todo el proceso, logrando así este trabajo personalizado
                 que requiere tu marca.
               </p>
+              <br />
+              <p>
+                Nuestra misión es ser un asesor publicitario confiable para
+                nuestros clientes, entregando los pasos a seguir para tener una
+                imagen visual empresarial mas profesional y efectiva.
+              </p>
             </div>
           </div>
         </div>

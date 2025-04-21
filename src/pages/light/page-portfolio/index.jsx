@@ -8,7 +8,7 @@ import Loader from '@/components/Common/Loader';
 import Navbar from '@/components/Common/MainNavbar';
 import Footer from '@/components/Main/Footer';
 import Header from '@/components/Portfolio/HeaderPortfolio';
-import Metro from '@/components/Portfolio/MetroGridPortfolio';
+import GridPortfolioImages from '@/components/Portfolio/GridPortfolioImages';
 
 
 function PortfolioMetroLight() {
@@ -38,7 +38,7 @@ function PortfolioMetroLight() {
       <Navbar mainBg lightMode />
       <main className="main-bg">
         <Header data={metadata} />
-        <Metro />
+        <GridPortfolioImages />
       </main>
       <Footer subBg lightMode />
     </>

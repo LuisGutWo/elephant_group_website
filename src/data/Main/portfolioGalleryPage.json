@@ -91,9 +91,9 @@
     },
     {
       "id": 8,
-      "filter": "cortes",
+      "filter": "impresion",
       "image": "/dark/assets/imgs/works/work-2-metro.png",
-      "type": "Cortes CNC",
+      "type": "impresion",
       "year": "2023",
       "width": "6",
       "height": "2"
@@ -186,7 +186,7 @@
       "type": "impresion",
       "year": "2024",
       "width": "6",
-      "height": "2"
+      "height": "3"
     },
     {
       "id": 19,

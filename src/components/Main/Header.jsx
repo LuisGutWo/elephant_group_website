@@ -57,27 +57,16 @@ function Header({ lightMode }) {
               <div
                 className="bg-img valign"
                 style={{
-                  backgroundImage: `url(${
-                    window.innerWidth > 768
-                      ? item?.backgroundMobile
-                      : item?.background
-                  })`,
+                  backgroundImage: `url(${window.innerWidth > 768 ? item?.backgroundMobile : item?.background})`,
                 }}
               ></div>
               <div className="container">
                 <div className="row">
-                  <div
-                    className="col-lg-12 offset-lg-1 valign"
-                    style={{ marginTop: "40%" }}
-                  >
+                  <div className="col-lg-12 offset-lg-1 valign" style={{ marginTop: "40%" }}>
                     <div className="mr-auto slider me-auto mt-100 top-50 caption text-center">
                       <Link
                         className="btn btn-lg"
-                        href={
-                          lightMode
-                            ? "/light/page-portfolio"
-                            : "/dark/page-portfolio"
-                        }
+                        href={lightMode ? "/light/page-portfolio" : "/dark/page-portfolio"}
                       >
                         <Button variant="warning" className="btn-warning">
                           Conoce mas

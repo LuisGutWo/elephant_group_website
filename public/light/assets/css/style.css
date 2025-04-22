@@ -5862,7 +5862,7 @@ footer .bg-pattern {
   left: 50%;
   width: 105px;
   height: 105px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.405);
   border-radius: 50%;
   -webkit-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
@@ -6845,8 +6845,8 @@ footer .bg-pattern {
 }
 
 .work-carsouel .work-crus.out {
-  width: 120%;
-  margin-left: -10%;
+  width: 100%;
+  margin-left: 0;
 }
 
 .work-carsouel .work-crus .swiper-slide-active .img .cont span,

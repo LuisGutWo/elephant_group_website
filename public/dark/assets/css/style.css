@@ -6782,8 +6782,8 @@ footer .bg-pattern {
 }
 
 .work-carsouel .work-crus.out {
-  width: 120%;
-  margin-left: -10%;
+  width: 100%;
+  margin-left: 0;
 }
 
 .work-carsouel .work-crus .swiper-slide-active .img .cont span,

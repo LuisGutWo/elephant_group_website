@@ -52,7 +52,7 @@ function Intro() {
                 </h2>
               </div>
               <div className="accordion bord mt-40">
-                <div className="item mb-15 wow fadeInUp" data-wow-delay=".5s">
+                <div className="item mb-40 wow fadeInUp" data-wow-delay=".5s">
                   <div className="title" onClick={openAccordion}>
                     <h6 className="fz-18">IMPRESION</h6>
                     <span className="ico"></span>

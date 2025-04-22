@@ -89,7 +89,7 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
       >
         <div className="container">
           <Link
-            className="logo icon-img-200"
+            className="logo"
             href={`/${lightMode ? "light/page-home" : "dark/page-home"}`}
           >
             {lightMode ? (

@@ -56,7 +56,7 @@ function Portfolio({ lightMode }) {
           <div className="row">
             <div className="col-lg-6">
               <h6 className="sub-title mb-15">Portafolio</h6>
-              <h2 className="fz-50">Trabajos seleccionados.</h2>
+              <h2 className="fz-50">Nuestros trabajos.</h2>
             </div>
             <div className="col-lg-6 d-flex align-items-center">
               <div className="full-width">

@@ -9,9 +9,9 @@ import Cursor from "@/components/Common/Cursor";
 import ProgressScroll from "@/components/Common/ProgressScroll";
 
 const DefaultLayout = ({ children, lightMode }) => {
-  if (lightMode === null) {
+  if (lightMode === null || lightMode === undefined) {
     throw new Error(
-      "The lightMode prop of the DefaultLayout component cannot be null."
+      "The lightMode prop of the DefaultLayout component must be a boolean and cannot be null or undefined."
     );
   }
 

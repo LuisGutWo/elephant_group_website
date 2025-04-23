@@ -8,36 +8,43 @@ import Loader from "@/components/Common/Loader";
 import Navbar from "@/components/Common/MainNavbar";
 import Footer from "@/components/Main/Footer";
 import Header from "@/components/Portfolio/HeaderPortfolio";
-import Metro from "@/components/Portfolio/GridPortfolioImages";
+import GridPortfolioImages from "@/components/Portfolio/GridPortfolioImages";
 
-function PortfolioMetro() {
+function PagePortfolio() {
   useEffect(() => {
-    document.body.classList.add("main-bg");
-    return () => document.body.classList.remove("main-bg");
+    if (document?.body) {
+      document.body.classList.add("main-bg");
+    }
+
+    return () => {
+      if (document?.body) {
+        document.body.classList.remove("main-bg");
+      }
+    };
   }, []);
 
   const metadata = {
-    subTitle: "Nuestros Trabajos",
-    title: "Conócenos.",
+    subTitle: "Portafolio",
+    title: "Nuestros trabajos."
   };
 
   return (
     <>
       <Head>
-        <title>Elephant Group - Trabajos</title>
+      <title>Elephant Group - Portafolio de Trabajos</title>
       </Head>
 
       <Loader />
       <Navbar mainBg />
       <main className="main-bg">
-        <Header data={metadata} />
-        <Metro />
+        {document && <Header data={metadata} />}
+        {document && <GridPortfolioImages />}
       </main>
       <Footer subBg />
     </>
   );
 }
 
-PortfolioMetro.getLayout = (page) => <Layout>{page}</Layout>;
+PagePortfolio.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default PortfolioMetro;
+export default PagePortfolio;

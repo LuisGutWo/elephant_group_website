@@ -13,25 +13,32 @@ import Footer from '@/components/Main/Footer';
 
 function PageContact() {
   useEffect(() => {
-    document.body.classList.add('main-bg');
-    return () => document.body.classList.remove('main-bg');
+    if (typeof document !== 'undefined' && document.body) {
+      document.body.classList.add('main-bg');
+      return () => document.body.classList.remove('main-bg');
+    }
   }, []);
 
-  return (
-    <>
-      <Head>
-        <title>Elephant Group - Contacto</title>
-      </Head>
+  try {
+    return (
+      <>
+        <Head>
+          <title>Elephant Group - Contacto</title>
+        </Head>
 
-      <Loader />
-      <Navbar mainBg />
-      <main>
-        <Header />
-        <Form />
-      </main>
-      <Footer />
-    </>
-  )
+        <Loader />
+        <Navbar mainBg />
+        <main>
+          <Header />
+          <Form />
+        </main>
+        <Footer />
+      </>
+    );
+  } catch (error) {
+    console.error("Rendering error in PageContact:", error);
+    return <div>Error: {error.message}</div>;
+  }
 }
 
 PageContact.getLayout = page => <Layout>{page}</Layout>

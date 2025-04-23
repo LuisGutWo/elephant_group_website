@@ -37,8 +37,8 @@ function PagePortfolioLight() {
       <Loader />
       <Navbar mainBg lightMode />
       <main className="main-bg">
-        <Header data={metadata} />
-        <GridPortfolioImages />
+        {document && <Header data={metadata} />}
+        {document && <GridPortfolioImages />}
       </main>
       <Footer subBg lightMode />
     </>

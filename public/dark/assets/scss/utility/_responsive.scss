@@ -283,7 +283,7 @@
     }
 
     .crev-header{
-        min-height: auto;
+        min-height: initial;
     }
 
     .crev-header .caption h1{
@@ -331,7 +331,7 @@
     }
 
     .page-header{
-        min-height: auto;
+        min-height: initial;
         padding-bottom: 120px !important;
 
         &.blog-header{
@@ -391,7 +391,7 @@
 
     .works.thecontainer{
         width: 100%;
-        min-height: auto;
+        min-height: initial;
         display: block;
         padding: 70px 0 120px;
     }

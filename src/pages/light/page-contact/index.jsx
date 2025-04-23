@@ -12,10 +12,14 @@ import Footer from "@/components/Main/Footer";
 
 function PageContactLight() {
   useEffect(() => {
-    const body = document.body;
+    const body = document?.body;
     if (body) {
       body.classList.add("main-bg");
-      return () => body.classList.remove("main-bg");
+      return () => {
+        if (body) {
+          body.classList.remove("main-bg");
+        }
+      };
     }
   }, []);
 

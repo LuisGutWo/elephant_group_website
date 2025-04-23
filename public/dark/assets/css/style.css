@@ -252,38 +252,38 @@ figure {
 }
 
 .main-colorbg {
-  background-color: #fca311;
+  background-color: #141618;
 }
 
 .main-color2 {
-  color: #fca311 !important;
+  color: #C27D0E !important;
 }
 
 .main-colorbg2 {
-  background-color: #fca311;
+  background-color: #222421;
 }
 
 .main-color3 {
-  color: #74c69d !important;
+  color: #F2C213 !important;
 }
 
 .main-colorbg3 {
-  background-color: #74c69d;
+  background-color: #181314;
 }
 
 .main-color4 {
-  color: #fca311 !important;
+  color: #885709 !important;
 }
 
 .main-colorbg4 {
-  background-color: #fca311;
+  background-color: #181818;
 }
 
 .main-bg {
   background-color: #141618;
 }
 .main-bg2 {
-  background-color: #6c757d;
+  background-color: #222421;
 }
 
 .sub-bg {
@@ -291,7 +291,7 @@ figure {
 }
 
 .bg-gray1 {
-  background: #343a40;
+  background: #181311;
   color: #e9ecef;
 }
 

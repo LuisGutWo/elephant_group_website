@@ -20,36 +20,37 @@ function HomeLight() {
     const body = document?.body;
     if (body) {
       body.classList.add("sub-bg");
+      return () => body.classList.remove("sub-bg");
     }
-    return () => {
-      if (body) {
-        body.classList.remove("sub-bg");
-      }
-    };
   }, []);
 
-  return (
-    <>
-      <Head>
-        <title>Elephant Group</title>
-        <meta name="description" content="Elephant Group web site" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+  try {
+    return (
+      <>
+        <Head>
+          <title>Elephant Group</title>
+          <meta name="description" content="Elephant Group web site" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
 
-      <Loader />
-      <Navbar mainBg lightMode />
-      <main className="main-bg position-re">
-        <Header lightMode />
-        <Marq />
-        <Intro />
-        <Services lightMode />
-        <Portfolio />
-        <Clients lightMode />
-        <CallToAction />
-      </main>
-      <Footer lightMode />
-    </>
-  );
+        <Loader />
+        <Navbar mainBg lightMode />
+        <main className="main-bg position-re">
+          <Header lightMode />
+          <Marq />
+          <Intro />
+          <Services lightMode />
+          <Portfolio />
+          <Clients lightMode />
+          <CallToAction />
+        </main>
+        <Footer lightMode />
+      </>
+    );
+  } catch (error) {
+    console.error("Rendering error in HomeLight:", error);
+    return <div>Error: {error.message}</div>;
+  }
 }
 
 HomeLight.getLayout = (page) => <Layout lightMode>{page}</Layout>;

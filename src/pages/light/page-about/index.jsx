@@ -15,14 +15,11 @@ import Footer from "@/components/Main/Footer";
 
 function PageAboutLight() {
   useEffect(() => {
-    if (document) {
-      document.body.classList.add("main-bg");
+    const body = document?.body;
+    if (body) {
+      body.classList.add("main-bg");
+      return () => body.classList.remove("main-bg");
     }
-    return () => {
-      if (document) {
-        document.body.classList.remove("main-bg");
-      }
-    };
   }, []);
 
   const headerMetadata = {
@@ -58,7 +55,7 @@ function PageAboutLight() {
       </>
     );
   } catch (error) {
-    console.error(error);
+    console.error("Rendering error in PageAboutLight:", error);
     return <div>Error: {error.message}</div>;
   }
 }

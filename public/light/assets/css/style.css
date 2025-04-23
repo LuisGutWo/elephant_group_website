@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+/* Variables
+-----------------------------------------------------------------*/
+/* Typography
+-----------------------------------------------------------------*/
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +15,7 @@
 
 body {
   color: #141618;
-  background-color: #fafafa;
+  background-color: #f8f9fa;
   font-size: 14px;
   font-family: "Poppins", sans-serif;
   font-family: "Sora", sans-serif;
@@ -248,50 +252,50 @@ figure {
 }
 
 .main-colorbg {
-  background-color: #fca311;
+  background-color: #141618;
 }
 
 .main-color2 {
-  color: #fca311 !important;
+  color: #C27D0E !important;
 }
 
 .main-colorbg2 {
-  background-color: #fca311;
+  background-color: #222421;
 }
 
 .main-color3 {
-  color: #74c69d !important;
+  color: #F2C213 !important;
 }
 
 .main-colorbg3 {
-  background-color: #74c69d;
+  background-color: #181314;
 }
 
 .main-color4 {
-  color: #fca311 !important;
+  color: #885709 !important;
 }
 
 .main-colorbg4 {
-  background-color: #fca311;
+  background-color: #181818;
 }
 
 .main-bg {
-  background-color: #fafafa;
+  background-color: #f8f9fa;
 }
 .main-bg2 {
-  background-color: #6c757d;
+  background-color: #c7d3c2;
 }
 
 .sub-bg {
-  background-color: #e9ecef;
+  background-color: #fafafa;
 }
 
 .bg-gray1 {
-  background: #e9ecef;
+  background: #181314;
 }
 
 .text-dark {
-  color: #212529;
+  color: #141618;
 }
 
 .text-dark .swiper-controls.arrow-out .left,

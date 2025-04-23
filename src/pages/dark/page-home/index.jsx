@@ -17,15 +17,23 @@ import Footer from "@/components/Main/Footer";
 
 function HomeDark() {
   useEffect(() => {
-    document.body.classList.add("sub-bg");
-    return () => document.body.classList.remove("sub-bg");
+    const body = document?.body;
+    if (body) {
+      body.classList.add("sub-bg");
+      return () => {
+        if (body) {
+          body.classList.remove("sub-bg");
+        }
+      };
+    }
   }, []);
 
   return (
     <>
       <Head>
         <title>Elephant Group</title>
-        <meta name="description" content="Elephant Group" />
+        <meta name="description" content="Elephant Group web site" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <Loader />

@@ -1,32 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 //= Packages
-import Head from 'next/head';
+import Head from "next/head";
 //= Layout
-import Layout from '@/layouts/default';
+import Layout from "@/layouts/default";
 //= Components
-import Loader from '@/components/Common/Loader';
-import Navbar from '@/components/Common/MainNavbar';
-import Footer from '@/components/Main/Footer';
-import Header from '@/components/Portfolio/HeaderPortfolio';
-import GridPortfolioImages from '@/components/Portfolio/GridPortfolioImages';
-
+import Loader from "@/components/Common/Loader";
+import Navbar from "@/components/Common/MainNavbar";
+import Footer from "@/components/Main/Footer";
+import Header from "@/components/Portfolio/HeaderPortfolio";
+import GridPortfolioImages from "@/components/Portfolio/GridPortfolioImages";
 
 function PagePortfolioLight() {
-  useEffect(() => {
-    if (document?.body) {
-      document.body.classList.add('main-bg');
-    }
-    return () => {
-      if (document?.body) {
-        document.body.classList.remove('main-bg');
-      }
-    };
-  }, []);
+  useEffect(() => document.body.classList.add("main-bg"), []);
+  useEffect(() => () => document.body.classList.remove("main-bg"), []);
 
   const metadata = {
     subTitle: "Portafolio",
-    title: "Nuestros trabajos."
-  }
+    title: "Nuestros trabajos.",
+  };
 
   return (
     <>
@@ -37,14 +28,14 @@ function PagePortfolioLight() {
       <Loader />
       <Navbar mainBg lightMode />
       <main className="main-bg">
-        {document && <Header data={metadata} />}
-        {document && <GridPortfolioImages />}
+        <Header data={metadata} />
+        <GridPortfolioImages />
       </main>
       <Footer subBg lightMode />
     </>
-  )
+  );
 }
 
-PagePortfolioLight.getLayout = page => <Layout lightMode>{page}</Layout>
+PagePortfolioLight.getLayout = (page) => <Layout lightMode>{page}</Layout>;
 
 export default PagePortfolioLight;

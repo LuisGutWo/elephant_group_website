@@ -11,34 +11,24 @@ import Header from "@/components/Portfolio/HeaderPortfolio";
 import GridPortfolioImages from "@/components/Portfolio/GridPortfolioImages";
 
 function PagePortfolio() {
-  useEffect(() => {
-    if (document?.body) {
-      document.body.classList.add("main-bg");
-    }
-
-    return () => {
-      if (document?.body) {
-        document.body.classList.remove("main-bg");
-      }
-    };
-  }, []);
+  useEffect(() => document.body.classList.add("main-bg"), []);
 
   const metadata = {
     subTitle: "Portafolio",
-    title: "Nuestros trabajos."
+    title: "Nuestros trabajos.",
   };
 
   return (
     <>
       <Head>
-      <title>Elephant Group - Portafolio de Trabajos</title>
+        <title>Elephant Group - Portafolio de Trabajos</title>
       </Head>
 
       <Loader />
       <Navbar mainBg />
       <main className="main-bg">
-        {document && <Header data={metadata} />}
-        {document && <GridPortfolioImages />}
+        <Header data={metadata} />
+        <GridPortfolioImages />
       </main>
       <Footer subBg />
     </>

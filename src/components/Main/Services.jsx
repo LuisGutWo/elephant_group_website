@@ -20,7 +20,12 @@ function Services({ lightMode }) {
                 />
               </div>
               <h4 className="mb-15" key={item.id} style={{ color: "#fca311"  }}>{item.title}</h4>
-              <h6 className="mb-15 text-dark">{item.subtitle}</h6>
+              <h6
+                className="mb-15"
+                style={{ color: lightMode ? "#000" : "#fff" }}
+              >
+                {item.subtitle}
+              </h6>
               <p>{item.text}</p>
               <Link
                 href={`/${

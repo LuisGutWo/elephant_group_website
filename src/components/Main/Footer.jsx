@@ -92,7 +92,7 @@ function Footer({ lightMode, subBg }) {
                   <Link href="/">
                     <img
                       src={`/dark/assets/imgs/logo-footer-${
-                        lightMode ? "dark" : "light"
+                        lightMode ? "dark" : "dark"
                       }.png`}
                       alt=""
                       className="icon-img-80"

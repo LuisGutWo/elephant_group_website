@@ -260,7 +260,7 @@ figure {
 }
 
 .main-colorbg2 {
-  background-color: #222421;
+  background-color: #fca311;
 }
 
 .main-color3 {
@@ -313,7 +313,7 @@ figure {
 }
 
 img {
-  width: 100%;
+  width: 4rem;
   height: auto;
 }
 
@@ -1680,7 +1680,10 @@ img.left {
 }
 
 .icon-img-120 {
-  width: 120px;
+  width: 300px;
+}
+.icon-img-140 {
+  width: 340px;
 }
 
 /*-------------------------------------------------------
@@ -7827,6 +7830,11 @@ header.in-box {
   bottom: 0;
   left: 0;
   background-size: cover;
+  background-position: center center;
+  pointer-events: none;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
 }
 
 .slider .parallax-slider .swiper-slide-active .caption .thin,
@@ -9596,7 +9604,7 @@ header.in-box {
     max-width: 100%;
   }
   .navbar .logo {
-    max-width: 80px !important;
+    max-width: 100px !important;
     margin-left: 30px;
   }
   .navbar .search-form {
@@ -9992,6 +10000,11 @@ header.in-box {
       transform: scale(1.1);
     }
   }
+}
+
+img {
+  width: 2rem;
+  height: auto;
 }
 
 

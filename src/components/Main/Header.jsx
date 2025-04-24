@@ -56,17 +56,26 @@ function Header({ lightMode }) {
             <SwiperSlide key={item.id}>
               <div
                 className="bg-img valign"
-                style={{
-                  backgroundImage: `url(${window.innerWidth > 768 ? item?.backgroundMobile : item?.background})`,
-                }}
+                data-background={
+                  window.innerWidth > 768
+                    ? item?.background
+                    : item?.backgroundMobile
+                }
               ></div>
               <div className="container">
                 <div className="row">
-                  <div className="col-lg-12 offset-lg-1 valign" style={{ marginTop: "40%" }}>
+                  <div
+                    className="col-lg-12 offset-lg-1 valign"
+                    style={{ marginTop: "40%" }}
+                  >
                     <div className="mr-auto slider me-auto mt-100 top-50 caption text-center">
                       <Link
                         className="btn btn-lg"
-                        href={lightMode ? "/light/page-portfolio" : "/dark/page-portfolio"}
+                        href={
+                          lightMode
+                            ? "/light/page-portfolio"
+                            : "/dark/page-portfolio"
+                        }
                       >
                         <Button variant="warning" className="btn-warning">
                           Conoce mas

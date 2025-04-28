@@ -8,7 +8,11 @@ import "swiper/css/bundle";
 import "@/styles/globals.css";
 
 function App({ Component, pageProps }) {
-  const getLayout = Component?.getLayout || ((page) => page);
+  const getLayout = Component?.getLayout ?? ((page) => page);
+
+  if (!Component) {
+    return <div>Error: Component not found</div>;
+  }
 
   return getLayout(
     <>
@@ -20,11 +24,7 @@ function App({ Component, pageProps }) {
         />
       </Head>
 
-      {Component ? (
-        <Component {...pageProps} />
-      ) : (
-        <div>Error: Component not found</div>
-      )}
+      <Component {...pageProps} />
 
       {[
         "/assets/js/plugins.js",
@@ -44,7 +44,9 @@ function App({ Component, pageProps }) {
           key={index}
           strategy="beforeInteractive"
           src={src}
-          onError={(e) => console.error(`Error loading script ${src}:`, e)}
+          onError={(e) =>
+            console.error(`Error loading script ${src}:`, e?.message ?? e)
+          }
         />
       ))}
 
@@ -54,7 +56,9 @@ function App({ Component, pageProps }) {
             key={index + 12}
             strategy="lazyOnload"
             src={src}
-            onError={(e) => console.error(`Error loading script ${src}:`, e)}
+            onError={(e) =>
+              console.error(`Error loading script ${src}:`, e?.message ?? e)
+            }
           />
         )
       )}

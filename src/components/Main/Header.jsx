@@ -18,13 +18,16 @@ const swiperOptions = {
   parallax: true,
   loop: true,
   onSwiper: function (swiper) {
+    if (!swiper || !swiper.slides) return;
     for (var i = 0; i < swiper.slides.length; i++) {
-      swiper.slides[i]
-        .querySelector(".bg-img")
-        .setAttribute("data-swiper-parallax", 0.75 * swiper.width);
+      var bgImg = swiper.slides[i].querySelector(".bg-img");
+      if (bgImg) {
+        bgImg.setAttribute("data-swiper-parallax", 0.75 * swiper.width);
+      }
     }
   },
   onResize: function (swiper) {
+    if (!swiper) return;
     swiper.update();
   },
   pagination: {
@@ -57,18 +60,18 @@ function Header({ lightMode }) {
               <div
                 className="bg-img valign"
                 data-background={
-                  window.innerWidth > 768
-                    ? item?.background
-                    : item?.backgroundMobile
+                  typeof window !== "undefined" && window.innerWidth > 768
+                    ? item.background || ""
+                    : item?.backgroundMobile || ""
                 }
               ></div>
-              <div className="container">
+              <div className="container h-100 d-flex align-items-end justify-content-start slider-prlx-caption">
                 <div className="row">
                   <div
                     className="col-lg-12 offset-lg-1 valign"
                     style={{ marginTop: "40%" }}
                   >
-                    <div className="mr-auto slider me-auto mt-100 top-50 caption text-center">
+                    <div className="btn-wrapper slider text-center  slider-prlx-caption">
                       <Link
                         className="btn btn-lg"
                         href={

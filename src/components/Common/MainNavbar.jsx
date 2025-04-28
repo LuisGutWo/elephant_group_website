@@ -56,13 +56,15 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
   }
   function handleThemeChange() {
     if (typeof window === "undefined" || window === null) {
-      console.error("Window is null");
-      return;
+      throw new Error("Window is null");
     }
 
     if (typeof window.location === "undefined" || window.location === null) {
-      console.error("Window location is null");
-      return;
+      throw new Error("Window location is null");
+    }
+
+    if (typeof window.location.pathname !== "string") {
+      throw new Error("Window location pathname is not a string");
     }
 
     const currentPath = window.location.pathname;
@@ -76,6 +78,7 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
       window.location.href = newPath;
     } catch (error) {
       console.error("Error while changing theme:", error);
+      throw error;
     }
   }
 

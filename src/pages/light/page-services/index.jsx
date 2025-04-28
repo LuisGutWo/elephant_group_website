@@ -9,24 +9,24 @@ import Navbar from "@/components/Common/MainNavbar";
 import Header from "@/components/InnerPages/Header";
 import Services from "@/components/InnerPages/About/Services";
 import ServicesTab from "@/components/Main/ServicesTab";
-import CallToAction from "@/components/Main/Contact";
+import Contact from "@/components/Main/Contact";
 import Footer from "@/components/Main/Footer";
 
 function PageServicesLight() {
   useEffect(() => {
-    if (typeof document !== "undefined" && document.body) {
+    if (typeof document !== "undefined" && document.body !== null) {
       document.body.classList.add("main-bg");
     }
     return () => {
-      if (typeof document !== "undefined" && document.body) {
+      if (typeof document !== "undefined" && document.body !== null) {
         document.body.classList.remove("main-bg");
       }
     };
   }, []);
 
   const headerMetadata = {
-    subTitle: "QUE PODEMOS HACER ?",
-    title: "Combinamos nuestra pasión por el diseño y las artes gráficas.",
+    subTitle: "SERVICIOS",
+    title: "Nuestra misión es ser un asesor publicitario para nuestros clientes.",
     text: "SERVICIOS",
   };
 
@@ -35,6 +35,16 @@ function PageServicesLight() {
       <>
         <Head>
           <title>Elephant Group - Servicios</title>
+          <meta
+            name="description"
+            content="Elephant Group - Servicios"
+          />
+          <meta
+            name="keywords"
+            content="Elephant Group, Servicios, Diseño, Artes Gráficas"
+          />
+          <meta name="author" content="Elephant Group" />
+          <link rel="canonical" href="https://landingclientes.elephantgroup.cl" />
         </Head>
 
         <Loader />
@@ -43,14 +53,21 @@ function PageServicesLight() {
           <Header data={headerMetadata} subBg={true} />
           <Services lightMode />
           <ServicesTab lightMode />
-          <CallToAction innerPageStyle />
+          <Contact innerPageStyle />
         </main>
         <Footer lightMode />
       </>
     );
   } catch (error) {
-    console.error("Error rendering PageServicesLight:", error);
-    return <div>Error: {error.message}</div>;
+    if (error instanceof Error) {
+      console.error("Error rendering PageServicesLight:", error.message);
+      return <div>Error: {error.message}</div>;
+    } else {
+      console.error(
+        "Unknown error occurred while rendering PageServicesLight:"
+      );
+      return <div>Error: Unknown error occurred.</div>;
+    }
   }
 }
 

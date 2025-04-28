@@ -5,6 +5,7 @@ function Header({ data, subBg }) {
     <header
       className={`page-header section-padding pb-0 ${subBg ? "sub-bg" : ""}`}
     >
+      <div className="background-img"> </div>
       <div className="container mt-80">
         <div className="row">
           <div className="col-lg-8">
@@ -25,9 +26,9 @@ function Header({ data, subBg }) {
               </p>
               <br />
               <p>
-                Nuestra misión es ser un asesor publicitario confiable para
-                nuestros clientes, entregando los pasos a seguir para tener una
-                imagen visual empresarial mas profesional y efectiva.
+                Nuestra misión es ser un asesor publicitario para nuestros
+                clientes, entregando los pasos a seguir para tener una imagen
+                visual empresarial más profesional.
               </p>
             </div>
           </div>

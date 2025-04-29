@@ -97,13 +97,13 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
           >
             {lightMode ? (
               <img
-                src="/dark/assets/imgs/logo-dark.png"
+                src="/dark/assets/imgs/logo-dark.webp"
                 alt="logo claro"
                 className="icon-img-120"
               />
             ) : (
               <img
-                src="/dark/assets/imgs/logo-light.png"
+                src="/dark/assets/imgs/logo-light.webp"
                 alt="logo oscuro"
                 className="icon-img-120"
               />

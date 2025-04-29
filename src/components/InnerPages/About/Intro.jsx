@@ -20,14 +20,14 @@ function Intro() {
             <div className="imgs mb-80">
               <div className="img1 wow fadeInUp">
                 <img
-                  src="/light/assets/imgs/about/work-127.jpeg"
+                  src="/light/assets/imgs/about/work-127.webp"
                   alt="Elephant Group fondo negro 700x840"
                   className="radius-10"
                 />
               </div>
               <div className="img2 wow fadeInLeft">
                 <img
-                  src="/light/assets/imgs/header/banner_impresion.png"
+                  src="/light/assets/imgs/header/banner_impresion.webp"
                   alt="Elephant Group etiquetas 700x840"
                   className="radius-10"
                 />

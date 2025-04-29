@@ -65,7 +65,9 @@ function Clients({ lightMode }) {
                       <img
                         src={`/${lightMode ? "light" : "dark"}${item}`}
                         alt=""
-                        style={{ display: "block", margin: "0 auto" }}
+                        style={{ display: "block", margin: "0 auto", width: "100%" }}
+                        className="img-fluid"
+                        loading="lazy"
                       />
                     </div>
                   </div>

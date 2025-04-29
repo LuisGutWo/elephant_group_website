@@ -57,7 +57,7 @@ function Story() {
           <div className="col-lg-4">
             <div
               className="bg-img radius-10 md-mb50"
-              data-background="/dark/assets/imgs/about/trabajo-07-700x840.png"
+              data-background="/dark/assets/imgs/about/trabajo-07-700x840.webp"
             ></div>
           </div>
           <div className="col-lg-8">

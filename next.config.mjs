@@ -6,6 +6,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
   reactStrictMode: false,
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+      },
+    ],
+  },
   sassOptions: {
     includePaths: [join(__dirname, "css")],
   },

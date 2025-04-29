@@ -2,25 +2,25 @@
   {
     "id": 1,
     "number": "01",
-    "background": "/light/assets/imgs/header/banner_new_1.png",
-    "backgroundMobile": "/light/assets/imgs/header/banner_impresion_mobile.png"
+    "background": "/light/assets/imgs/header/banner_new_1.webp",
+    "backgroundMobile": "/light/assets/imgs/header/banner_impresion_mobile.webp"
   },
   {
     "id": 2,
     "number": "02",
-    "background": "/light/assets/imgs/header/banner_new_2.png",
-    "backgroundMobile": "/light/assets/imgs/header/banner_diseno_mobile.png"
+    "background": "/light/assets/imgs/header/banner_new_2.webp",
+    "backgroundMobile": "/light/assets/imgs/header/banner_diseno_mobile.webp"
   },
   {
     "id": 3,
     "number": "03",
-    "background": "/light/assets/imgs/header/banner_new_3.png",
-    "backgroundMobile": "/light/assets/imgs/header/banner_webdesigne_mobile.png"
+    "background": "/light/assets/imgs/header/banner_new_3.webp",
+    "backgroundMobile": "/light/assets/imgs/header/banner_webdesigne_mobile.webp"
   },
   {
     "id": 4,
     "number": "04",
-    "background": "/light/assets/imgs/header/banner_new_4.png",
-    "backgroundMobile": "/light/assets/imgs/header/banner_cortes_mobile.png"
+    "background": "/light/assets/imgs/header/banner_new_4.webp",
+    "backgroundMobile": "/light/assets/imgs/header/banner_cortes_mobile.webp"
   }
 ]

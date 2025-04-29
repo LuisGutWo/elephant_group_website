@@ -30,7 +30,7 @@ function Intro({ lightMode }) {
                 <img
                   src={`/${
                     lightMode ? "light" : "dark"
-                  }/assets/imgs/about/elephant_group_bg.png`}
+                  }/assets/imgs/about/elephant_group_bg.webp`}
                   alt=""
                 />
               </div>
@@ -42,8 +42,8 @@ function Intro({ lightMode }) {
               <h2 className="d-slideup wow">
                 <span className="sideup-text">
                   <span className="up-text">
-                    Somos una empresa que crea y produce implementos
-                    PUBLICITARIOS.
+                    Somos <strong>Elephant Group</strong>, una empresa que <b>CREA</b> y <b>PRODUCE</b> implementos
+                    publicitarios.
                   </span>
                 </span>
               </h2>

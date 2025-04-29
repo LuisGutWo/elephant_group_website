@@ -11,28 +11,51 @@ import Header from "@/components/Portfolio/HeaderPortfolio";
 import GridPortfolioImages from "@/components/Portfolio/GridPortfolioImages";
 
 function PagePortfolio() {
-  useEffect(() => document.body.classList.add("main-bg"), []);
+  useEffect(() => {
+    if (typeof document !== "undefined" && document.body !== null) {
+      document.body.classList.add("main-bg");
+    }
+    return () => {
+      if (typeof document !== "undefined" && document.body !== null) {
+        document.body.classList.remove("main-bg");
+      }
+    };
+  }, []);
 
-  const metadata = {
-    subTitle: "Portafolio",
-    title: "Nuestros trabajos.",
+  const headerMetadata = {
+    subTitle: "SERVICIOS",
+    title:
+      "Nuestra misión es ser un asesor publicitario para nuestros clientes.",
+    text: "SERVICIOS",
   };
 
-  return (
-    <>
-      <Head>
-        <title>Elephant Group - Portafolio de Trabajos</title>
-      </Head>
+  try {
+    return (
+      <>
+        <Head>
+          <title>Elephant Group - Portafolio de Trabajos</title>
+        </Head>
 
-      <Loader />
-      <Navbar mainBg />
-      <main className="main-bg">
-        <Header data={metadata} />
-        <GridPortfolioImages />
-      </main>
-      <Footer subBg />
-    </>
-  );
+        <Loader />
+        <Navbar mainBg />
+        <main className="main-bg">
+          <Header data={headerMetadata} />
+          <GridPortfolioImages />
+        </main>
+        <Footer subBg />
+      </>
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error rendering PageServicesLight:", error.message);
+      return <div>Error: {error.message}</div>;
+    } else {
+      console.error(
+        "Unknown error occurred while rendering PageServicesLight:"
+      );
+      return <div>Error: Unknown error occurred.</div>;
+    }
+  }
 }
 
 PagePortfolio.getLayout = (page) => <Layout>{page}</Layout>;

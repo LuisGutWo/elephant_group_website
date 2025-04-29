@@ -93,7 +93,7 @@ function Footer({ lightMode, subBg }) {
                     <img
                       src={`/dark/assets/imgs/logo-footer-${
                         lightMode ? "dark" : "dark"
-                      }.png`}
+                      }.webp`}
                       alt=""
                       className="icon-img-80"
                     />

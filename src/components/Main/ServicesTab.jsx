@@ -26,7 +26,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/corte_casa_colibri.jpg`}
+                      }/assets/imgs/works/corte_casa_colibri.webp`}
                       alt=""
                     />
                   </div>
@@ -35,7 +35,7 @@ function ServicesTab({ lightMode }) {
                       <img
                         src={`/${
                           lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/4.png`}
+                        }/assets/imgs/serv-icons/4.webp`}
                         alt=""
                       />
                     </div>
@@ -64,7 +64,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/work-7-metro.png`}
+                      }/assets/imgs/works/work-7-metro.webp`}
                       alt=""
                     />
                   </div>
@@ -73,7 +73,7 @@ function ServicesTab({ lightMode }) {
                       <img
                         src={`/${
                           lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/1.png`}
+                        }/assets/imgs/serv-icons/1.webp`}
                         alt=""
                       />
                     </div>
@@ -102,7 +102,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/letrero_emporio_la_rosa.JPG`}
+                      }/assets/imgs/works/letrero_emporio_la_rosa.webp`}
                       alt=""
                     />
                   </div>
@@ -111,7 +111,7 @@ function ServicesTab({ lightMode }) {
                       <img
                         src={`/${
                           lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/2.png`}
+                        }/assets/imgs/serv-icons/2.webp`}
                         alt=""
                       />
                     </div>
@@ -137,7 +137,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/work-1-metro.png`}
+                      }/assets/imgs/works/work-1-metro.webp`}
                       alt=""
                     />
                   </div>
@@ -146,7 +146,7 @@ function ServicesTab({ lightMode }) {
                       <img
                         src={`/${
                           lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/0.png`}
+                        }/assets/imgs/serv-icons/0.webp`}
                         alt=""
                       />
                     </div>

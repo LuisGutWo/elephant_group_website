@@ -4266,6 +4266,7 @@ body.loaded {
   height: 100%;
   -o-object-fit: cover;
   object-fit: cover;
+  opacity: 0.7;
   -o-object-position: center center;
   object-position: center center;
 }
@@ -5831,7 +5832,7 @@ footer .bg-pattern {
 }
 
 .page-header .background-img {
-  background-image: url("../imgs/header/banner_impresion.png");
+  background-image: url("../imgs/header/banner_impresion.webp");
   background-size: cover;
   background-position: right center;
   background-repeat: no-repeat;

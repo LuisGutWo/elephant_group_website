@@ -7,7 +7,6 @@ import { Navigation, Autoplay, Pagination, Parallax } from "swiper/modules";
 import loadBackgroudImages from "@/common/loadBackgroudImages";
 //= Data
 import data from "@/data/Main/header.json";
-import { Button } from "react-bootstrap";
 
 const swiperOptions = {
   modules: [Navigation, Autoplay, Pagination, Parallax],
@@ -65,29 +64,23 @@ function Header({ lightMode }) {
                     : item?.backgroundMobile || ""
                 }
               ></div>
-              <div className="container h-100 d-flex align-items-end justify-content-start slider-prlx-caption">
-                <div className="row">
-                  <div
-                    className="col-lg-12 offset-lg-1 valign"
-                    style={{ marginTop: "40%" }}
-                  >
-                    <div className="btn-wrapper slider text-center  slider-prlx-caption">
-                      <Link
-                        className="btn btn-lg"
-                        href={
-                          lightMode
-                            ? "/light/page-portfolio"
-                            : "/dark/page-portfolio"
-                        }
-                      >
-                        <Button variant="warning" className="btn-warning">
-                          Conoce mas
-                        </Button>
-                      </Link>
+              <Link
+                className="btn btn-lg btn-warning slider-prlx-caption"
+                href={
+                  lightMode ? "/light/page-portfolio" : "/dark/page-portfolio"
+                }
+              >
+                <div className="container h-100 d-flex align-items-end justify-content-start slider-prlx-caption">
+                  <div className="row">
+                    <div
+                      className="col-lg-12 offset-lg-1 valign"
+                      style={{ marginTop: "40%" }}
+                    >
+                      <div className="btn-wrapper slider text-center  slider-prlx-caption"></div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

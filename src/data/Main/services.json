@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "/assets/imgs/serv-icons/2.png",
+    "image": "/assets/imgs/serv-icons/2.webp",
     "title": "IMPRESION",
     "subtitle": "PLOTTER DE IMPRESION.",
     "text": [
@@ -13,7 +13,7 @@
   },
   {
     "id": 2,
-    "image": "/assets/imgs/serv-icons/4.png",
+    "image": "/assets/imgs/serv-icons/4.webp",
     "title": "CORTE",
     "subtitle": "ROUTER CNC",
     "text": [
@@ -23,7 +23,7 @@
   },
   {
     "id": 3,
-    "image": "/assets/imgs/serv-icons/1.png",
+    "image": "/assets/imgs/serv-icons/1.webp",
     "title": "PUBLICIDAD",
     "subtitle": "ASESORÍA Y DISEÑO",
     "text": [

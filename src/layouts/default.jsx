@@ -16,15 +16,21 @@ const DefaultLayout = ({ children, lightMode = false }) => {
   }
 
   useEffect(() => {
-    if (typeof correctStylesheetsOrder === "function") {
-      correctStylesheetsOrder({ lightMode });
-    } else {
+    if (typeof correctStylesheetsOrder !== "function") {
       console.error("correctStylesheetsOrder is not a function");
+      return;
     }
+
+    correctStylesheetsOrder({ lightMode });
   }, [lightMode]);
 
   useEffect(() => {
     const head = document.head;
+    if (!head) {
+      console.error("document.head is null or undefined");
+      return;
+    }
+
     const existingLightStyles = document.querySelectorAll(
       'link[href^="/light/assets/css"]'
     );
@@ -33,9 +39,9 @@ const DefaultLayout = ({ children, lightMode = false }) => {
     );
 
     // Remove existing stylesheets
-    [...existingLightStyles, ...existingDarkStyles].forEach((link) =>
-      link.parentNode.removeChild(link)
-    );
+    [...existingLightStyles, ...existingDarkStyles].forEach((link) => {
+      if (link && link.parentNode) link.parentNode.removeChild(link);
+    });
 
     // Add new stylesheets based on lightMode
     const stylesheets = lightMode
@@ -59,7 +65,7 @@ const DefaultLayout = ({ children, lightMode = false }) => {
       // Cleanup stylesheets on component unmount
       stylesheets.forEach((href) => {
         const link = document.querySelector(`link[href="${href}"]`);
-        if (link) link.parentNode.removeChild(link);
+        if (link && link.parentNode) link.parentNode.removeChild(link);
       });
     };
   }, [lightMode]);

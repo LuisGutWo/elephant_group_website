@@ -23,6 +23,9 @@ function PagePortfolioLight() {
     <>
       <Head>
         <title>Elephant Group - Portafolio de Trabajos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Portafolio de trabajos realizados por Elephant Group." />
+        <meta name="keywords" content="Elephant Group, portafolio, trabajos, proyectos" />
       </Head>
 
       <Loader />

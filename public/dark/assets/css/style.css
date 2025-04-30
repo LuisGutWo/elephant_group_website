@@ -74,6 +74,7 @@ body.digital-marketing {
 }
 
 main {
+  overflow-x: hidden;
   position: relative;
   z-index: 5;
 }
@@ -256,7 +257,7 @@ figure {
 }
 
 .main-color2 {
-  color: #C27D0E !important;
+  color: #c27d0e !important;
 }
 
 .main-colorbg2 {
@@ -264,7 +265,7 @@ figure {
 }
 
 .main-color3 {
-  color: #F2C213 !important;
+  color: #f2c213 !important;
 }
 
 .main-colorbg3 {
@@ -376,9 +377,10 @@ img {
 .btn-wsp {
   position: fixed;
   cursor: pointer;
-  top: 50%;
-  right: 0;
+  top: 20%;
+  right: 5%; /* Add a small offset to keep it inside the viewport */
   z-index: 100;
+  transform: translateY(-50%); /* Ensure vertical centering */
 
   & .wsp-image {
     width: 9rem;
@@ -3052,7 +3054,6 @@ body.loaded {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 .top__navbar-list {
   list-style: none;
@@ -3066,10 +3067,10 @@ body.loaded {
 .top__navbar-list li p {
   color: #141816;
   font-size: small;
-} 
+}
 .top__navbar-list li a {
   color: #fca311;
-} 
+}
 .navbar {
   position: absolute;
   left: 0;
@@ -9598,7 +9599,7 @@ header.in-box {
   .navbar {
     height: 5rem;
     width: 100%;
-}
+  }
   .navbar .navbar-collapse {
     background-color: #191919;
     max-height: 440px;
@@ -10002,25 +10003,23 @@ header.in-box {
     width: 100px;
   }
   /* // /// WhatsApp Floating Button /// */
-.btn-wsp {
-  & .wsp-image {
-    width: 6rem;
-    max-width: fit-content;
-    min-width: 2rem;
+  .btn-wsp {
+    & .wsp-image {
+      width: 6rem;
+      max-width: fit-content;
+      min-width: 2rem;
 
-    &:hover {
-      -webkit-transform: scale(1.1);
-      transform: scale(1.1);
+      &:hover {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
     }
   }
-}
 
-img {
-  width: 2rem;
-  height: auto;
-}
-
-
+  img {
+    width: 2rem;
+    height: auto;
+  }
 
   .hamenu {
     padding: 120px 15px 15px;

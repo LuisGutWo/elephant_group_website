@@ -19,7 +19,7 @@ body {
   font-size: 14px;
   font-family: "Poppins", sans-serif;
   font-family: "Sora", sans-serif;
-  overflow-x: hidden !important;
+  overflow-x: hidden  !important;
 }
 
 body.noise-img {
@@ -75,6 +75,7 @@ body.digital-marketing {
 
 main {
   position: relative;
+  overflow-x: hidden;
   z-index: 5;
 }
 
@@ -256,7 +257,7 @@ figure {
 }
 
 .main-color2 {
-  color: #C27D0E !important;
+  color: #c27d0e !important;
 }
 
 .main-colorbg2 {
@@ -264,7 +265,7 @@ figure {
 }
 
 .main-color3 {
-  color: #F2C213 !important;
+  color: #f2c213 !important;
 }
 
 .main-colorbg3 {
@@ -367,9 +368,10 @@ img {
 .btn-wsp {
   position: fixed;
   cursor: pointer;
-  top: 50%;
-  right: 0;
+  top: 20%;
+  right: 5%; /* Add a small offset to keep it inside the viewport */
   z-index: 100;
+  transform: translateY(-50%); /* Ensure vertical centering */
 
   & .wsp-image {
     width: 9rem;

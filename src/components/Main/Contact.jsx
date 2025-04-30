@@ -11,7 +11,7 @@ function Contact({ lightMode, innerPageStyle }) {
   return (
     <section className="contact-img">
       <div className="container">
-        <div className="sec-bg-img bg-img parallaxie" data-background="/dark/assets/imgs/background/viña-del-mar.jpg"></div>
+        <div className="sec-bg-img bg-img parallaxie" data-background="/dark/assets/imgs/background/viña-del-mar.webp"></div>
         <div className="sec-lg-head section-padding">
           <div className="row ontop">
             <div className="col-11 d-flex align-items-center bg-dark">

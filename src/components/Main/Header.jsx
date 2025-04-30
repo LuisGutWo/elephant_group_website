@@ -44,9 +44,6 @@ function Header({ lightMode }) {
 
   useEffect(() => {
     setLoadSwiper(true);
-  }, []);
-
-  useEffect(() => {
     if (loadSwiper) loadBackgroudImages();
   }, [loadSwiper]);
 
@@ -58,11 +55,11 @@ function Header({ lightMode }) {
             <SwiperSlide key={item.id}>
               <div
                 className="bg-img valign"
-                data-background={
-                  typeof window !== "undefined" && window.innerWidth > 768
-                    ? item.background || ""
-                    : item?.backgroundMobile || ""
-                }
+                style={{
+                  backgroundImage: `url(${
+                    window.innerWidth <= 768 ? item.backgroundMobile : item.background
+                  })`,
+                }}
               ></div>
               <Link
                 className="btn btn-lg btn-warning slider-prlx-caption"

@@ -16,18 +16,17 @@ const swiperOptions = {
   },
   parallax: true,
   loop: true,
-  onSwiper: function (swiper) {
+  onBeforeInit: function (swiper) {
     if (!swiper || !swiper.slides) return;
-    for (var i = 0; i < swiper.slides.length; i++) {
-      var bgImg = swiper.slides[i].querySelector(".bg-img");
+    swiper.slides.forEach((slide) => {
+      const bgImg = slide.querySelector(".bg-img");
       if (bgImg) {
         bgImg.setAttribute("data-swiper-parallax", 0.75 * swiper.width);
       }
-    }
+    });
   },
-  onResize: function (swiper) {
-    if (!swiper) return;
-    swiper.update();
+  onResize(swiper) {
+    swiper?.update();
   },
   pagination: {
     el: ".slider-prlx .swiper-pagination",
@@ -43,41 +42,29 @@ function Header({ lightMode }) {
   const [loadSwiper, setLoadSwiper] = useState(false);
 
   useEffect(() => {
-    setLoadSwiper(true);
-    if (loadSwiper) loadBackgroudImages();
+    if (!loadSwiper) {
+      setLoadSwiper(true);
+      loadBackgroudImages();
+    }
   }, [loadSwiper]);
 
   return (
     <header className="slider arch-slider slider-prlx">
-      {loadSwiper && data && (
+      {data && loadSwiper && (
         <Swiper {...swiperOptions} className="swiper-container parallax-slider">
-          {data.map((item) => (
-            <SwiperSlide key={item.id}>
+          {data.map(({ id, background, backgroundMobile }) => (
+            <SwiperSlide key={id}>
               <div
                 className="bg-img valign"
                 style={{
                   backgroundImage: `url(${
-                    window.innerWidth <= 768 ? item.backgroundMobile : item.background
+                    window.innerWidth <= 768 ? backgroundMobile : background
                   })`,
                 }}
+                data-background={background}
+                data-background-mobile={backgroundMobile}
+                data-swiper-parallax="0.75"
               ></div>
-              <Link
-                className="btn btn-lg btn-warning slider-prlx-caption"
-                href={
-                  lightMode ? "/light/page-portfolio" : "/dark/page-portfolio"
-                }
-              >
-                <div className="container h-100 d-flex align-items-end justify-content-start slider-prlx-caption">
-                  <div className="row">
-                    <div
-                      className="col-lg-12 offset-lg-1 valign"
-                      style={{ marginTop: "40%" }}
-                    >
-                      <div className="btn-wrapper slider text-center  slider-prlx-caption"></div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -85,10 +72,10 @@ function Header({ lightMode }) {
       <div className="setting">
         <div className="controls">
           <div className="swiper-button-next swiper-nav-ctrl next-ctrl cursor-pointer">
-            <i className="ion-chevron-right"></i>
+            <i className="ion-chevron-right" />
           </div>
           <div className="swiper-button-prev swiper-nav-ctrl prev-ctrl cursor-pointer">
-            <i className="ion-chevron-left"></i>
+            <i className="ion-chevron-left" />
           </div>
         </div>
       </div>

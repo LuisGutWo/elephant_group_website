@@ -368,10 +368,9 @@ img {
 .btn-wsp {
   position: fixed;
   cursor: pointer;
-  top: 20%;
+  top: 30% !important;
   right: 5%; /* Add a small offset to keep it inside the viewport */
   z-index: 100;
-  transform: translateY(-50%); /* Ensure vertical centering */
 
   & .wsp-image {
     width: 9rem;

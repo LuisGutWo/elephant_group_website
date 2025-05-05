@@ -7,7 +7,7 @@ import Link from "next/link";
 
 function Services({ lightMode }) {
   return (
-    <section className="serv-box section-padding">
+    <section className="serv-box section-padding pb-10">
       <div className="container">
         <div className="sec-lg-head mb-80">
           <div className="row">
@@ -76,13 +76,15 @@ function Services({ lightMode }) {
                 <img
                   src={`/${lightMode ? "light" : "dark"}${item.image}`}
                   alt=""
+                  loading="lazy"
+                  className="img-fluid mt-50"
                 />
               </div>
               <h4 className="mb-15" key={item.id} style={{ color: "#fca311" }}>
                 {item.title}
               </h4>
               <h6 className="mb-15 text-dark">{item.subtitle}</h6>
-              <p>{item.text}</p>
+              <p className="text mb-35">{item.text}</p>
             </div>
           ))}
         </div>

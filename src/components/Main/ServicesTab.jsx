@@ -26,7 +26,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/corte_casa_colibri.webp`}
+                      }/assets/imgs/works/casa_colibri_servicestab.webp`}
                       alt=""
                     />
                   </div>
@@ -64,7 +64,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/work-7-metro.webp`}
+                      }/assets/imgs/works/diseno_servicestab.webp`}
                       alt=""
                     />
                   </div>
@@ -102,7 +102,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/letrero_emporio_la_rosa.webp`}
+                      }/assets/imgs/works/impresion_servicestab.webp`}
                       alt=""
                     />
                   </div>
@@ -137,7 +137,7 @@ function ServicesTab({ lightMode }) {
                     <img
                       src={`/${
                         lightMode ? "light" : "dark"
-                      }/assets/imgs/works/work-1-metro.webp`}
+                      }/assets/imgs/works/desarrollo_servicestab.webp`}
                       alt=""
                     />
                   </div>
@@ -188,21 +188,21 @@ function ServicesTab({ lightMode }) {
                   data-tab="tabs-3"
                   onClick={openTab}
                 >
-                  <span>03</span> Imprenta
-                </li>
-                <li
-                  className="item-link mb-30"
-                  data-tab="tabs-2"
-                  onClick={openTab}
-                >
-                  <span>02</span> Diseño
+                  <span>01</span> Impresión
                 </li>
                 <li
                   className="item-link current mb-30"
                   data-tab="tabs-1"
                   onClick={openTab}
                 >
-                  <span>01</span> Corte CNC
+                  <span>02</span> Corte CNC
+                </li>
+                <li
+                  className="item-link mb-30"
+                  data-tab="tabs-2"
+                  onClick={openTab}
+                >
+                  <span>03</span> Diseño
                 </li>
 
                 <li className="item-link" data-tab="tabs-4" onClick={openTab}>

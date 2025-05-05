@@ -49,7 +49,7 @@ function ServicesTab({ lightMode }) {
                       </p>
                     </div>
                     <Link
-                      href={`${lightMode ? "light" : "dark "}/page-services`}
+                      href={`/${lightMode ? "light" : "dark"}/page-services`}
                       className="mt-30"
                     >
                       <span className="mr-15">Saber mas</span>

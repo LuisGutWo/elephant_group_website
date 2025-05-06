@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 //= Modules
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination, Parallax } from "swiper/modules";
+//= Components
+import StatementSplitter from "../Common/StatementSplitter";
 //= Scripts
 import loadBackgroudImages from "@/common/loadBackgroudImages";
 //= Data
@@ -16,17 +17,19 @@ const swiperOptions = {
   },
   parallax: true,
   loop: true,
-  onBeforeInit: function (swiper) {
-    if (!swiper || !swiper.slides) return;
-    swiper.slides.forEach((slide) => {
-      const bgImg = slide.querySelector(".bg-img");
-      if (bgImg) {
-        bgImg.setAttribute("data-swiper-parallax", 0.75 * swiper.width);
+  onSwiper: function (swiper) {
+    if (swiper && swiper.slides) {
+      for (var i = 0; i < swiper.slides.length; i++) {
+        const slide = swiper.slides[i];
+        const bgImg = slide.querySelector(".bg-img");
+        if (bgImg) {
+          bgImg.setAttribute("data-swiper-parallax", 0.75 * swiper.width);
+        }
       }
-    });
+    }
   },
-  onResize(swiper) {
-    swiper?.update();
+  onResize: function (swiper) {
+    swiper.update();
   },
   pagination: {
     el: ".slider-prlx .swiper-pagination",
@@ -38,7 +41,7 @@ const swiperOptions = {
     prevEl: ".slider-prlx .prev-ctrl",
   },
 };
-function Header({ lightMode }) {
+function Header() {
   const [loadSwiper, setLoadSwiper] = useState(false);
 
   useEffect(() => {
@@ -48,23 +51,66 @@ function Header({ lightMode }) {
     }
   }, [loadSwiper]);
 
+  const updateBackgroundOnResize = () => {
+    const slides = document.querySelectorAll(".swiper-slide.bg-img");
+    if (slides) {
+      slides.forEach((slide) => {
+        if (slide) {
+          const item = data?.[Math.floor(Math.random() * data.length)];
+          slide.style.backgroundImage = `url(${
+            item?.backgroundMobile || item?.background || ""
+          })`;
+        }
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateBackgroundOnResize);
+    return () => {
+      window.removeEventListener("resize", updateBackgroundOnResize);
+    };
+  }, []);
+
   return (
     <header className="slider arch-slider slider-prlx">
-      {data && loadSwiper && (
+      {loadSwiper && data && (
         <Swiper {...swiperOptions} className="swiper-container parallax-slider">
-          {data.map(({ id, background, backgroundMobile }) => (
-            <SwiperSlide key={id}>
+          {data.map((item) => (
+            <SwiperSlide key={item.id}>
               <div
-                className="bg-img valign"
+                className="swiper-slide bg-img valign"
                 style={{
                   backgroundImage: `url(${
-                    window.innerWidth <= 768 ? backgroundMobile : background
+                    item?.background || item?.backgroundMobile
                   })`,
                 }}
-                data-background={background}
-                data-background-mobile={backgroundMobile}
-                data-swiper-parallax="0.75"
-              ></div>
+                data-swiper-parallax-opacity="0.5"
+                data-swiper-parallax-scale="1.2"
+                data-swiper-parallax-duration="1000"
+              >
+                <div className="container">
+                  <div className="row">
+                    <div className="col-lg-7">
+                      <div className="caption mt-0">
+                        <img
+                          src="/light/assets/imgs/logo-light.webp"
+                          alt="Elephant Group Logo"
+                          className="logo-webp img-responsive w-25"
+                          data-swiper-parallax="0.5"
+                        />
+                        <h1 className="text-light">
+                          <StatementSplitter statement={item.title || ""} />
+                        </h1>
+                        <h4 className="text-light">
+                          <StatementSplitter statement={item.subtitle || ""} />
+                        </h4>
+                        <p>{item.text || ""}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -72,10 +118,10 @@ function Header({ lightMode }) {
       <div className="setting">
         <div className="controls">
           <div className="swiper-button-next swiper-nav-ctrl next-ctrl cursor-pointer">
-            <i className="ion-chevron-right" />
+            <i className="ion-chevron-right"></i>
           </div>
           <div className="swiper-button-prev swiper-nav-ctrl prev-ctrl cursor-pointer">
-            <i className="ion-chevron-left" />
+            <i className="ion-chevron-left"></i>
           </div>
         </div>
       </div>

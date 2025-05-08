@@ -38,41 +38,6 @@ body.noise-img:before {
   height: 100%;
 }
 
-body.home-digital .container,
-body.home-arch .container,
-body.home-corp .container {
-  max-width: 1200px;
-}
-
-body.space-font,
-body.home-digital {
-  font-family: "Space Grotesk", sans-serif;
-}
-
-body.home-arch {
-  font-family: "Space Grotesk", sans-serif;
-}
-
-body.home-arch main {
-  position: relative;
-}
-
-body.home-arch main:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 70px;
-  background: #141618;
-  z-index: 5;
-}
-
-body.home-main-crev,
-body.digital-marketing {
-  font-family: "Epilogue", sans-serif;
-}
-
 main {
   overflow-x: hidden;
   position: relative;

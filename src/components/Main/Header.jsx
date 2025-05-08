@@ -51,27 +51,6 @@ function Header() {
     }
   }, [loadSwiper]);
 
-  const updateBackgroundOnResize = () => {
-    const slides = document.querySelectorAll(".swiper-slide.bg-img");
-    if (slides) {
-      slides.forEach((slide) => {
-        if (slide) {
-          const item = data?.[Math.floor(Math.random() * data.length)];
-          slide.style.backgroundImage = `url(${
-            item?.backgroundMobile || item?.background || ""
-          })`;
-        }
-      });
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateBackgroundOnResize);
-    return () => {
-      window.removeEventListener("resize", updateBackgroundOnResize);
-    };
-  }, []);
-
   return (
     <header className="slider arch-slider slider-prlx">
       {loadSwiper && data && (
@@ -81,9 +60,10 @@ function Header() {
               <div
                 className="swiper-slide bg-img valign"
                 style={{
-                  backgroundImage: `url(${
-                    item?.background || item?.backgroundMobile
-                  })`,
+                  backgroundImage: window.matchMedia("(max-width: 768px)")
+                    .matches
+                    ? `url(${item?.backgroundMobile})`
+                    : `url(${item?.background})`,
                 }}
                 data-swiper-parallax-opacity="0.5"
                 data-swiper-parallax-scale="1.2"

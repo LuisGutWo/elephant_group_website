@@ -86,7 +86,7 @@ function Footer({ lightMode, subBg }) {
         </div>
         <div className="sub-footer pt-20 pb-20 mb-0 bord-thin-top onbottom bg-dark">
           <div className="container">
-            <div className="row d-flex align-items-center">
+            <div className="row d-flex align-items-center justify-content-center flex-column flex-md-row">
               <div className="col-lg-4">
                 <div className="logo">
                   <Link href="/">
@@ -95,18 +95,18 @@ function Footer({ lightMode, subBg }) {
                         lightMode ? "dark" : "dark"
                       }.webp`}
                       alt=""
-                      className="icon-img-80"
+                      className="icon-img-footer img-fluid p-0"
+                      style={{ width: "3rem", height: "auto" }}
                     />
                   </Link>
                 </div>
               </div>
               <div className="col-lg-8">
-                <div className="copyright d-flex">
-                  <div className="ml-auto">
-                    <p className="fz-10" style={{ color: "#fafafa" }}>
+                <div className="copyright d-flex justify-content-end">
+                  <div className="text">
+                    <p className="footer-text">
                       Copyright© {new Date().getFullYear()} | LAG media | Todos
                       los derechos reservados.
-                      <span className="underline"></span>
                     </p>
                   </div>
                 </div>

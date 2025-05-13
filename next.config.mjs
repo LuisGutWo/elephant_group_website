@@ -22,6 +22,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  allowedDevOrigins: ["local-origin.dev", "*.local-origin.dev"],
 };
 
 export default nextConfig;

@@ -82,10 +82,11 @@ function Header() {
                         <h1 className="text-light">
                           <StatementSplitter statement={item.title || ""} />
                         </h1>
-                        <h4 className="text-light">
+                        <h4 className="text-light ms-1
+                          text-uppercase fw-400">
                           <StatementSplitter statement={item.subtitle || ""} />
                         </h4>
-                        <p>{item.text || ""}</p>
+                        <p className="sub-title">{item.text || ""}</p>
                       </div>
                     </div>
                   </div>

@@ -4,16 +4,22 @@ import loadBackgroudImages from "@/common/loadBackgroudImages";
 
 //= Modules
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Pagination, Parallax, EffectFade } from "swiper/modules";
+import {
+  Navigation,
+  Autoplay,
+  Pagination,
+  Parallax,
+  EffectFade,
+} from "swiper/modules";
 //= Data
-import data from "@/data/Main/header.json";
+import data from "@/data/Main/portfolioGalleryPage.json";
 
 const swiperOptions = {
   modules: [Navigation, Autoplay, Pagination, Parallax, EffectFade],
   effect: "fade",
   speed: 1500,
   autoplay: {
-    delay: 5000,
+    delay: 3000,
   },
   parallax: true,
   loop: true,
@@ -55,10 +61,28 @@ function Story() {
       <div className="container">
         <div className="row">
           <div className="col-lg-4">
-            <div
-              className="bg-img radius-10 md-mb50"
-              data-background="/dark/assets/imgs/about/trabajo-07-700x840.webp"
-            ></div>
+            {loadSwiper && (
+              <Swiper
+                {...swiperOptions}
+                className="swiper-container parallax-slider"
+              >
+                {data.gallery.map((_item, index) => {
+                  const randomIndex = Math.floor(
+                    Math.random() * data.gallery.length
+                  );
+                  const randomImage = data.gallery[randomIndex].image;
+                  return (
+                    <SwiperSlide key={index}>
+                      <div
+                        className="bg-img radius-10 md-mb50"
+                        data-background={randomImage}
+                        data-swiper-parallax-opacity="0.5"
+                      ></div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            )}
           </div>
           <div className="col-lg-8">
             {loadSwiper && (
@@ -66,14 +90,22 @@ function Story() {
                 {...swiperOptions}
                 className="swiper-container parallax-slider"
               >
-                {data.map((item) => (
-                  <SwiperSlide key={item.id}>
-                    <div
-                      className="bg-img radius-10"
-                      data-background={item.background}
-                    ></div>
-                  </SwiperSlide>
-                ))}
+                {data.gallery.map((_item, index) => {
+                  const randomIndex = Math.floor(
+                    Math.random() * data.gallery.length
+                  );
+                  const randomImage = data.gallery[randomIndex].image;
+
+                  return (
+                    <SwiperSlide key={index}>
+                      <div
+                        className="bg-img radius-10"
+                        data-background={randomImage}
+                        data-swiper-parallax-opacity="0.5"
+                      ></div>
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
             )}
           </div>
@@ -85,11 +117,12 @@ function Story() {
           <div className="col-lg-8">
             <div className="cont mt-80">
               <h5>
-                Iniciamos en 2018 en una pequeña oficina en la ciudad jardín. 
-                Con grandes sueños, emprendimos este proyecto que ha sido una gran aventura. 
-                Hoy, esos sueños han crecido, y nuestra creatividad es más fuerte. 
-                Gracias a esto, hemos ayudado a cientos de clientes con soluciones de 
-                PUBLICIDAD, apoyándolos a integrarse exitosamente en el mercado.
+                Iniciamos en 2018 en una pequeña oficina en la ciudad jardín.
+                Con grandes sueños, emprendimos este proyecto que ha sido una
+                gran aventura. Hoy, esos sueños han crecido, y nuestra
+                creatividad es más fuerte. Gracias a esto, hemos ayudado a
+                cientos de clientes con soluciones de PUBLICIDAD, apoyándolos a
+                integrarse exitosamente en el mercado.
               </h5>
             </div>
           </div>

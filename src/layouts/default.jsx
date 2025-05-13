@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 //= Packages
-import Head from "next/head";
 import WhatsAppButton from "@/common/WhatsAppButton";
 //= Scripts
 import correctStylesheetsOrder from "@/common/correctStylesheetsOrder";

@@ -37,9 +37,12 @@ export default async function handler(req, res) {
       !process.env.SMTP_PASS
     ) {
       console.error("❌ Variables de entorno SMTP no configuradas");
-      return res
-        .status(500)
-        .json({ message: "Configuración SMTP incompleta." });
+      console.log("⚠️ Para activar el envío de emails, configura las variables de entorno SMTP en .env.local");
+      // En lugar de devolver error, devolver éxito pero indicar que el email no se envió
+      return res.status(200).json({ 
+        message: "Mensaje recibido correctamente. (Email no configurado)", 
+        warning: "SMTP not configured" 
+      });
     }
 
     const transporter = nodemailer.createTransport({

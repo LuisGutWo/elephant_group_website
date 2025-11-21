@@ -3,7 +3,6 @@ import React from "react";
 import Script from "next/script";
 import Head from "next/head";
 //= Common Styles
-import "@/styles/modal-video.css";
 import "swiper/css/bundle";
 import "@/styles/globals.css";
 

@@ -15,6 +15,7 @@ import Portfolio from "@/components/Main/Portfolio";
 import FooterImg from "@/components/Main/FooterImg";
 import Footer from "@/components/Main/Footer";
 import Form from "@/components/InnerPages/Contact/Form";
+import FooterBottom from "@/components/Main/FooterBottom";
 
 function HomePageLight() {
   useEffect(() => {
@@ -54,6 +55,7 @@ function HomePageLight() {
         </main>
         <FooterImg lightMode={true} />
         <Footer lightMode={true} />
+        <FooterBottom />
       </>
     );
   } catch (error) {

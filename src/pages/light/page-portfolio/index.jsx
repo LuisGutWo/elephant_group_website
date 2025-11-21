@@ -6,9 +6,9 @@ import Layout from "@/layouts/default";
 //= Components
 import Loader from "@/components/Common/Loader";
 import Navbar from "@/components/Common/MainNavbar";
-import Footer from "@/components/Main/Footer";
 import Header from "@/components/Portfolio/HeaderPortfolio";
 import GridPortfolioImages from "@/components/Portfolio/GridPortfolioImages";
+import FooterBottom from "@/components/Main/FooterBottom";
 
 function PagePortfolioLight() {
   useEffect(() => {
@@ -48,7 +48,7 @@ function PagePortfolioLight() {
         <Header data={headerMetadata} />
         <GridPortfolioImages />
       </main>
-      <Footer subBg lightMode />
+      <FooterBottom subBg lightMode />
     </>
   );
 }

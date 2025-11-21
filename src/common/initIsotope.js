@@ -1,3 +1,15 @@
+// Función de utilidad para compatibilidad con navegadores
+const matchesSelector = (element, selector) => {
+  if (element.matches) return element.matches(selector);
+  if (element.matchesSelector) return element.matchesSelector(selector);
+  if (element.webkitMatchesSelector)
+    return element.webkitMatchesSelector(selector);
+  if (element.mozMatchesSelector) return element.mozMatchesSelector(selector);
+  if (element.msMatchesSelector) return element.msMatchesSelector(selector);
+  if (element.oMatchesSelector) return element.oMatchesSelector(selector);
+  return false;
+};
+
 const initIsotope = () => {
   // Verificar que Isotope está disponible globalmente
   if (typeof window === "undefined" || typeof window.Isotope === "undefined") {
@@ -15,16 +27,31 @@ const initIsotope = () => {
   if (grid.length >= 1) {
     grid.forEach((item) => {
       if (!item) {
-        throw new Error("initIsotope: item is null");
+        console.error("initIsotope: grid item is null");
+        return;
       }
+
+      // Configuración mejorada de Isotope
       iso = new window.Isotope(item, {
         itemSelector: ".items",
+        layoutMode: "masonry",
+        masonry: {
+          columnWidth: ".items",
+          gutter: 30,
+        },
+        percentPosition: true,
+        transitionDuration: "0.6s",
       });
+
+      console.log("✅ Isotope inicializado correctamente en:", item);
     });
+  } else {
+    console.warn("⚠️ No se encontraron elementos .gallery");
   }
 
   if (!filtersElem) {
-    throw new Error("initIsotope: filtersElem is null");
+    console.warn("⚠️ No se encontró el elemento .filtering");
+    return;
   }
 
   filtersElem.addEventListener("click", function (event) {
@@ -33,35 +60,42 @@ const initIsotope = () => {
     }
     var filterValue = event.target.getAttribute("data-filter");
     if (!filterValue) {
-      throw new Error("initIsotope: filterValue is null");
+      console.warn("⚠️ No se encontró data-filter en el elemento clickeado");
+      return;
     }
-    filterValue = filterValue;
-    iso.arrange({ filter: filterValue });
+
+    console.log("🔍 Aplicando filtro:", filterValue);
+    if (iso) {
+      iso.arrange({ filter: filterValue });
+    }
   });
 
   const radioButtonGroup = (buttonGroup) => {
     if (!buttonGroup) {
-      throw new Error("initIsotope: buttonGroup is null");
+      console.warn("⚠️ buttonGroup es null");
+      return;
     }
     buttonGroup.addEventListener("click", (event) => {
       if (!matchesSelector(event.target, "span")) {
         return;
       }
       const activeButton = buttonGroup.querySelector(".active");
-      if (!activeButton) {
-        throw new Error("initIsotope: activeButton is null");
+      if (activeButton) {
+        activeButton.classList.remove("active");
       }
-      activeButton.classList.remove("active");
       event.target.classList.add("active");
+      console.log("🎯 Filtro activo cambiado a:", event.target.textContent);
     });
   };
+
   for (var i = 0, len = buttonGroups.length; i < len; i++) {
     const buttonGroup = buttonGroups[i];
-    if (!buttonGroup) {
-      throw new Error("initIsotope: buttonGroup is null");
+    if (buttonGroup) {
+      radioButtonGroup(buttonGroup);
     }
-    radioButtonGroup(buttonGroup);
   }
+
+  console.log("✅ Isotope completamente inicializado");
 };
 
 export default initIsotope;

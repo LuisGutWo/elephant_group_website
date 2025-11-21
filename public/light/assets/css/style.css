@@ -6130,20 +6130,27 @@ body.loaded {
   background: #0b0b0b;
   color: #ddd;
   padding: 14px 0;
+  position: relative;
+  overflow: hidden;
 }
 .eg-footer-bottom::after {
   content: "";
   background-image: url(../imgs/patterns/asx7.png);
   background-size: cover;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-position: center center;
-  opacity: 0.2;
+  opacity: 0.15;
   top: 0;
   left: 0;
+  z-index: -1;
   width: 100%;
   height: 100%;
   position: absolute;
+  pointer-events: none;
+  mix-blend-mode: multiply;
 }
+/* Footer styles moved to globals.css for better mobile optimization */
+/* Legacy styles kept for backward compatibility but overridden in globals.css */
 .eg-footer-bottom-inner {
   display: flex;
   flex-direction: column;
@@ -6151,43 +6158,8 @@ body.loaded {
   justify-content: center;
   gap: 20px;
 }
-.eg-footer-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-items: center;
-  gap: 18px;
-}
-.eg-footer-logo {
-  height: 36px;
-  object-fit: contain;
-}
-.eg-footer-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
-  padding: 0;
-}
-.eg-footer-nav a {
-  color: #cfcfcf;
-  margin-right: 12px;
-  font-size: 13px;
-  text-decoration: none;
-}
-.eg-footer-nav a::after {
-  content: "|";
-  margin-left: 12px;
-  color: #f7a800;
-}
-.eg-footer-nav a:last-child::after {
-  content: "";
-}
 
-.eg-footer-right small {
-  color: #9b9b9b;
-}
+/* Legacy footer styles - now handled in globals.css with better responsive design */
 
 @media (max-width: 900px) {
   .eg-footer-inner {
@@ -6197,11 +6169,7 @@ body.loaded {
   .eg-form-col {
     justify-content: center;
   }
-  .eg-footer-bottom-inner {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
+  /* Footer bottom styles now handled in globals.css - removing to prevent conflicts */
 }
 
 footer {

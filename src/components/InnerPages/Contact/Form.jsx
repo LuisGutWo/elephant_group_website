@@ -69,20 +69,86 @@ function Form() {
     const file = e.target.files?.[0];
     if (!file) {
       setDetails((d) => ({ ...d, fileName: "", fileData: null }));
+      setErrors((prev) => ({ ...prev, file: undefined }));
       return;
     }
-    const allowed = ["pdf", "jpg", "jpeg", "ai", "eps", "png"];
-    const ext = file.name.split(".").pop().toLowerCase();
-    if (!allowed.includes(ext)) {
+
+    // Configuración de validación
+    const allowedFormats = {
+      pdf: { mime: "application/pdf", maxSize: 8 },
+      jpg: { mime: "image/jpeg", maxSize: 5 },
+      jpeg: { mime: "image/jpeg", maxSize: 5 },
+      png: { mime: "image/png", maxSize: 5 },
+      ai: { mime: "application/postscript", maxSize: 10 },
+      eps: { mime: "application/postscript", maxSize: 10 },
+    };
+
+    const maxFileSize = 10 * 1024 * 1024; // 10MB en bytes (límite general)
+    const ext = file.name.split(".").pop()?.toLowerCase();
+
+    // Validar extensión
+    if (!ext || !allowedFormats[ext]) {
       setErrors((prev) => ({
         ...prev,
-        file: "Formato no permitido. (pdf, jpg, jpeg, ai, eps, png)",
+        file: "Formato no permitido. Solo se aceptan: PDF, JPG, JPEG, PNG, AI, EPS",
       }));
       setDetails((d) => ({ ...d, fileName: "", fileData: null }));
+      e.target.value = ""; // Limpiar input
       return;
     }
+
+    // Validar tamaño del archivo
+    const formatConfig = allowedFormats[ext];
+    const formatMaxSize = formatConfig.maxSize * 1024 * 1024; // Convertir MB a bytes
+
+    if (file.size > maxFileSize) {
+      setErrors((prev) => ({
+        ...prev,
+        file: `Archivo demasiado grande. Tamaño máximo: 10MB. Tu archivo: ${(
+          file.size /
+          1024 /
+          1024
+        ).toFixed(2)}MB`,
+      }));
+      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
+      e.target.value = "";
+      return;
+    }
+
+    if (file.size > formatMaxSize) {
+      setErrors((prev) => ({
+        ...prev,
+        file: `Archivo ${ext.toUpperCase()} demasiado grande. Máximo para este formato: ${
+          formatConfig.maxSize
+        }MB. Tu archivo: ${(file.size / 1024 / 1024).toFixed(2)}MB`,
+      }));
+      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
+      e.target.value = "";
+      return;
+    }
+
+    // Validar tipo MIME si está disponible
+    if (file.type && !file.type.includes(formatConfig.mime.split("/")[0])) {
+      setErrors((prev) => ({
+        ...prev,
+        file: `Tipo de archivo no válido. Se esperaba ${ext.toUpperCase()}, pero se detectó otro formato.`,
+      }));
+      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
+      e.target.value = "";
+      return;
+    }
+
+    // Limpiar errores previos
     setErrors((prev) => ({ ...prev, file: undefined }));
-    // convertir a base64 (opcional — se envía en el payload para que el backend lo trate)
+
+    console.log("📎 Archivo válido:", {
+      name: file.name,
+      size: `${(file.size / 1024 / 1024).toFixed(2)}MB`,
+      type: file.type,
+      extension: ext,
+    });
+
+    // Convertir a base64
     const toBase64 = (f) =>
       new Promise((res, rej) => {
         const reader = new FileReader();
@@ -90,11 +156,31 @@ function Form() {
         reader.onload = () => res(reader.result);
         reader.readAsDataURL(f);
       });
+
     try {
+      console.log("🔄 Convirtiendo archivo a base64...");
       const dataUrl = await toBase64(file);
-      setDetails((d) => ({ ...d, fileName: file.name, fileData: dataUrl }));
+      const base64Size = (dataUrl.length * 0.75) / 1024 / 1024; // Tamaño aproximado en base64
+
+      console.log(
+        `✅ Archivo procesado. Tamaño base64: ${base64Size.toFixed(2)}MB`
+      );
+
+      setDetails((d) => ({
+        ...d,
+        fileName: file.name,
+        fileData: dataUrl,
+        fileSize: file.size,
+        fileType: ext,
+      }));
     } catch (err) {
-      setErrors((prev) => ({ ...prev, file: "No se pudo leer el archivo." }));
+      console.error("❌ Error procesando archivo:", err);
+      setErrors((prev) => ({
+        ...prev,
+        file: "No se pudo procesar el archivo. Intenta con otro archivo.",
+      }));
+      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
+      e.target.value = "";
     }
   };
 
@@ -140,9 +226,17 @@ function Form() {
       quantity: 1,
       fileName: "",
       fileData: null,
+      fileSize: null,
+      fileType: null,
       deliveryDate: "",
       comments: "",
     });
+
+    // Limpiar también el input file
+    const fileInput = document.getElementById("file");
+    if (fileInput) {
+      fileInput.value = "";
+    }
     setErrors((e) => {
       const copy = { ...e };
       delete copy.productType;
@@ -161,13 +255,66 @@ function Form() {
   // Función separada para enviar email de respaldo
   const sendBackupEmail = async (formData, detailsData) => {
     try {
-      console.log("📧 Enviando email de respaldo...");
+      console.log("📧 Iniciando envío de email de respaldo...");
+      console.log("📝 Datos a enviar:", {
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone,
+        hasFile: !!detailsData.fileName,
+        fileName: detailsData.fileName,
+        productType: detailsData.productType,
+      });
+
       const payload = { ...formData, details: detailsData };
 
-      // Crear un AbortController para timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 segundos timeout
+      // Calcular tamaño aproximado del payload
+      const payloadSize = JSON.stringify(payload).length;
+      const payloadSizeMB = (payloadSize / 1024 / 1024).toFixed(2);
+      console.log(
+        `📏 Tamaño del payload: ${payloadSizeMB}MB (${payloadSize} bytes)`
+      );
 
+      // Manejar archivos grandes
+      let fileRemoved = false;
+      if (detailsData.fileData && payloadSize > 8000000) {
+        // ~8MB
+        console.warn(
+          `⚠️ Payload muy grande (${payloadSizeMB}MB), removiendo archivo adjunto para email de respaldo`
+        );
+        console.log(
+          `📁 Archivo original: ${detailsData.fileName} (${
+            detailsData.fileSize
+              ? (detailsData.fileSize / 1024 / 1024).toFixed(2) + "MB"
+              : "tamaño desconocido"
+          })`
+        );
+        payload.details = {
+          ...payload.details,
+          fileData: null,
+          fileNote: `Archivo adjunto demasiado grande para email: ${
+            detailsData.fileName
+          }${
+            detailsData.fileSize
+              ? ` (${(detailsData.fileSize / 1024 / 1024).toFixed(2)}MB)`
+              : ""
+          }`,
+        };
+        fileRemoved = true;
+      } else if (detailsData.fileData) {
+        const fileSizeMB = detailsData.fileSize
+          ? (detailsData.fileSize / 1024 / 1024).toFixed(2)
+          : "N/A";
+        console.log(
+          `📎 Incluyendo archivo en email: ${detailsData.fileName} (${fileSizeMB}MB)`
+        );
+      }
+
+      // Crear un AbortController para timeout (aumentamos a 30 segundos)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos timeout
+
+      const startTime = Date.now();
       const emailResponse = await fetch("/api/send-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -176,6 +323,8 @@ function Form() {
       });
 
       clearTimeout(timeoutId);
+      const duration = Date.now() - startTime;
+      console.log(`⏱️ Tiempo de respuesta: ${duration}ms`);
 
       if (emailResponse.ok) {
         const emailResult = await emailResponse.json();
@@ -183,18 +332,26 @@ function Form() {
           "✅ Email de respaldo enviado correctamente:",
           emailResult.message
         );
+        if (emailResult.messageId) {
+          console.log("🆔 Message ID:", emailResult.messageId);
+        }
       } else {
-        const emailError = await emailResponse.json();
-        console.log(
-          "⚠️ Error al enviar email de respaldo:",
-          emailError.message
+        const errorText = await emailResponse.text();
+        console.error(
+          "⚠️ Error al enviar email de respaldo (",
+          emailResponse.status,
+          "):",
+          errorText
         );
       }
     } catch (emailErr) {
       if (emailErr.name === "AbortError") {
-        console.log("⏱️ Timeout del email de respaldo");
+        console.log("⏱️ Timeout del email de respaldo (30 segundos)");
       } else {
-        console.log("❌ Email backup failed:", emailErr);
+        console.error(
+          "❌ Error inesperado en email de respaldo:",
+          emailErr.message
+        );
       }
       // No mostramos error al usuario ya que WhatsApp es el canal principal
     }
@@ -253,10 +410,13 @@ _Enviado desde el formulario web_
       console.log("WhatsApp URL:", whatsappURL); // Debug log
 
       // Mostrar mensaje de éxito inmediatamente
+      const successMessage = details.fileName
+        ? `¡Gracias por contactarnos! Serás redirigido a WhatsApp. Archivo adjunto: ${details.fileName}. Te responderemos pronto.`
+        : "¡Gracias por contactarnos! Serás redirigido a WhatsApp. Te responderemos pronto.";
+
       setStatus({
         type: "success",
-        message:
-          "¡Gracias por contactarnos! Serás redirigido a WhatsApp. Te responderemos pronto.",
+        message: successMessage,
       });
 
       // Abrir WhatsApp en nueva ventana después de 1 segundo
@@ -590,19 +750,29 @@ _Enviado desde el formulario web_
                       </RBForm.Control.Feedback>
                     </RBForm.Group>
                   </Col>
-                  <Col md={2}>
+                  <Col md={3}>
                     <RBForm.Group
                       className="d-flex flex-row ms-2 align-items-center justify-content-start"
                       controlId="quantity"
                     >
+                      <RBForm.Label
+                        className="me-2"
+                        style={{
+                          fontSize: "0.85rem",
+                          fontWeight: "500",
+                          minWidth: "60px",
+                          marginBottom: "0",
+                        }}
+                      >
+                        Cantidad:
+                      </RBForm.Label>
                       <RBForm.Select
                         name="quantity"
                         value={details.quantity}
                         onChange={handleDetailChange}
                         isInvalid={!!errors.quantity}
                         style={{
-                          width: "100%",
-                          maxWidth: "100px",
+                          width: "80px",
                           height: "30px",
                           margin: "0",
                           border: "none",
@@ -610,7 +780,6 @@ _Enviado desde el formulario web_
                           fontSize: "0.7rem",
                           color: "#9191919",
                           backgroundColor: "#9191912a",
-                          marginLeft: "1.5rem",
                         }}
                         required
                       >
@@ -628,33 +797,62 @@ _Enviado desde el formulario web_
                 </section>
 
                 <Col md={12}>
-                  <RBForm.Group
-                    className="mb-3 mt-2 d-flex flex-row justify-content-start align-items-center"
-                    controlId="file"
-                  >
-                    <RBForm.Label className="me-3 d-flex flex-row align-items-center">
-                      Adjuntar archivo (pdf, jpg, ai, eps)
-                    </RBForm.Label>
-                    <RBForm.Control
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.ai,.eps,.png"
-                      onChange={handleFileChange}
-                      style={{
-                        width: "60%",
-                        border: "none",
-                        fontWeight: "500",
-                        fontSize: "0.7rem",
-                        backgroundColor: "#9191912a",
-                      }}
-                    />
-                    {/* {details.fileName && (
-                      <div className="small mt-1">
-                        Archivo: {details.fileName}
+                  <RBForm.Group className="mb-3 mt-2" controlId="file">
+                    <div className="d-flex flex-row justify-content-start align-items-start">
+                      <RBForm.Label className="me-3 d-flex flex-column">
+                        <span>Adjuntar archivo</span>
+                        <small
+                          className="text-muted"
+                          style={{ fontSize: "0.6rem" }}
+                        >
+                          PDF (8MB), JPG/PNG (5MB), AI/EPS (10MB)
+                        </small>
+                      </RBForm.Label>
+                      <div
+                        className="d-flex flex-column"
+                        style={{ width: "60%" }}
+                      >
+                        <RBForm.Control
+                          type="file"
+                          accept=".pdf,.jpg,.jpeg,.ai,.eps,.png"
+                          onChange={handleFileChange}
+                          isInvalid={!!errors.file}
+                          style={{
+                            border: "none",
+                            fontWeight: "500",
+                            fontSize: "0.7rem",
+                            backgroundColor: "#9191912a",
+                          }}
+                        />
+                        {details.fileName && !errors.file && (
+                          <div
+                            className="mt-1 p-2 rounded"
+                            style={{
+                              backgroundColor: "#d4edda",
+                              border: "1px solid #c3e6cb",
+                              fontSize: "0.7rem",
+                            }}
+                          >
+                            <div className="d-flex justify-content-between align-items-center">
+                              <span>📎 {details.fileName}</span>
+                              <span className="text-success">
+                                {details.fileSize
+                                  ? `${(details.fileSize / 1024 / 1024).toFixed(
+                                      2
+                                    )}MB`
+                                  : ""}
+                              </span>
+                            </div>
+                            <small className="text-muted">
+                              Archivo listo para enviar
+                            </small>
+                          </div>
+                        )}
+                        <RBForm.Control.Feedback type="invalid">
+                          {errors.file}
+                        </RBForm.Control.Feedback>
                       </div>
-                    )} */}
-                    {errors.file && (
-                      <div className="text-danger small">{errors.file}</div>
-                    )}
+                    </div>
                   </RBForm.Group>
                 </Col>
 

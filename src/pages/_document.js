@@ -39,6 +39,14 @@ export default function Document() {
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
           rel="stylesheet"
         />
+        {/* ------ Isotope Library from CDN ------ */}
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+        {/* ------ Portfolio Masonry Styles ------ */}
+        <link rel="stylesheet" href="/assets/css/portfolio-masonry.css" />
+        {/* ------ Portfolio Fix Styles ------ */}
+        <link rel="stylesheet" href="/assets/css/portfolio-fix.css" />
+        {/* ------ Portfolio Debug Script ------ */}
+        <script src="/assets/js/portfolio-debug.js"></script>
         {/* ------ Plugins and Core Style Css are imported directly in the JavaScript file ------ */}
       </Head>
       <body>

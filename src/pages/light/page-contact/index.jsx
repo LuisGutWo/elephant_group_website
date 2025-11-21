@@ -8,7 +8,7 @@ import Loader from "@/components/Common/Loader";
 import Navbar from "@/components/Common/MainNavbar";
 import Header from "@/components/InnerPages/Contact/Header";
 import Form from "@/components/InnerPages/Contact/Form";
-import Footer from "@/components/Main/Footer";
+import FooterBottom from "@/components/Main/FooterBottom";
 
 function PageContactLight() {
   useEffect(() => {
@@ -48,7 +48,7 @@ function PageContactLight() {
           <Header />
           <Form />
         </main>
-        <Footer lightMode />
+        <FooterBottom lightMode />
       </>
     );
   } catch (error) {

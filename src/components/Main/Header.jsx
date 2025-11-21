@@ -63,94 +63,55 @@ function Header({ lightMode }) {
         <Swiper {...swiperOptions} className="swiper-container parallax-slider">
           {data.map((item) => (
             <SwiperSlide key={item.id}>
-              <div
-                className="swiper-slide bg-img valign"
-                data-swiper-parallax-opacity="0.5"
-                data-swiper-parallax-scale="1.2"
-                style={{ position: "relative", overflow: "hidden" }}
-              >
-                <div
-                  className="bg-img"
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    backgroundSize: "cover",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    backgroundAttachment: "fixed",
-                  }}
-                >
+              <div className="swiper-slide">
+                {/* Imagen de fondo mejorada */}
+                <div className="bg-img">
                   <img
                     src={item.background}
-                    alt="Elephant Group - Designe and Print Solutions"
-                    className="img-responsive"
-                    data-swiper-parallax="0.5"
+                    alt="Elephant Group - Design and Print Solutions"
+                    loading="eager"
+                    data-swiper-parallax="0.3"
                   />
                 </div>
 
-                <div
-                  className="container"
-                  style={{ position: "relative", zIndex: 1 }}
-                >
+                {/* Contenedor principal mejorado */}
+                <div className="container">
                   <div className="row">
-                    <div className="col-lg-7">
-                      <div className="caption">
-                        <h2 className="text-light ms-1 fw-400">
-                          <StatementSplitter statement={item.subtitle || ""} />
-                        </h2>
-                        <h1 className="text-light">
-                          <StatementSplitter statement={item.title || ""} />
-                        </h1>
+                    <div className="col-lg-10 col-xl-12">
+                      {/* Glass effect container con forma original */}
+                      <div className="caption-glass">
+                        <div className="caption-content">
+                          <h2>
+                            <StatementSplitter
+                              statement={item.subtitle || ""}
+                            />
+                          </h2>
+                          <h1>
+                            <StatementSplitter statement={item.title || ""} />
+                          </h1>
+                        </div>
                       </div>
-                      <Link
-                        className="nav-link"
-                        href={`/${
-                          lightMode ? "light/page-contact" : "dark/page-contact"
-                        }`}
-                        aria-label="Contacto"
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          top: 100,
-                          left: 0,
-                          width: "100%",
-                          height: "100%",
-                          zIndex: 3,
-                          marginTop: "2rem",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "flex-start",
-                          textDecoration: "none",
-                        }}
-                      >
-                        <button
-                          className="btn top__navbar-button text-light mt-30"
-                          style={{
-                            pointerEvents: "auto",
-                            borderRadius: "10px",
-                            padding: "0.2rem 1.6rem",
-                            fontSize: "1.2rem",
-                            fontWeight: "bold",
-                            fontWeight: "600",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            zIndex: 3,
-                          }}
+
+                      {/* Botón separado del glass effect */}
+                      <div className="caption-button-container">
+                        <Link
+                          className="nav-link"
+                          href={`/${
+                            lightMode
+                              ? "light/page-contact"
+                              : "dark/page-contact"
+                          }`}
+                          aria-label="Contacto - Habla con un asesor"
                         >
-                          <span className="rolling-text">
-                            HABLA CON UN ASESOR
-                          </span>
-                        </button>
-                      </Link>
+                          <button className="btn top__navbar-button">
+                            <span className="rolling-text">
+                              HABLA CON UN ASESOR
+                            </span>
+                          </button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Link colocado como overlay completo para estar por encima de todo */}
                 </div>
               </div>
             </SwiperSlide>

@@ -9,6 +9,7 @@ import Navbar from "@/components/Common/MainNavbar";
 import Header from "@/components/InnerPages/Contact/Header";
 import Form from "@/components/InnerPages/Contact/Form";
 import Footer from "@/components/Main/Footer";
+import EmailTestComponent from "@/components/Common/EmailTestComponent";
 
 function PageContact() {
   useEffect(() => {
@@ -42,6 +43,9 @@ function PageContact() {
         <main>
           <Header />
           <Form />
+          <div className="container">
+            <EmailTestComponent />
+          </div>
         </main>
         <Footer />
       </>

@@ -1,7 +1,18 @@
 import nodemailer from "nodemailer";
 
+// Configurar el límite de tamaño del cuerpo a 10MB
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb",
+    },
+  },
+};
+
 export default async function handler(req, res) {
   console.log("📨 API /send-contact llamado");
+  console.log("📊 Content-Length:", req.headers["content-length"]);
+  console.log("🔍 Request method:", req.method);
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -17,6 +28,8 @@ export default async function handler(req, res) {
     message: req.body.message,
     productType: details?.productType,
     product: details?.product,
+    hasFile: !!details?.fileName,
+    fileName: details?.fileName,
   });
 
   if (!name || !company || !email || !phone) {
@@ -37,11 +50,13 @@ export default async function handler(req, res) {
       !process.env.SMTP_PASS
     ) {
       console.error("❌ Variables de entorno SMTP no configuradas");
-      console.log("⚠️ Para activar el envío de emails, configura las variables de entorno SMTP en .env.local");
+      console.log(
+        "⚠️ Para activar el envío de emails, configura las variables de entorno SMTP en .env.local"
+      );
       // En lugar de devolver error, devolver éxito pero indicar que el email no se envió
-      return res.status(200).json({ 
-        message: "Mensaje recibido correctamente. (Email no configurado)", 
-        warning: "SMTP not configured" 
+      return res.status(200).json({
+        message: "Mensaje recibido correctamente. (Email no configurado)",
+        warning: "SMTP not configured",
       });
     }
 
@@ -82,6 +97,7 @@ Material: ${details?.material || "No especificado"}
 Medidas: ${details?.width || ""}cm x ${details?.height || ""}cm
 Cantidad: ${details?.quantity || 1}
 ${details?.fileName ? `Archivo adjunto: ${details.fileName}` : ""}
+${details?.fileNote ? `NOTA: ${details.fileNote}` : ""}
 Fecha de entrega: ${details?.deliveryDate || "No especificada"}
 
 
@@ -122,6 +138,11 @@ Enviado desde el formulario web
             ? `<li><strong>Archivo adjunto:</strong> ${details.fileName}</li>`
             : ""
         }
+        ${
+          details?.fileNote
+            ? `<li><strong>⚠️ Nota sobre archivo:</strong> <em>${details.fileNote}</em></li>`
+            : ""
+        }
         <li><strong>Fecha de entrega:</strong> ${
           details?.deliveryDate || "No especificada"
         }</li>
@@ -137,6 +158,9 @@ Enviado desde el formulario web
     `;
 
     console.log("📬 Enviando email a:", recipient);
+    if (details?.fileName) {
+      console.log("📎 Archivo adjunto detectado:", details.fileName);
+    }
 
     // Verificar conexión antes de enviar
     try {
@@ -147,13 +171,41 @@ Enviado desde el formulario web
       return res.status(500).json({ message: "Error de conexión SMTP." });
     }
 
-    const result = await transporter.sendMail({
+    // Preparar configuración del email
+    const emailConfig = {
       from: `${name} <${process.env.SMTP_USER}>`,
       to: recipient,
       subject,
       text,
       html,
-    });
+    };
+
+    // Agregar archivo adjunto si existe
+    if (details?.fileData && details?.fileName) {
+      try {
+        console.log("📎 Procesando archivo adjunto...");
+        // Extraer el contenido base64 (remover el prefijo data:)
+        const base64Data = details.fileData.split(",")[1];
+        if (base64Data) {
+          emailConfig.attachments = [
+            {
+              filename: details.fileName,
+              content: base64Data,
+              encoding: "base64",
+            },
+          ];
+          console.log("✅ Archivo adjunto preparado:", details.fileName);
+        }
+      } catch (attachError) {
+        console.error(
+          "❌ Error procesando archivo adjunto:",
+          attachError.message
+        );
+        // Continuar sin el adjunto en lugar de fallar completamente
+      }
+    }
+
+    const result = await transporter.sendMail(emailConfig);
 
     console.log("✅ Email enviado exitosamente. Message ID:", result.messageId);
     return res.status(200).json({

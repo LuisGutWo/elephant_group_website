@@ -42,16 +42,11 @@ function Footer({ lightMode, subBg }) {
     e.preventDefault();
 
     try {
-      if (!form) {
-        throw new Error("Form is null or undefined");
-      }
-
-      const { name, company, email, message } = form;
-
       if (
-        !name.trim() ||
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-        !message.trim()
+        !form ||
+        !form.name.trim() ||
+        !form.email.trim() ||
+        !form.message.trim()
       ) {
         setStatus({
           type: "error",
@@ -62,17 +57,13 @@ function Footer({ lightMode, subBg }) {
 
       setLoading(true);
 
-      const response = await fetch("/api/send-contact", {
+      const response = await fetch("/api/send-simple-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
-          company,
-          email,
-          phone,
-          message: message.trim(),
-          content: message.trim(), // Add alternative field name
-          body: message.trim(), // Add another alternative field name
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
         }),
       });
 
@@ -198,30 +189,6 @@ function Footer({ lightMode, subBg }) {
                 {linkedinSvg}
               </a>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="eg-footer-bottom">
-        <div className="container eg-footer-bottom-inner">
-          <div className="eg-footer-left">
-            <nav className="eg-footer-nav">
-              <a href="#">Blog</a>
-              <a href="#">Mercado Libre</a>
-              <a href="#">Política de Privacidad</a>
-              <a href="#">Términos y Condiciones</a>
-            </nav>
-            <img
-              src="/dark/assets/imgs/logo-light.webp"
-              alt="Elephant Group"
-              className="eg-footer-logo"
-            />
-          </div>
-          <div className="eg-footer-right">
-            <small>
-              © {new Date().getFullYear()} Elephant Group — LAGmedia. Todos los
-              derechos reservados
-            </small>
           </div>
         </div>
       </div>

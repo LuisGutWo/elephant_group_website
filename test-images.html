@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Imágenes</title>
+</head>
+
+<body>
+    <h1>Prueba de carga de imágenes</h1>
+
+    <!-- Estas son las rutas tal como aparecen en el JSON -->
+    <div>
+        <h2>Imagen 1 - Cortes Carval</h2>
+        <img src="/dark/assets/imgs/works/cortes_carval.webp" alt="Cortes Carval" style="max-width: 300px;"
+            onload="console.log('✅ Imagen 1 cargada')" onerror="console.error('❌ Error en imagen 1')">
+    </div>
+
+    <div>
+        <h2>Imagen 2 - Letrero Mercadito</h2>
+        <img src="/dark/assets/imgs/works/letrero_mercadito.webp" alt="Letrero Mercadito" style="max-width: 300px;"
+            onload="console.log('✅ Imagen 2 cargada')" onerror="console.error('❌ Error en imagen 2')">
+    </div>
+
+    <div>
+        <h2>Imagen 3 - Publicidad Tela PVC</h2>
+        <img src="/dark/assets/imgs/works/publicidad_tela_pvc_1.webp" alt="Publicidad Tela PVC"
+            style="max-width: 300px;" onload="console.log('✅ Imagen 3 cargada')"
+            onerror="console.error('❌ Error en imagen 3')">
+    </div>
+
+    <!-- Probar con ruta relativa sin el / inicial -->
+    <div>
+        <h2>Imagen 4 - Sin slash inicial</h2>
+        <img src="dark/assets/imgs/works/cortes_carval.webp" alt="Cortes Carval Sin Slash" style="max-width: 300px;"
+            onload="console.log('✅ Imagen 4 cargada (sin slash)')"
+            onerror="console.error('❌ Error en imagen 4 (sin slash)')">
+    </div>
+
+    <!-- Probar con public/ -->
+    <div>
+        <h2>Imagen 5 - Con public/</h2>
+        <img src="public/dark/assets/imgs/works/cortes_carval.webp" alt="Cortes Carval Con Public"
+            style="max-width: 300px;" onload="console.log('✅ Imagen 5 cargada (con public/)')"
+            onerror="console.error('❌ Error en imagen 5 (con public/)')">
+    </div>
+</body>
+
+</html>

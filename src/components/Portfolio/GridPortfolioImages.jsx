@@ -8,23 +8,62 @@ const catalogoPDF = `${process.env.PUBLIC_URL || ""}/catalogo_impresion.pdf`;
 import data from "@/data/Main/portfolioGalleryPage.json";
 
 function GridPortfolioImages() {
-  useEffect(() => {
-    // Asegurar que el script de Isotope esté cargado
-    const checkIsotopeLoaded = setInterval(() => {
-      if (typeof window !== "undefined" && window.Isotope) {
-        clearInterval(checkIsotopeLoaded);
-        initIsotope();
-      }
-    }, 100);
+  // Datos del portfolio cargados correctamente
 
-    // Limpiar el intervalo después de 5 segundos si Isotope no se carga
-    const timeout = setTimeout(() => {
-      clearInterval(checkIsotopeLoaded);
-    }, 5000);
+  useEffect(() => {
+    // Función para verificar si Isotope está disponible
+    const checkIsotope = () => {
+      return (
+        typeof window !== "undefined" && typeof window.Isotope !== "undefined"
+      );
+    };
+
+    // Función para inicializar Isotope
+    const initializeIsotope = () => {
+      // Dar tiempo para que el DOM esté completamente listo
+      setTimeout(() => {
+        initIsotope();
+      }, 300);
+    };
+
+    // Verificar si Isotope ya está disponible
+    if (checkIsotope()) {
+      initializeIsotope();
+      return;
+    }
+
+    // Si no está disponible, esperamos a que se cargue
+    let attemptCount = 0;
+    const maxAttempts = 50; // 10 segundos máximo (50 * 200ms)
+
+    const checkIsotopeLoaded = setInterval(() => {
+      attemptCount++;
+
+      if (checkIsotope()) {
+        clearInterval(checkIsotopeLoaded);
+        initializeIsotope();
+      } else if (attemptCount >= maxAttempts) {
+        clearInterval(checkIsotopeLoaded);
+        // Intentar cargar Isotope dinámicamente como respaldo
+        loadIsotopeFallback();
+      }
+    }, 200);
+
+    // Función de respaldo para cargar Isotope dinámicamente
+    const loadIsotopeFallback = () => {
+      if (typeof window !== "undefined" && !window.Isotope) {
+        const script = document.createElement("script");
+        script.src =
+          "https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js";
+        script.onload = () => {
+          setTimeout(() => initIsotope(), 300);
+        };
+        document.head.appendChild(script);
+      }
+    };
 
     return () => {
       clearInterval(checkIsotopeLoaded);
-      clearTimeout(timeout);
     };
   }, []);
 
@@ -54,11 +93,15 @@ function GridPortfolioImages() {
               <div
                 className={`col-lg-${item?.width} col-md-6 items ${item?.filter} info-overlay height-${item?.height} mb-30`}
                 key={item?.id}
+                data-category={item?.filter}
               >
                 <div className="item-img o-hidden">
                   <Link href={catalogoPDF} className="imago wow">
                     <div className="inner wow">
-                      <img src={item?.image} alt="image" />
+                      <img
+                        src={item?.image}
+                        alt={`${item?.type} - ${item?.year}`}
+                      />
                     </div>
                   </Link>
                   <div className="info">

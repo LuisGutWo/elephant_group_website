@@ -1,62 +1,176 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import gsap from "gsap";
 
 function Loader() {
+  const router = useRouter();
+  const [logoSrc, setLogoSrc] = useState("/light/assets/imgs/logo-light.webp");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Detectar tema basado en la ruta
+    const currentPath = router.asPath;
+    const isDark = currentPath.includes("/dark/");
+
+    // Establecer el logo apropiado
+    setLogoSrc(
+      isDark
+        ? "/dark/assets/imgs/logo-light.webp"
+        : "/light/assets/imgs/logo-light.webp"
+    );
+  }, [router.asPath]);
+
   useEffect(() => {
     try {
-      const svg = document.getElementById("svg");
-      if (!svg) return; // Check if svg exists
+      // Configuración inicial optimizada
+      gsap.set(".loader-wrap", { zIndex: 99999, opacity: 1 });
+      gsap.set(".loader-logo", { scale: 0.3, opacity: 0, rotation: -10 });
+      gsap.set(".loader-progress", { width: 0 });
+      gsap.set(".loader-text", { opacity: 0, y: 20 });
 
-      gsap.set(".loader-wrap", { zIndex: 9999 });
-      gsap.set(".loader-wrap-heading .load-text", { y: -100, opacity: 0 });
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsLoading(false);
+        },
+      });
 
-      const tl = gsap.timeline();
-      const curve = "M0 502S175 272 500 272s500 230 500 230V0H0Z";
-      const flat = "M0 2S175 1 500 1s500 1 500 1V0H0Z";
-
-      tl.to(".loader-wrap-heading .load-text , .loader-wrap-heading .cont", {
-        delay: 1.5,
-        y: 0,
+      // Animación mejorada del logo
+      tl.to(".loader-logo", {
+        scale: 1,
         opacity: 1,
-        duration: 0.5,
-        ease: "power2.easeOut",
+        rotation: 0,
+        duration: 0.8,
+        ease: "elastic.out(1, 0.5)",
+        delay: 0.2,
       })
-        .to(svg, { duration: 0.5, attr: { d: curve }, ease: "power2.easeIn" })
-        .to(svg, { duration: 0.5, attr: { d: flat }, ease: "power2.easeOut" })
-        .to(".loader-wrap", { y: -1500, duration: 0.5, ease: "power2.easeIn" })
-        .to(".loader-wrap", { zIndex: -1, display: "none" })
-        .from("header", { y: 200 }, "-=1.5")
-        .from("header .container", { y: 40, opacity: 0, delay: 0.3 }, "-=1.5");
+        // Mostrar texto de carga
+        .to(
+          ".loader-text",
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          "-=0.3"
+        )
+        // Animación de la barra de progreso
+        .to(
+          ".loader-progress",
+          {
+            width: "100%",
+            duration: 1.0,
+            ease: "power2.out",
+          },
+          "-=0.1"
+        )
+        // Pequeña celebración al completar
+        .to(".loader-logo", {
+          scale: 1.05,
+          duration: 0.15,
+          yoyo: true,
+          repeat: 1,
+          ease: "power2.inOut",
+        })
+        // Ocultar texto
+        .to(
+          ".loader-text",
+          {
+            opacity: 0,
+            y: -10,
+            duration: 0.2,
+            ease: "power2.in",
+          },
+          "-=0.1"
+        )
+        // Desvanecimiento final
+        .to(".loader-wrap", {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.inOut",
+          delay: 0.3,
+        })
+        .to(".loader-wrap", {
+          display: "none",
+          zIndex: -1,
+        })
+        // Animación de entrada del contenido
+        .from(
+          "header",
+          {
+            y: -30,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power3.out",
+          },
+          "-=0.4"
+        )
+        .from(
+          "header .container",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.out",
+          },
+          "-=0.5"
+        );
     } catch (error) {
       console.error("Error in Loader component:", error);
+      // Fallback mejorado
+      setTimeout(() => {
+        const loaderEl = document.querySelector(".loader-wrap");
+        if (loaderEl) {
+          gsap.to(loaderEl, {
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => {
+              loaderEl.style.display = "none";
+            },
+          });
+        }
+      }, 2500);
     }
   }, []);
 
+  // Efecto para precargar la imagen
+  useEffect(() => {
+    const img = new Image();
+    img.src = logoSrc;
+    img.onload = () => {
+      console.log("Logo precargado correctamente");
+    };
+    img.onerror = () => {
+      console.warn("Error cargando logo, usando fallback");
+      setLogoSrc("/light/assets/imgs/logo-light.webp");
+    };
+  }, [logoSrc]);
+
   return (
     <div className="loader-wrap">
-      <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-        <path id="svg" d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"></path>
-      </svg>
+      {/* Overlay de fondo */}
+      <div className="loader-overlay"></div>
 
-      <div className="loader-wrap-heading">
-        <span>
-          <h2 className="load-text">
-            <span>E</span>
-            <span>l</span>
-            <span>e</span>
-            <span>p</span>
-            <span>h</span>
-            <span>a</span>
-            <span>n</span>
-            <span>t</span>
-            <br />
-            <span>g</span>
-            <span>r</span>
-            <span>o</span>
-            <span>u</span>
-            <span>p</span>
-          </h2>
-        </span>
+      {/* Contenido del loader */}
+      <div className="loader-content">
+        <div className="loader-logo">
+          <img
+            src={logoSrc}
+            alt="Elephant Group"
+            className="loader-logo-img"
+            loading="eager"
+            onError={(e) => {
+              console.warn("Error loading image, using fallback");
+              e.target.src = "/light/assets/imgs/logo-light.webp";
+            }}
+          />
+        </div>
+
+        {/* Barra de progreso mejorada */}
+        <div className="loader-progress-container">
+          <div className="loader-progress"></div>
+        </div>
       </div>
     </div>
   );

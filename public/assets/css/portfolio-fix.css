@@ -1,0 +1,80 @@
+/* CSS definitivo para solucionar problemas de visibilidad de imágenes */
+
+/* Fix para el portfolio - Forzar visibilidad completa */
+.portfolio .gallery.metro .items {
+  position: relative !important;
+  display: block !important;
+  overflow: visible !important;
+  background: transparent !important;
+  min-height: 250px !important;
+}
+
+.portfolio .gallery.metro .items .item-img {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  display: block !important;
+  overflow: hidden !important;
+  background: #f8f9fa;
+}
+
+.portfolio .gallery.metro .items .item-img .inner {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  position: relative !important;
+}
+
+.portfolio .gallery.metro .items .item-img img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: #f0f0f0;
+}
+
+/* Asegurar que los overlay no interfieran */
+.portfolio .gallery.metro .info-overlay .item-img:after {
+  z-index: 2 !important;
+}
+
+.portfolio .gallery.metro .info-overlay .item-img .info {
+  z-index: 3 !important;
+}
+
+/* Alturas específicas para masonry */
+.gallery.metro .items.height-1 {
+  height: 280px !important;
+}
+
+.gallery.metro .items.height-2 {
+  height: 380px !important;
+}
+
+.gallery.metro .items.height-3 {
+  height: 480px !important;
+}
+
+.gallery.metro .items.height-6 {
+  height: 680px !important;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .gallery.metro .items {
+    height: 250px !important;
+  }
+}
+
+/* Isotope override - important para que funcione */
+.gallery .items[style*="position"] {
+  position: absolute !important;
+}
+
+.gallery[style*="position"] {
+  position: relative !important;
+}

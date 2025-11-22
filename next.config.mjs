@@ -11,24 +11,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-
   reactStrictMode: false,
-
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "firebasestorage.googleapis.com",
-      },
-    ],
-  },
   sassOptions: {
     includePaths: [join(__dirname, "css")],
   },
   eslint: {
     ignoreDuringBuilds: false,
   },
-  allowedDevOrigins: ["local-origin.dev", "*.local-origin.dev"],
 };
 
 export default nextConfig;

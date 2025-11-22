@@ -40,7 +40,10 @@ export default function Document() {
           rel="stylesheet"
         />
         {/* ------ Isotope Library from CDN ------ */}
-        <script async src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+        <script
+          async
+          src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"
+        ></script>
         {/* ------ Portfolio Debug Script ------ */}
         <script async src="/assets/js/portfolio-debug.js"></script>
         {/* ------ Plugins and Core Style Css are imported directly in the JavaScript file ------ */}

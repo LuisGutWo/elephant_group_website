@@ -3,18 +3,22 @@
 ## Problemas Solucionados
 
 ### 1. ⚠️ Configuración Duplicada en next.config.mjs
+
 **Problema**: Configuración duplicada de `images` causaba conflictos
 **Solución**: Eliminada duplicación y simplificada configuración
 
 ### 2. 🚫 API Routes con Static Export
+
 **Problema**: Next.js no soporta API routes con exportación estática
 **Solución**: API routes movidos a `/api-backup/` para preservar código
+
 - `email-status.js` → Respaldo temporal
-- `send-contact.js` → Respaldo temporal  
+- `send-contact.js` → Respaldo temporal
 - `send-simple-contact.js` → Respaldo temporal
 - `test-status.js` → Respaldo temporal
 
 ### 3. 🔧 Configuración de Netlify Optimizada
+
 **Problema**: Redirects complejos innecesarios
 **Solución**: Configuración simplificada en `netlify.toml`
 

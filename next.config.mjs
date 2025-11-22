@@ -18,6 +18,29 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  transpilePackages: [
+    'framer-motion',
+    'gsap',
+    'react-scroll-parallax',
+    '@nextui-org/react',
+    '@nextui-org/button',
+    '@nextui-org/card',
+    '@nextui-org/modal',
+    '@nextui-org/navbar',
+    '@nextui-org/system',
+    '@nextui-org/theme',
+    '@nextui-org/accordion',
+    '@nextui-org/autocomplete',
+    '@nextui-org/calendar',
+    '@nextui-org/date-picker',
+    '@nextui-org/dropdown',
+    '@nextui-org/popover',
+    '@nextui-org/select',
+    '@nextui-org/snippet',
+    '@nextui-org/tabs',
+    '@nextui-org/tooltip',
+    'react-icons'
+  ],
 };
 
 export default nextConfig;

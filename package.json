@@ -40,6 +40,8 @@
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",
+        "@typescript-eslint/eslint-plugin": "^8.47.0",
+        "@typescript-eslint/parser": "^8.47.0",
         "eslint": "^9",
         "eslint-config-next": "15.3.0",
         "prettier": "^3.0.0-alpha.6"

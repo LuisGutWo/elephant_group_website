@@ -5,8 +5,12 @@ import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
-//   output: "export",
-//   distDir: "dist",
+  output: "export",
+  distDir: "out",
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
 
   reactStrictMode: false,
 
@@ -21,7 +25,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [join(__dirname, "css")],
   },
-  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: false,
   },

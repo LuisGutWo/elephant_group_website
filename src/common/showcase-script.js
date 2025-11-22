@@ -1678,8 +1678,6 @@ const scripts = {
              * @author: Jack Doyle, jack@greensock.com
              */
 
-            /* eslint-disable */
-
             var _config = {
                 autoSleep: 120,
                 force3D: "auto",
@@ -7188,7 +7186,6 @@ const scripts = {
              * @author: Jack Doyle, jack@greensock.com
              */
 
-            /* eslint-disable */
             var _win,
               _doc,
               _docElement,

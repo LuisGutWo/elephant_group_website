@@ -22,19 +22,39 @@
 **Problema**: Redirects complejos innecesarios
 **Solución**: Configuración simplificada en `netlify.toml`
 
+### 4. ❌ Error de Parser ESLint
+
+**Problema**: "Failed to load parser '@typescript-eslint/parser'"
+**Solución**: Instalado `@typescript-eslint/parser` y `@typescript-eslint/eslint-plugin`
+
+### 5. 🚫 Error ESM "Cannot use import statement outside a module"
+
+**Problema**: Dependencias ESM-only causaban SyntaxError en build de Netlify
+**Solución**: Configurado `transpilePackages` en next.config.mjs para:
+
+- `framer-motion` (v12.15.0)
+- `gsap` (v3.13.0)
+- `react-scroll-parallax` (v3.4.5)
+- `@nextui-org/*` (todos los componentes NextUI)
+- `react-icons` (v5.5.0)
+
 ## Estado Actual ✅
 
-- ✅ Build local exitoso sin advertencias
+- ✅ Build local exitoso sin errores críticos
 - ✅ Static export funcionando correctamente
 - ✅ 13 páginas generadas estáticamente
+- ✅ Parser de ESLint instalado y configurado
+- ✅ Dependencias ESM transpiladas correctamente
 - ✅ Configuración de Netlify optimizada
 - ✅ Node.js 18 especificado correctamente
 
 ## Archivos Modificados
 
-1. `next.config.mjs` - Configuración simplificada
+1. `next.config.mjs` - Configuración simplificada + transpilePackages
 2. `netlify.toml` - Configuración optimizada
-3. `src/pages/api/` - Directorio movido a backup
+3. `eslint.config.mjs` - Configuración de parser TypeScript
+4. `package.json` - Dependencias de ESLint añadidas
+5. `src/pages/api/` - Directorio movido a backup
 
 ## Próximos Pasos
 

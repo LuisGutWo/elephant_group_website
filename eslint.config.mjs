@@ -12,20 +12,20 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals"),
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       parser: compat.config({
-        parser: '@typescript-eslint/parser',
+        parser: "@typescript-eslint/parser",
         parserOptions: {
-          ecmaVersion: 'latest',
-          sourceType: 'module',
+          ecmaVersion: "latest",
+          sourceType: "module",
           ecmaFeatures: {
-            jsx: true
-          }
-        }
-      })[0].languageOptions?.parser
-    }
-  }
+            jsx: true,
+          },
+        },
+      })[0].languageOptions?.parser,
+    },
+  },
 ];
 
 export default eslintConfig;

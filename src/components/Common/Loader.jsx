@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import gsap from "gsap";
 
 function Loader() {
   const router = useRouter();
-  const [logoSrc, setLogoSrc] = useState("/light/assets/imgs/logo-light.webp");
+  const [logoSrc, setLogoSrc] = useState("/dark/assets/imgs/logo2-dark.webp");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +16,8 @@ function Loader() {
     // Establecer el logo apropiado
     setLogoSrc(
       isDark
-        ? "/dark/assets/imgs/logo-light.webp"
-        : "/light/assets/imgs/logo-light.webp"
+        ? "/dark/assets/imgs/logo2-dark.webp"
+        : "/dark/assets/imgs/logo2-light.webp"
     );
   }, [router.asPath]);
 
@@ -143,7 +144,7 @@ function Loader() {
     };
     img.onerror = () => {
       console.warn("Error cargando logo, usando fallback");
-      setLogoSrc("/light/assets/imgs/logo-light.webp");
+      setLogoSrc("/light/assets/imgs/logo2-dark.webp");
     };
   }, [logoSrc]);
 
@@ -162,7 +163,7 @@ function Loader() {
             loading="eager"
             onError={(e) => {
               console.warn("Error loading image, using fallback");
-              e.target.src = "/light/assets/imgs/logo-light.webp";
+              e.target.src = "/dark/assets/imgs/logo2-dark.webp";
             }}
           />
         </div>

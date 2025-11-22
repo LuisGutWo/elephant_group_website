@@ -1,0 +1,61 @@
+/* Footer Vertical Layout Override */
+/* This file forces the vertical layout (links → logo → copyright) in all screen sizes */
+
+/* Override any horizontal layout rules */
+@media (min-width: 48rem) {
+  .eg-footer-bottom .eg-footer-bottom-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    padding: 1.5rem 1.875rem !important;
+    min-height: 8rem !important;
+    justify-content: center !important;
+  }
+
+  .eg-footer-bottom .eg-footer-content {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+
+  .eg-footer-bottom .eg-footer-copyright {
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .eg-footer-bottom .eg-footer-nav-row {
+    gap: 1rem 1.5rem !important;
+  }
+}
+
+@media (min-width: 62rem) {
+  .eg-footer-bottom .eg-footer-bottom-inner {
+    padding: 2rem 2.5rem !important;
+    gap: 1.75rem !important;
+    min-height: 8rem !important;
+  }
+
+  .eg-footer-bottom .eg-footer-content {
+    gap: 1.5rem !important;
+  }
+
+  .eg-footer-bottom .eg-footer-nav-row {
+    gap: 1.25rem 2rem !important;
+  }
+}
+
+@media (min-width: 75rem) {
+  .eg-footer-bottom .eg-footer-bottom-inner {
+    padding: 2.25rem 3.125rem !important;
+    gap: 2rem !important;
+  }
+
+  .eg-footer-bottom .eg-footer-content {
+    gap: 1.75rem !important;
+  }
+
+  .eg-footer-bottom .eg-footer-nav-row {
+    gap: 1.5rem 2.5rem !important;
+  }
+}

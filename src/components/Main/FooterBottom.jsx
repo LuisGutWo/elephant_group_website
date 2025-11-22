@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const FooterBottom = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const FooterBottom = () => {
         <div className="container eg-footer-bottom-inner">
           {/* Contenido principal del footer */}
           <div className="eg-footer-content">
-            {/* Navegación del footer - primero como en el diseño original */}
+            {/* Navegación del footer - primero como en el diseño anterior */}
             <nav
               className="eg-footer-nav"
               role="navigation"
@@ -70,17 +71,15 @@ const FooterBottom = () => {
               </div>
             </nav>
 
-            {/* Logo - después de la navegación como en el diseño original */}
+            {/* Logo - después de la navegación como en el diseño anterior */}
             <div className="eg-footer-logo-container">
-              <img
+              <Image
                 src={logoSrc}
                 alt="Elephant Group"
                 className="eg-footer-logo"
-                loading="lazy"
-                onError={(e) => {
-                  // Fallback si la imagen no carga
-                  e.target.src = "/light/assets/imgs/logo-light.webp";
-                }}
+                width={120}
+                height={40}
+                priority
               />
             </div>
           </div>

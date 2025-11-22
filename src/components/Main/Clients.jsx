@@ -1,107 +1,207 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 // Modules
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Parallax } from "swiper/modules";
+import { Navigation, Autoplay, Parallax, EffectFade } from "swiper/modules";
 // Data
 import data from "@/data/Main/clients.json";
 
 const swiperOptions = {
-  modules: [Navigation, Autoplay, Parallax],
-  slidesPerView: 5,
-  speed: 1500,
+  modules: [Navigation, Autoplay, Parallax, EffectFade],
+  slidesPerView: 6,
+  speed: 2000,
   autoplay: {
-    delay: 3000,
+    delay: 2500,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
   },
   loop: true,
   parallax: true,
-  spaceBetween: 40,
+  spaceBetween: 30,
+  grabCursor: true,
+  centeredSlides: false,
+  navigation: {
+    nextEl: ".clients-next",
+    prevEl: ".clients-prev",
+  },
   breakpoints: {
     0: {
       slidesPerView: 2,
+      spaceBetween: 15,
     },
-    640: {
+    480: {
       slidesPerView: 3,
+      spaceBetween: 20,
     },
     768: {
-      slidesPerView: 3,
+      slidesPerView: 4,
+      spaceBetween: 25,
     },
     1024: {
       slidesPerView: 5,
+      spaceBetween: 30,
+    },
+    1200: {
+      slidesPerView: 6,
+      spaceBetween: 30,
     },
   },
 };
 
 function Clients({ lightMode }) {
   const [loadSwiper, setLoadSwiper] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [animateStats, setAnimateStats] = useState(false);
 
   useEffect(() => {
-    setLoadSwiper(true);
+    const timer = setTimeout(() => {
+      setLoadSwiper(true);
+      setIsLoading(false);
+    }, 300);
+
+    // Intersection Observer para animar estadísticas
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setAnimateStats(true);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const section = document.querySelector(".modern-clients-section");
+    if (section) observer.observe(section);
+
+    return () => {
+      clearTimeout(timer);
+      if (section) observer.unobserve(section);
+    };
   }, []);
 
+  const stats = [
+    { number: "100+", label: "Empresas Confiadas", icon: "🏢" },
+    { number: "500+", label: "Proyectos Exitosos", icon: "🚀" },
+    { number: "98%", label: "Satisfacción Cliente", icon: "⭐" },
+  ];
+
   return (
-    <section className="clients-carso section-padding pt-100">
+    <section className="modern-clients-section section-padding">
       <div className="container">
-        <article className="row justify-content-center">
-          <div className="col-lg-9">
-            <div className="text-center mb-70">
-              <h6 className="fz-20 fw-400">
-                Más de <span className="fw-600">100 empresas</span> en todo
-                Chile confían en nuestra experiencia y compromiso
-              </h6>
+        {/* Header con estadísticas animadas */}
+        <div className="clients-header">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <div className="clients-intro">
+                <h2 className="clients-title">
+                  Empresas que
+                  <span className="highlight-text"> Confían </span>
+                  en Nosotros
+                </h2>
+                <p className="clients-subtitle">
+                  Más de 100 empresas en todo Chile han elegido nuestra
+                  experiencia, innovación y compromiso para hacer crecer sus
+                  negocios.
+                </p>
+              </div>
             </div>
-          </div>
-        </article>
-        <article className="swiper5">
-          {loadSwiper && data && data.length > 0 && (
-            <Swiper
-              {...swiperOptions}
-              id="content-carousel-container-unq-clients"
-              className="swiper-container d-flex justify-content-end align-items-end"
-            >
-              {data.map((item, index) => (
-                <SwiperSlide key={index}>
+            <div className="col-lg-6">
+              <div className="clients-stats">
+                {stats.map((stat, index) => (
                   <div
-                    className="item d-flex justify-content-center align-items-center"
-                    style={{
-                      height: "150px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
+                    key={index}
+                    className={`stat-card ${animateStats ? "animate" : ""}`}
+                    style={{ animationDelay: `${index * 0.2}s` }}
                   >
-                    <div
-                      className="img icon-img-150"
-                      style={{
-                        width: "150px",
-                        height: "150px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <img
-                        src={`/${lightMode ? "light" : "dark"}${item}`}
-                        alt="Elephant Group clients logos carousel images"
-                        style={{
-                          display: "block",
-                          margin: "0 auto",
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "contain",
-                          objectPosition: "center",
-                          maxWidth: "150px",
-                          maxHeight: "150px",
-                        }}
-                        className="img-fluid"
-                        loading="lazy"
-                      />
+                    <div className="stat-icon">{stat.icon}</div>
+                    <div className="stat-content">
+                      <div className="stat-number">{stat.number}</div>
+                      <div className="stat-label">{stat.label}</div>
                     </div>
                   </div>
-                </SwiperSlide>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Carousel con loading state */}
+        <div className="clients-carousel-container">
+          {/* Navigation buttons */}
+          <div className="clients-navigation">
+            <button className="clients-prev" aria-label="Cliente anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <button className="clients-next" aria-label="Cliente siguiente">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Loading skeleton */}
+          {isLoading && (
+            <div className="clients-loading">
+              {[...Array(6)].map((_, index) => (
+                <div key={index} className="client-skeleton" />
               ))}
-            </Swiper>
+            </div>
           )}
-        </article>
+
+          {/* Swiper carousel */}
+          {loadSwiper && data && data.length > 0 && (
+            <div className="clients-swiper-wrapper">
+              <Swiper
+                {...swiperOptions}
+                className="clients-swiper"
+                role="region"
+                aria-label="Logos de clientes"
+              >
+                {data.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="client-card">
+                      <div className="client-image-container">
+                        <Image
+                          src={`/${lightMode ? "light" : "dark"}${item}`}
+                          alt={`Logo del cliente ${
+                            index + 1
+                          } de Elephant Group`}
+                          width={160}
+                          height={120}
+                          className="client-image"
+                          loading={index < 6 ? "eager" : "lazy"}
+                          quality={85}
+                          sizes="(max-width: 480px) 150px, (max-width: 768px) 140px, (max-width: 1024px) 150px, 160px"
+                        />
+                        <div className="client-overlay">
+                          <div className="client-shine" />
+                        </div>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              {/* Progress indicator */}
+              <div className="swiper-progress">
+                <div className="swiper-progress-fill" />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

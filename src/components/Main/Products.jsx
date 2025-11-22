@@ -1,92 +1,136 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import Image from "next/image";
 import data from "@/data/Main/products.json";
 
 function Intro({ lightMode }) {
+  const [hoveredCard, setHoveredCard] = useState(null);
+
   if (!data || !Array.isArray(data) || data.length === 0) {
     throw new Error("data is not defined or is empty");
   }
 
   try {
     return (
-      <section className="about section-padding main-bg">
+      <section className="modern-products-section section-padding main-bg">
         <div className="container ontop">
+          {/* Header con animación */}
           <div className="row d-flex justify-content-center">
-            <div className="col-lg-4">
-              <div className="section-head mb-60">
-                <h3 className="mb-20 fs-3 fw-bold">PRODUCTOS DESTACADOS</h3>
+            <div className="col-lg-8 text-center">
+              <div className="modern-section-head mb-80">
+                <h2 className="modern-title">
+                  PRODUCTOS <span className="accent-text">DESTACADOS</span>
+                </h2>
+                <p className="modern-subtitle">
+                  Descubre nuestra selección de productos más innovadores,
+                  diseñados para potenciar tu marca y destacar en el mercado.
+                </p>
               </div>
             </div>
           </div>
-          <div className="row">
-            <Row xs={1} md={3} lg={4} className="g-4">
-              {data.map((item, idx) => (
-                <Col key={idx}>
-                  <Card
-                    className="card__item mb-25"
+
+          {/* Grid de productos moderno */}
+          <div className="modern-products-grid">
+            {data.map((item, idx) => (
+              <div
+                key={item.id}
+                className={`modern-product-card ${
+                  hoveredCard === idx ? "hovered" : ""
+                }`}
+                onMouseEnter={() => setHoveredCard(idx)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                {/* Badge con número */}
+                <div className="product-badge">{item.number}</div>
+
+                {/* Imagen con overlay */}
+                <div className="product-image-container">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={400}
+                    height={300}
+                    className="product-image"
                     style={{
-                      backgroundColor: "transparent",
-                      border: "none",
+                      objectFit: "cover",
+                      width: "100%",
+                      height: "100%",
                     }}
-                  >
-                    <Card.Img
-                      style={{
-                        height: "19rem",
-                        objectFit: "cover",
-                      }}
-                      variant="top"
-                      src={item.image}
-                      alt={item.title}
-                    />
-                    <Card.Body className="d-flex flex-row justify-content-between align-items-center px-0">
-                      <div className="card__content d-flex flex-column justify-content-center align-items-start mb-3">
-                        <Card.Title style={{ fontSize: "0.8rem" }}>
-                          {item.title}
-                        </Card.Title>
-                        <Card.Text
-                          style={{
-                            fontSize: "0.6rem",
-                          }}
-                        >
-                          {item.subtitle}
-                        </Card.Text>
-                      </div>
-                      <div className="buttons__group d-flex flex-column justify-content-center align-items-end gap-2">
-                        <Button
-                          type="button"
-                          className="top__navbar-button text-light"
-                          size="sm"
-                          as={Link}
-                          href="/light/page-portfolio/project-details"
-                          style={{ fontSize: "0.9rem" }}
-                        >
-                          COMPRAR
-                        </Button>
-                        <Button
-                          type="button"
-                          className="btn btn-dark"
-                          size="sm"
-                          variant="dark"
-                          as={Link}
-                          href="/light/page-portfolio/project-details"
-                          style={{ fontSize: "0.7rem" }}
-                        >
-                          MAS INFO
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
+                  />
+                  <div className="image-overlay"></div>
+                </div>
+
+                {/* Contenido */}
+                <div className="product-content">
+                  <div className="product-info">
+                    <h3 className="product-title">{item.title}</h3>
+                    {item.subtitle && (
+                      <p className="product-subtitle">{item.subtitle}</p>
+                    )}
+                  </div>
+
+                  {/* Botones de acción */}
+                  <div className="product-actions">
+                    <Link
+                      href={`/${lightMode ? "light" : "dark"}/page-contact`}
+                      className="btn-primary-modern"
+                    >
+                      <span>COMPRAR</span>
+                      <svg
+                        className="btn-icon"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M5 12h14m-7-7l7 7-7 7"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Link>
+
+                    <Link
+                      href={`/${lightMode ? "light" : "dark"}/page-services`}
+                      className="btn-secondary-modern"
+                    >
+                      <span>MÁS INFO</span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Efecto de brillo */}
+                <div className="shine-effect"></div>
+              </div>
+            ))}
+          </div>
+
+          {/* Call to action */}
+          <div className="row mt-80">
+            <div className="col-12 text-center">
+              <div className="modern-cta">
+                <p className="cta-text">¿No encuentras lo que buscas?</p>
+                <Link href={"/light/page-contact"} className="btn-cta-modern">
+                  <span>Solicitar Cotización Personalizada</span>
+                  <div className="btn-glow"></div>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     );
   } catch (error) {
     console.error(error);
-    return <div>Error al renderizar la sección de productos</div>;
+    return (
+      <div className="error-container">
+        <h3>Error al cargar productos</h3>
+        <p>Por favor, inténtalo nuevamente.</p>
+      </div>
+    );
   }
 }
 

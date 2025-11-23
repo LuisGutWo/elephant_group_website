@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import data from "@/data/Main/products.json";
 
-function Intro({ lightMode }) {
+function Intro() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   if (!data || !Array.isArray(data) || data.length === 0) {
@@ -71,10 +71,7 @@ function Intro({ lightMode }) {
 
                   {/* Botones de acción */}
                   <div className="product-actions">
-                    <Link
-                      href={`/${lightMode ? "light" : "dark"}/page-contact`}
-                      className="btn-primary-modern"
-                    >
+                    <Link href="/contact" className="btn-primary-modern">
                       <span>COMPRAR</span>
                       <svg
                         className="btn-icon"
@@ -93,10 +90,7 @@ function Intro({ lightMode }) {
                       </svg>
                     </Link>
 
-                    <Link
-                      href={`/${lightMode ? "light" : "dark"}/page-services`}
-                      className="btn-secondary-modern"
-                    >
+                    <Link href="/services" className="btn-secondary-modern">
                       <span>MÁS INFO</span>
                     </Link>
                   </div>

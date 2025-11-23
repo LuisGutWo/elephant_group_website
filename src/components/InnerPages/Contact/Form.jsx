@@ -1,8 +1,56 @@
-import React, { useState } from "react";
-import { Form as RBForm, Button, Row, Col, Alert } from "react-bootstrap";
-import { FaWhatsapp } from "react-icons/fa";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import {
+  Form as RBForm,
+  Button,
+  Alert,
+  ProgressBar,
+  Modal,
+} from "react-bootstrap";
+import { FaWhatsapp, FaEye, FaCheckCircle } from "react-icons/fa";
+import ContactInfoFields from "./ContactInfoFields";
+import ProductDetailsFields from "./ProductDetailsFields";
+import FileUploadField from "./FileUploadField";
+import { useFormValidation } from "@/utils/hooks/useFormValidation";
+import { useFileUpload } from "@/utils/hooks/useFileUpload";
+import { useAutoSave } from "@/utils/hooks/useAutoSave";
+import {
+  sanitizeInput,
+  formatPhoneNumber,
+  calculateProgress,
+  generateWhatsAppMessage,
+  fetchWithRetry,
+  loadFromLocalStorage,
+} from "@/utils/formHelpers";
+import EMAIL_API from "@/config/emailApi";
+
+// Constantes fuera del componente para evitar recreación
+const PRODUCT_TYPES = [
+  { value: "impreso", label: "Impreso" },
+  { value: "textil", label: "Textil" },
+  { value: "packaging", label: "Packaging" },
+];
+
+const PRODUCTS_BY_TYPE = {
+  impreso: [
+    "Volantes",
+    "Brochure",
+    "Afiche",
+    "Tarjeta de presentación",
+    "Sticker",
+    "Calendario",
+    "Carpeta",
+    "Otros",
+  ],
+  textil: ["Polera", "Gorro", "Bolsa"],
+  packaging: ["Caja", "Etiqueta", "Envelope"],
+};
+
+const MATERIALS = ["Papel couchê", "Cartulina", "Vinilo", "Algodón"];
+const SIZES = Array.from({ length: 40 }, (_, i) => (i + 1) * 5); // 5,10,...200 cm
+const QUANTITIES = Array.from({ length: 100 }, (_, i) => i + 1);
 
 function Form() {
+  // Estados principales del formulario
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -17,206 +65,117 @@ function Form() {
     height: "",
     quantity: 1,
     fileName: "",
-    fileData: null, // base64 (opcional)
+    fileData: null,
     deliveryDate: "",
     comments: "",
   });
-  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [lastSubmit, setLastSubmit] = useState(0);
+  const [showPreview, setShowPreview] = useState(false);
 
-  // Opciones (ajusta según necesites)
-  const productTypes = [
-    { value: "impreso", label: "Impreso" },
-    { value: "textil", label: "Textil" },
-    { value: "packaging", label: "Packaging" },
-  ];
-  const productsByType = {
-    impreso: [
-      "Volantes",
-      "Brochure",
-      "Afiche",
-      "Tarjeta de presentación",
-      "Sticker",
-      "Calendario",
-      "Carpeta",
-      "Otros",
-    ],
-    textil: ["Polera", "Gorro", "Bolsa"],
-    packaging: ["Caja", "Etiqueta", "Envelope"],
-  };
-  const materials = ["Papel couchê", "Cartulina", "Vinilo", "Algodón"];
-  const sizes = Array.from({ length: 40 }, (_, i) => (i + 1) * 5); // 5,10,...200 cm
-  const quantities = Array.from({ length: 100 }, (_, i) => i + 1);
+  // Hooks personalizados
+  const {
+    errors,
+    touched,
+    validateField,
+    handleBlur,
+    validateAll,
+    clearAllErrors,
+    focusFirstError,
+  } = useFormValidation();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((s) => ({ ...s, [name]: value }));
-  };
+  const {
+    fileDetails,
+    fileError,
+    isProcessing,
+    handleFileSelect,
+    processFile,
+    clearFile,
+  } = useFileUpload();
 
-  const handleDetailChange = (e) => {
-    const { name, value } = e.target;
-    setDetails((d) => {
-      // Si cambia el tipo de producto, limpiar el producto específico seleccionado
-      if (name === "productType") {
-        return { ...d, [name]: value, product: "" };
+  // Auto-guardar en localStorage
+  const { clearSaved } = useAutoSave("quotation-draft", form, details, true);
+
+  // Cargar datos guardados al montar el componente
+  useEffect(() => {
+    const savedData = loadFromLocalStorage("quotation-draft");
+    if (savedData) {
+      if (savedData.form) setForm(savedData.form);
+      if (savedData.details) {
+        setDetails((prev) => ({
+          ...prev,
+          ...savedData.details,
+          fileData: null, // No cargar archivo (muy pesado)
+        }));
       }
-      return { ...d, [name]: value };
-    });
-  };
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
-      setErrors((prev) => ({ ...prev, file: undefined }));
-      return;
+      console.log("📥 Datos del formulario recuperados");
     }
 
-    // Configuración de validación
-    const allowedFormats = {
-      pdf: { mime: "application/pdf", maxSize: 8 },
-      jpg: { mime: "image/jpeg", maxSize: 5 },
-      jpeg: { mime: "image/jpeg", maxSize: 5 },
-      png: { mime: "image/png", maxSize: 5 },
-      ai: { mime: "application/postscript", maxSize: 10 },
-      eps: { mime: "application/postscript", maxSize: 10 },
+    return () => {
+      // Cleanup function
     };
+  }, []);
 
-    const maxFileSize = 10 * 1024 * 1024; // 10MB en bytes (límite general)
-    const ext = file.name.split(".").pop()?.toLowerCase();
+  // Calcular progreso del formulario
+  const progress = useMemo(
+    () => calculateProgress(form, details),
+    [form, details]
+  );
 
-    // Validar extensión
-    if (!ext || !allowedFormats[ext]) {
-      setErrors((prev) => ({
-        ...prev,
-        file: "Formato no permitido. Solo se aceptan: PDF, JPG, JPEG, PNG, AI, EPS",
-      }));
-      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
-      e.target.value = ""; // Limpiar input
-      return;
-    }
+  // Usar constantes definidas fuera del componente
 
-    // Validar tamaño del archivo
-    const formatConfig = allowedFormats[ext];
-    const formatMaxSize = formatConfig.maxSize * 1024 * 1024; // Convertir MB a bytes
+  const handleChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      let sanitizedValue = sanitizeInput(value);
 
-    if (file.size > maxFileSize) {
-      setErrors((prev) => ({
-        ...prev,
-        file: `Archivo demasiado grande. Tamaño máximo: 10MB. Tu archivo: ${(
-          file.size /
-          1024 /
-          1024
-        ).toFixed(2)}MB`,
-      }));
-      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
-      e.target.value = "";
-      return;
-    }
+      // Formatear teléfono automáticamente
+      if (name === "phone") {
+        sanitizedValue = formatPhoneNumber(value);
+      }
 
-    if (file.size > formatMaxSize) {
-      setErrors((prev) => ({
-        ...prev,
-        file: `Archivo ${ext.toUpperCase()} demasiado grande. Máximo para este formato: ${
-          formatConfig.maxSize
-        }MB. Tu archivo: ${(file.size / 1024 / 1024).toFixed(2)}MB`,
-      }));
-      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
-      e.target.value = "";
-      return;
-    }
+      setForm((s) => ({ ...s, [name]: sanitizedValue }));
 
-    // Validar tipo MIME si está disponible
-    if (file.type && !file.type.includes(formatConfig.mime.split("/")[0])) {
-      setErrors((prev) => ({
-        ...prev,
-        file: `Tipo de archivo no válido. Se esperaba ${ext.toUpperCase()}, pero se detectó otro formato.`,
-      }));
-      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
-      e.target.value = "";
-      return;
-    }
+      // Validar campo si ya fue tocado
+      if (touched[name]) {
+        validateField(name, sanitizedValue, {
+          ...form,
+          [name]: sanitizedValue,
+        });
+      }
+    },
+    [touched, validateField, form]
+  );
 
-    // Limpiar errores previos
-    setErrors((prev) => ({ ...prev, file: undefined }));
+  const handleDetailChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      const sanitizedValue = sanitizeInput(value);
 
-    console.log("📎 Archivo válido:", {
-      name: file.name,
-      size: `${(file.size / 1024 / 1024).toFixed(2)}MB`,
-      type: file.type,
-      extension: ext,
-    });
-
-    // Convertir a base64
-    const toBase64 = (f) =>
-      new Promise((res, rej) => {
-        const reader = new FileReader();
-        reader.onerror = () => rej("Error leyendo archivo");
-        reader.onload = () => res(reader.result);
-        reader.readAsDataURL(f);
+      setDetails((d) => {
+        // Si cambia el tipo de producto, limpiar el producto específico seleccionado
+        if (name === "productType") {
+          return { ...d, [name]: sanitizedValue, product: "" };
+        }
+        return { ...d, [name]: sanitizedValue };
       });
 
-    try {
-      console.log("🔄 Convirtiendo archivo a base64...");
-      const dataUrl = await toBase64(file);
-      const base64Size = (dataUrl.length * 0.75) / 1024 / 1024; // Tamaño aproximado en base64
+      // Validar campo si ya fue tocado
+      if (touched[name]) {
+        validateField(name, sanitizedValue, {
+          ...details,
+          [name]: sanitizedValue,
+        });
+      }
+    },
+    [touched, validateField, details]
+  );
 
-      console.log(
-        `✅ Archivo procesado. Tamaño base64: ${base64Size.toFixed(2)}MB`
-      );
+  // El manejo de archivos ahora se hace con el hook useFileUpload
+  // handleFileSelect está disponible desde el hook
 
-      setDetails((d) => ({
-        ...d,
-        fileName: file.name,
-        fileData: dataUrl,
-        fileSize: file.size,
-        fileType: ext,
-      }));
-    } catch (err) {
-      console.error("❌ Error procesando archivo:", err);
-      setErrors((prev) => ({
-        ...prev,
-        file: "No se pudo procesar el archivo. Intenta con otro archivo.",
-      }));
-      setDetails((d) => ({ ...d, fileName: "", fileData: null }));
-      e.target.value = "";
-    }
-  };
-
-  const validate = () => {
-    const err = {};
-    if (!form.name.trim()) err.name = "Nombre requerido";
-    if (!form.company.trim()) err.company = "Empresa requerida";
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRe.test(form.email || "")) err.email = "Email inválido";
-    const phoneDigits = (form.phone || "").replace(/\D/g, "");
-    if (phoneDigits.length < 7) err.phone = "Teléfono inválido";
-
-    // detalles
-    if (!details.productType) err.productType = "Seleccione tipo de producto";
-    if (!details.product) err.product = "Seleccione producto";
-    if (!details.material) err.material = "Seleccione material";
-    if (!details.width || Number(details.width) <= 0)
-      err.width = "Seleccione ancho válido";
-    if (!details.height || Number(details.height) <= 0)
-      err.height = "Seleccione alto válido";
-    if (!details.quantity || Number(details.quantity) < 1)
-      err.quantity = "Cantidad inválida";
-    if (!details.deliveryDate)
-      err.deliveryDate = "Seleccione fecha estimada de entrega";
-    // fecha no anterior a hoy
-    if (details.deliveryDate) {
-      const sel = new Date(details.deliveryDate);
-      const hoy = new Date();
-      hoy.setHours(0, 0, 0, 0);
-      if (sel < hoy) err.deliveryDate = "La fecha debe ser hoy o posterior";
-    }
-    setErrors(err);
-    return Object.keys(err).length === 0;
-  };
-
-  const resetDetails = () => {
+  const resetDetails = useCallback(() => {
     setDetails({
       productType: "",
       product: "",
@@ -232,25 +191,9 @@ function Form() {
       comments: "",
     });
 
-    // Limpiar también el input file
-    const fileInput = document.getElementById("file");
-    if (fileInput) {
-      fileInput.value = "";
-    }
-    setErrors((e) => {
-      const copy = { ...e };
-      delete copy.productType;
-      delete copy.product;
-      delete copy.material;
-      delete copy.width;
-      delete copy.height;
-      delete copy.quantity;
-      delete copy.file;
-      delete copy.deliveryDate;
-      delete copy.comments;
-      return copy;
-    });
-  };
+    clearFile(); // Usar la función del hook
+    clearAllErrors();
+  }, [clearFile, clearAllErrors]);
 
   // Función separada para enviar email de respaldo
   const sendBackupEmail = async (formData, detailsData) => {
@@ -315,7 +258,7 @@ function Form() {
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 segundos timeout
 
       const startTime = Date.now();
-      const emailResponse = await fetch("/api/send-contact", {
+      const emailResponse = await fetch(EMAIL_API.sendContact, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -357,105 +300,187 @@ function Form() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus({ type: "", message: "" });
-    if (!validate()) {
-      setStatus({
-        type: "error",
-        message:
-          "Por favor, completa todos los campos requeridos correctamente.",
-      });
-      return;
-    }
-    setLoading(true);
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setStatus({ type: "", message: "" });
 
-    try {
-      // Formatear mensaje para WhatsApp
+      // Rate limiting - evitar spam de envíos
+      const now = Date.now();
+      if (now - lastSubmit < 5000) {
+        setStatus({
+          type: "error",
+          message: "Por favor espera 5 segundos entre envíos",
+        });
+        return;
+      }
 
-      const message = `
+      // Validar todos los campos
+      if (!validateAll(form, details)) {
+        setStatus({
+          type: "error",
+          message:
+            "Por favor, completa todos los campos requeridos correctamente.",
+        });
+        focusFirstError();
+        return;
+      }
 
-${form.name ? `*NUEVA COTIZACIÓN EXPRESS*\n\n` : ""}
+      setLoading(true);
+      setLastSubmit(now);
 
-${form.name ? `*DATOS DEL CLIENTE*\n\n` : ""}
-• Nombre: ${form.name || ""}
-• Empresa: ${form.company || ""}
-• Email: ${form.email || ""}
-• Teléfono: ${form.phone || ""}
+      try {
+        // Procesar archivo si existe (lazy loading)
+        let processedFileDetails = { ...fileDetails };
+        if (fileDetails.fileName && !fileDetails.fileData) {
+          console.log("🔄 Procesando archivo antes de enviar...");
+          const processed = await processFile();
+          if (processed) {
+            processedFileDetails = processed;
+          }
+        }
 
-${details.productType ? `\n\n*DETALLES DEL PRODUCTO*\n\n` : ""}
-• Tipo: ${details.productType || ""}
-• Producto: ${details.product || ""}
-• Material: ${details.material || ""}
-• Medidas: ${details.width || ""}cm x ${details.height || ""}cm
-• Cantidad: ${details.quantity || 1}
-${details.fileName ? `\n\n• Archivo adjunto: ${details.fileName}` : ""}
-• Fecha de entrega: ${details.deliveryDate || ""}
-${details.comments ? `\n\n• Comentarios: ${details.comments}` : ""}
+        // Combinar detalles con archivo procesado
+        const finalDetails = {
+          ...details,
+          fileName: processedFileDetails.fileName,
+          fileData: processedFileDetails.fileData,
+          fileSize: processedFileDetails.fileSize,
+          fileType: processedFileDetails.fileType,
+        };
 
-_Enviado desde el formulario web_
-      `.trim();
+        // Generar mensaje de WhatsApp
+        const message = generateWhatsAppMessage(form, finalDetails);
 
-      // Número de WhatsApp de la empresa (ajusta con tu número)
-      // Formato: código de país + número sin espacios ni caracteres especiales
-      const whatsappNumber =
-        process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "56920390272";
+        // Número de WhatsApp
+        const whatsappNumber =
+          process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "56920390272";
 
-      // Codificar mensaje para URL
-      const encodedMessage = encodeURIComponent(message);
+        // Crear URL de WhatsApp
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+          message
+        )}`;
 
-      // Crear URL de WhatsApp
-      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        console.log("✅ WhatsApp URL generada");
 
-      console.log("WhatsApp URL:", whatsappURL); // Debug log
+        // Mostrar mensaje de éxito
+        const successMessage = finalDetails.fileName
+          ? `¡Gracias por contactarnos! Te responderemos pronto. Serás redirigido a WhatsApp en breve.`
+          : "¡Gracias por contactarnos! Serás redirigido a WhatsApp. Te responderemos pronto.";
 
-      // Mostrar mensaje de éxito inmediatamente
-      const successMessage = details.fileName
-        ? `¡Gracias por contactarnos! Serás redirigido a WhatsApp. Archivo adjunto: ${details.fileName}. Te responderemos pronto.`
-        : "¡Gracias por contactarnos! Serás redirigido a WhatsApp. Te responderemos pronto.";
+        setStatus({
+          type: "success",
+          message: successMessage,
+        });
 
-      setStatus({
-        type: "success",
-        message: successMessage,
-      });
+        // Abrir WhatsApp después de 1 segundo
+        setTimeout(() => {
+          window.open(whatsappURL, "_blank");
+        }, 1000);
 
-      // Abrir WhatsApp en nueva ventana después de 1 segundo
-      setTimeout(() => {
-        window.open(whatsappURL, "_blank");
-      }, 1000);
+        // Backup de datos antes de limpiar
+        const formBackup = { ...form };
+        const detailsBackup = { ...finalDetails };
 
-      // Guardar datos antes de limpiar el formulario
-      const formBackup = { ...form };
-      const detailsBackup = { ...details };
+        // Limpiar formulario
+        setForm({ name: "", company: "", email: "", phone: "" });
+        resetDetails();
+        clearAllErrors();
+        clearSaved(); // Limpiar localStorage después de envío exitoso
 
-      // Limpiar formulario inmediatamente para mejorar UX
-      setForm({ name: "", company: "", email: "", phone: "" });
-      resetDetails();
+        // Enviar email de respaldo de forma asíncrona
+        sendBackupEmail(formBackup, detailsBackup);
+      } catch (err) {
+        console.error("❌ Error en envío:", err);
+        setStatus({
+          type: "error",
+          message:
+            err.message || "Error al enviar. Por favor intenta nuevamente.",
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [
+      form,
+      details,
+      fileDetails,
+      lastSubmit,
+      validateAll,
+      focusFirstError,
+      processFile,
+      resetDetails,
+      clearAllErrors,
+      clearSaved,
+    ]
+  );
 
-      // Enviar email de respaldo de forma asíncrona (no bloquea la UI)
-      sendBackupEmail(formBackup, detailsBackup);
-    } catch (err) {
-      setStatus({ type: "error", message: err.message || "Error enviando" });
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Memoizar productos disponibles
+  const currentProducts = useMemo(
+    () => PRODUCTS_BY_TYPE[details.productType] || [],
+    [details.productType]
+  );
 
-  const currentProducts = productsByType[details.productType] || [];
+  // Manejar vista previa del mensaje
+  const handlePreview = useCallback(() => {
+    setShowPreview(true);
+  }, []);
+
+  const handleClosePreview = useCallback(() => {
+    setShowPreview(false);
+  }, []);
 
   return (
-    <section id="cotizacion-form" className="contact-crev section-padding">
+    <section
+      id="cotizacion-form"
+      className="contact-crev section-padding"
+      role="region"
+      aria-labelledby="form-title"
+    >
       <div className="container">
-        <h2 className="fz-40 text-center mb-70">COTIZACIÓN EXPRESS</h2>
+        <h2 id="form-title" className="fz-40 text-center mb-70">
+          COTIZACIÓN EXPRESS
+        </h2>
 
-        {status.type === "success" && (
-          <Alert variant="success">{status.message}</Alert>
-        )}
-        {status.type === "error" && (
-          <Alert variant="danger">{status.message}</Alert>
+        {/* Indicador de progreso */}
+        {progress > 0 && progress < 100 && (
+          <div className="mb-4">
+            <div className="d-flex justify-content-between align-items-center mb-2">
+              <span className="text-muted" style={{ fontSize: "0.9rem" }}>
+                Progreso del formulario
+              </span>
+              <span className="fw-bold" style={{ color: "#eab308" }}>
+                {progress}%
+              </span>
+            </div>
+            <ProgressBar
+              now={progress}
+              variant={progress < 50 ? "warning" : "success"}
+              style={{ height: "8px" }}
+              aria-valuenow={progress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            />
+          </div>
         )}
 
-        <RBForm onSubmit={handleSubmit} noValidate>
+        {/* Mensajes de estado con anuncios ARIA */}
+        <div role="status" aria-live="polite" aria-atomic="true">
+          {status.type === "success" && (
+            <Alert
+              variant="success"
+              className="d-flex align-items-center gap-2"
+            >
+              <FaCheckCircle />
+              {status.message}
+            </Alert>
+          )}
+          {status.type === "error" && (
+            <Alert variant="danger">{status.message}</Alert>
+          )}
+        </div>
+
+        <RBForm onSubmit={handleSubmit} noValidate role="form">
           <div className="row d-flex flex-row">
             <article className="col-lg-5">
               <div className="sec-lg-head mb-60">
@@ -471,479 +496,123 @@ _Enviado desde el formulario web_
                 </p>
               </div>
               <div className="full-width">
-                {/* No anidar RBForm: usar el RBForm exterior que envuelve todo */}
-                <Row className="g-3 d-flex flex-column">
-                  <Col md={12}>
-                    <RBForm.Group
-                      className="mb-3 d-flex flex-row align-items-center justify-content-between"
-                      controlId="name"
-                    >
-                      <RBForm.Label className="me-2 text-center d-flex flex-row align-items-center">
-                        Nombre completo
-                      </RBForm.Label>
-                      <RBForm.Control
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        isInvalid={!!errors.name}
-                        placeholder="ESCRIBE TU NOMBRE"
-                        style={{
-                          width: "70%",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          color: "#9191919",
-                          backgroundColor: "#9191912a",
-                        }}
-                      />
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.name}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-
-                  <Col md={12}>
-                    <RBForm.Group
-                      className="mb-3 d-flex flex-row justify-content-between align-items-center"
-                      controlId="company"
-                    >
-                      <RBForm.Label>Empresa</RBForm.Label>
-                      <RBForm.Control
-                        name="company"
-                        value={form.company}
-                        onChange={handleChange}
-                        isInvalid={!!errors.company}
-                        placeholder="ESCRIBE EL NOMBRE DE TU EMPRESA"
-                        style={{
-                          width: "80%",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          color: "#9191919",
-                          backgroundColor: "#9191912a",
-                        }}
-                      />
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.company}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-                  <Col md={12}>
-                    <RBForm.Group
-                      className="mb-3 d-flex flex-row justify-content-between align-items-center"
-                      controlId="email"
-                    >
-                      <RBForm.Label>Correo electrónico</RBForm.Label>
-                      <RBForm.Control
-                        type="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        isInvalid={!!errors.email}
-                        placeholder="ESCRIBE TU CORREO CORPORATIVO O PERSONAL"
-                        style={{
-                          width: "70%",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          color: "#9191919",
-                          backgroundColor: "#9191912a",
-                        }}
-                      />
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.email}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-
-                  <Col md={12}>
-                    <RBForm.Group
-                      className="mb-3 d-flex flex-row justify-content-between align-items-center"
-                      controlId="phone"
-                    >
-                      <RBForm.Label>Teléfono</RBForm.Label>
-                      <RBForm.Control
-                        name="phone"
-                        value={form.phone}
-                        onChange={handleChange}
-                        isInvalid={!!errors.phone}
-                        placeholder="ESCRIBE TU WHATSAPP O TELÉFONO"
-                        style={{
-                          width: "80%",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          color: "#9191919",
-                          backgroundColor: "#9191912a",
-                        }}
-                      />
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.phone}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-                </Row>
+                {/* Usar componente modular para campos de contacto */}
+                <ContactInfoFields
+                  form={form}
+                  errors={errors}
+                  touched={touched}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
               </div>
             </article>
 
             <article className="col-lg-6 offset-lg-1 valign">
-              <Row className="g-3">
-                <Col md={12}>
-                  <RBForm.Group
-                    className="mb-3 d-flex flex-row justify-content-between align-items-center"
-                    controlId="productType"
-                  >
-                    <RBForm.Label>Tipo de producto</RBForm.Label>
-                    <RBForm.Select
-                      name="productType"
-                      value={details.productType}
-                      onChange={handleDetailChange}
-                      isInvalid={!!errors.productType}
-                      style={{
-                        width: "70%",
-                        border: "none",
-                        fontWeight: "500",
-                        fontSize: "0.7rem",
-                        color: "#9191919",
-                        backgroundColor: "#9191912a",
-                      }}
-                    >
-                      <option value="">- Seleccionar -</option>
-                      {productTypes.map((p) => (
-                        <option key={p.value} value={p.value}>
-                          {p.label}
-                        </option>
-                      ))}
-                    </RBForm.Select>
-                    <RBForm.Control.Feedback type="invalid">
-                      {errors.productType}
-                    </RBForm.Control.Feedback>
-                  </RBForm.Group>
-                </Col>
-
-                <Col md={12}>
-                  <RBForm.Group
-                    className="mb-3 d-flex flex-row justify-content-between align-items-center"
-                    controlId="product"
-                  >
-                    <RBForm.Label>Producto específico</RBForm.Label>
-                    <RBForm.Select
-                      name="product"
-                      value={details.product}
-                      onChange={handleDetailChange}
-                      isInvalid={!!errors.product}
-                      disabled={!details.productType}
-                      style={{
-                        width: "70%",
-                        border: "none",
-                        fontWeight: "500",
-                        fontSize: "0.7rem",
-                        color: "#9191919",
-                        backgroundColor: "#9191912a",
-                      }}
-                    >
-                      <option value="">- Seleccionar producto -</option>
-                      {currentProducts.map((p) => (
-                        <option key={p} value={p}>
-                          {p}
-                        </option>
-                      ))}
-                    </RBForm.Select>
-                    <RBForm.Control.Feedback type="invalid">
-                      {errors.product}
-                    </RBForm.Control.Feedback>
-                  </RBForm.Group>
-                </Col>
-
-                <Col md={12}>
-                  <RBForm.Group
-                    className="mb-3 d-flex flex-row justify-content-between align-items-center"
-                    controlId="material"
-                  >
-                    <RBForm.Label>Material deseado</RBForm.Label>
-                    <RBForm.Select
-                      name="material"
-                      value={details.material}
-                      onChange={handleDetailChange}
-                      isInvalid={!!errors.material}
-                      style={{
-                        width: "70%",
-                        border: "none",
-                        fontWeight: "500",
-                        fontSize: "0.7rem",
-                        color: "#9191919",
-                        backgroundColor: "#9191912a",
-                      }}
-                    >
-                      <option value="">- Seleccionar -</option>
-                      {materials.map((m) => (
-                        <option key={m} value={m}>
-                          {m}
-                        </option>
-                      ))}
-                    </RBForm.Select>
-                    <RBForm.Control.Feedback type="invalid">
-                      {errors.material}
-                    </RBForm.Control.Feedback>
-                  </RBForm.Group>
-                </Col>
-
-                <section className="mb-2 d-flex flex-row justify-content-start align-items-center">
-                  <RBForm.Label className="me-3 mr-80">
-                    Medidas (cm.)
-                  </RBForm.Label>
-                  <Col md={2}>
-                    <RBForm.Group controlId="width">
-                      <RBForm.Select
-                        name="width"
-                        value={details.width}
-                        onChange={handleDetailChange}
-                        isInvalid={!!errors.width}
-                        style={{
-                          width: "100%",
-                          maxWidth: "100px",
-                          height: "30px",
-                          margin: "0",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          backgroundColor: "#9191912a",
-                        }}
-                      >
-                        <option value="">- Ancho -</option>
-                        {sizes.map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </RBForm.Select>
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.width}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-                  <Col md={2}>
-                    <RBForm.Group controlId="height">
-                      <RBForm.Select
-                        name="height"
-                        value={details.height}
-                        onChange={handleDetailChange}
-                        isInvalid={!!errors.height}
-                        style={{
-                          width: "90%",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          backgroundColor: "#9191912a",
-                          marginRight: "1rem",
-                        }}
-                      >
-                        <option value="">- Alto -</option>
-                        {sizes.map((s) => (
-                          <option key={s} value={s}>
-                            {s}
-                          </option>
-                        ))}
-                      </RBForm.Select>
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.height}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-                  <Col md={3}>
-                    <RBForm.Group
-                      className="d-flex flex-row ms-2 align-items-center justify-content-start"
-                      controlId="quantity"
-                    >
-                      <RBForm.Label
-                        className="me-2"
-                        style={{
-                          fontSize: "0.85rem",
-                          fontWeight: "500",
-                          minWidth: "60px",
-                          marginBottom: "0",
-                        }}
-                      >
-                        Cantidad:
-                      </RBForm.Label>
-                      <RBForm.Select
-                        name="quantity"
-                        value={details.quantity}
-                        onChange={handleDetailChange}
-                        isInvalid={!!errors.quantity}
-                        style={{
-                          width: "80px",
-                          height: "30px",
-                          margin: "0",
-                          border: "none",
-                          fontWeight: "500",
-                          fontSize: "0.7rem",
-                          color: "#9191919",
-                          backgroundColor: "#9191912a",
-                        }}
-                        required
-                      >
-                        {quantities.map((q) => (
-                          <option key={q} value={q}>
-                            {q}
-                          </option>
-                        ))}
-                      </RBForm.Select>
-                      <RBForm.Control.Feedback type="invalid">
-                        {errors.quantity}
-                      </RBForm.Control.Feedback>
-                    </RBForm.Group>
-                  </Col>
-                </section>
-
-                <Col md={12}>
-                  <RBForm.Group className="mb-3 mt-2" controlId="file">
-                    <div className="d-flex flex-row justify-content-start align-items-start">
-                      <RBForm.Label className="me-3 d-flex flex-column">
-                        <span>Adjuntar archivo</span>
-                        <small
-                          className="text-muted"
-                          style={{ fontSize: "0.6rem" }}
-                        >
-                          PDF (8MB), JPG/PNG (5MB), AI/EPS (10MB)
-                        </small>
-                      </RBForm.Label>
-                      <div
-                        className="d-flex flex-column"
-                        style={{ width: "60%" }}
-                      >
-                        <RBForm.Control
-                          type="file"
-                          accept=".pdf,.jpg,.jpeg,.ai,.eps,.png"
-                          onChange={handleFileChange}
-                          isInvalid={!!errors.file}
-                          style={{
-                            border: "none",
-                            fontWeight: "500",
-                            fontSize: "0.7rem",
-                            backgroundColor: "#9191912a",
-                          }}
-                        />
-                        {details.fileName && !errors.file && (
-                          <div
-                            className="mt-1 p-2 rounded"
-                            style={{
-                              backgroundColor: "#d4edda",
-                              border: "1px solid #c3e6cb",
-                              fontSize: "0.7rem",
-                            }}
-                          >
-                            <div className="d-flex justify-content-between align-items-center">
-                              <span>📎 {details.fileName}</span>
-                              <span className="text-success">
-                                {details.fileSize
-                                  ? `${(details.fileSize / 1024 / 1024).toFixed(
-                                      2
-                                    )}MB`
-                                  : ""}
-                              </span>
-                            </div>
-                            <small className="text-muted">
-                              Archivo listo para enviar
-                            </small>
-                          </div>
-                        )}
-                        <RBForm.Control.Feedback type="invalid">
-                          {errors.file}
-                        </RBForm.Control.Feedback>
-                      </div>
-                    </div>
-                  </RBForm.Group>
-                </Col>
-
-                <Col md={12}>
-                  <RBForm.Group
-                    className="mb-3 d-flex flex-row justify-content-evenly align-items-center"
-                    controlId="deliveryDate"
-                  >
-                    <RBForm.Label className="me-3">
-                      Fecha de entrega estimada
-                    </RBForm.Label>
-                    <RBForm.Control
-                      type="date"
-                      name="deliveryDate"
-                      value={details.deliveryDate}
-                      onChange={handleDetailChange}
-                      isInvalid={!!errors.deliveryDate}
-                      style={{
-                        width: "70%",
-                        border: "none",
-                        fontWeight: "500",
-                        fontSize: "0.7rem",
-                        backgroundColor: "#9191912a",
-                      }}
-                    />
-                    <RBForm.Control.Feedback type="invalid">
-                      {errors.deliveryDate}
-                    </RBForm.Control.Feedback>
-                  </RBForm.Group>
-                </Col>
-
-                <Col md={12}>
-                  <RBForm.Group
-                    className="mb-3 d-flex flex-row justify-content-between align-items-between"
-                    controlId="comments"
-                  >
-                    <RBForm.Label className="me-4">
-                      Comentario adicional
-                    </RBForm.Label>
-                    <RBForm.Control
-                      as="textarea"
-                      rows={4}
-                      name="comments"
-                      value={details.comments}
-                      onChange={handleDetailChange}
-                      placeholder="Describe aquí información adicional..."
-                      maxLength={1000}
-                      style={{
-                        width: "60%",
-                        border: "none",
-                        fontWeight: "500",
-                        fontSize: "0.7rem",
-                        backgroundColor: "#9191912a",
-                      }}
-                    />
-                    {/* <div className="small text-muted mt-1">
-                      {details.comments.length ? details.comments.length : 0}
-                      /1000
-                    </div> */}
-                  </RBForm.Group>
-                </Col>
-
-                <Col md={12} className="d-flex justify-content-end mt-3 gap-3">
-                  <Button
-                    variant="secondary"
-                    onClick={resetDetails}
-                    disabled={loading}
-                  >
-                    Cancelar
-                  </Button>
-                  <Button
-                    type="submit"
-                    className="text-light d-flex align-items-center gap-2"
-                    variant="success"
-                    disabled={loading}
-                    style={{ backgroundColor: "#25D366" }}
-                  >
-                    {loading ? (
-                      "Enviando..."
-                    ) : (
-                      <>
-                        <FaWhatsapp size={20} />
-                        Enviar por WhatsApp
-                      </>
-                    )}
-                  </Button>
-                </Col>
-              </Row>
+              {/* Usar componentes modulares para detalles del producto */}
+              <ProductDetailsFields
+                details={details}
+                errors={errors}
+                touched={touched}
+                onChange={handleDetailChange}
+                onBlur={handleBlur}
+                productTypes={PRODUCT_TYPES}
+                currentProducts={currentProducts}
+                materials={MATERIALS}
+                sizes={SIZES}
+                quantities={QUANTITIES}
+                fileDetails={fileDetails}
+                fileError={fileError}
+                onFileChange={handleFileSelect}
+              />
             </article>
           </div>
+
+          {/* Botones de acción - fuera de las columnas para mejor diseño */}
+          <div className="row">
+            <div className="col-12">
+              <div
+                className="d-flex justify-content-end align-items-center mt-5"
+                style={{ gap: "1rem" }}
+              >
+                <Button
+                  type="button"
+                  variant="outline-primary"
+                  onClick={handlePreview}
+                  disabled={loading || progress < 50}
+                  className="d-flex align-items-center"
+                  style={{ gap: "0.5rem" }}
+                >
+                  <FaEye />
+                  Vista Previa
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={resetDetails}
+                  disabled={loading}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  type="submit"
+                  className="text-light d-flex align-items-center"
+                  variant="success"
+                  disabled={loading || isProcessing}
+                  style={{ backgroundColor: "#25D366", gap: "0.5rem" }}
+                >
+                  {loading || isProcessing ? (
+                    "Procesando..."
+                  ) : (
+                    <>
+                      <FaWhatsapp size={20} />
+                      Enviar por WhatsApp
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
         </RBForm>
+
+        {/* Modal de Vista Previa */}
+        <Modal show={showPreview} onHide={handleClosePreview} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Vista Previa del Mensaje</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              style={{
+                whiteSpace: "pre-wrap",
+                fontFamily: "monospace",
+                backgroundColor: "#f8f9fa",
+                padding: "20px",
+                borderRadius: "8px",
+                maxHeight: "500px",
+                overflowY: "auto",
+              }}
+            >
+              {generateWhatsAppMessage(form, {
+                ...details,
+                fileName: fileDetails.fileName,
+              })}
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClosePreview}>
+              Cerrar
+            </Button>
+            <Button
+              variant="success"
+              onClick={() => {
+                handleClosePreview();
+                // El formulario se enviará con el submit normal
+              }}
+              style={{ backgroundColor: "#25D366" }}
+            >
+              <FaWhatsapp className="me-2" />
+              Confirmar y Enviar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </section>
   );

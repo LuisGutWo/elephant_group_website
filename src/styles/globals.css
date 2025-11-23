@@ -54,6 +54,13 @@ body {
   .top__navbar-item .nav-link {
     padding: 0.5rem;
   }
+
+  /* Logo más pequeño en mobile */
+  .navbar .logo img,
+  .navbar .logo .icon-img-140 {
+    max-width: 120px !important;
+    height: auto !important;
+  }
 }
 
 .swiper-controls .swiper-button-prev,

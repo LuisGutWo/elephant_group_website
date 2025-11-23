@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
-import { MdLightMode, MdDarkMode } from "react-icons/md";
 import Link from "next/link";
 import TopNavbar from "./TopNavbar";
 
-function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
+function MainNavbar({ mainBg, subBg, noStatic, curve }) {
   useEffect(() => {
     if (typeof window !== "undefined" && window !== null) {
       window.addEventListener("scroll", handleScroll);
@@ -80,48 +80,6 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
   //     }
   //   }
 
-  function handleThemeChange() {
-    if (typeof window !== "undefined" && window !== null) {
-      if (typeof window.location === "undefined" || window.location === null) {
-        throw new Error("Window location is null");
-      }
-
-      if (typeof window.location.pathname !== "string") {
-        throw new Error("Window location pathname is not a string");
-      }
-
-      const currentPath = window.location.pathname;
-      const newTheme = lightMode ? "dark" : "light";
-      const newPath = currentPath.replace(
-        lightMode ? "/light/" : "/dark/",
-        `/${newTheme}/`
-      );
-
-      try {
-        window.location.href = newPath;
-      } catch (error) {
-        console.error("Error while changing theme:", error);
-        throw error;
-      }
-    }
-  }
-
-  // Import useState from React
-
-  // ...rest of your code...
-
-  // Add state to track mobile view
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth < 992); // Bootstrap lg breakpoint
-    }
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <>
       <TopNavbar />
@@ -131,25 +89,13 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
         } ${mainBg ? "main-bg" : ""} ${subBg ? "sub-bg" : ""}`}
       >
         <section className="container">
-          <Link
-            className="logo"
-            href={`/${lightMode ? "light/page-home" : "dark/page-home"}`}
-          >
-            {lightMode ? (
-              <img
-                src="/dark/assets/imgs/logo-dark.webp"
-                alt="Elephant Group logo claro"
-                loading="lazy"
-                className="icon-img-140"
-              />
-            ) : (
-              <img
-                src="/dark/assets/imgs/logo-light.webp"
-                alt="Elephant Group logo oscuro"
-                loading="lazy"
-                className="icon-img-140"
-              />
-            )}
+          <Link className="logo" href="/home">
+            <img
+              src="/light/assets/imgs/logo-dark.webp"
+              alt="Elephant Group logo"
+              loading="lazy"
+              className="icon-img-140"
+            />
           </Link>
           <button
             className="navbar-toggler"
@@ -170,27 +116,10 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav">
-              <li className="nav-item d-flex align-items-center justify-content-between">
-                <Link
-                  className="nav-link"
-                  href={`/${lightMode ? "light/page-home" : "dark/page-home"}`}
-                >
+              <li className="nav-item">
+                <Link className="nav-link" href="/home">
                   <span className="rolling-text">INICIO</span>
                 </Link>
-                {isMobile && (
-                  <Link
-                    className="nav-link ms-2"
-                    href={"#"}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleThemeChange();
-                    }}
-                  >
-                    <span className="rolling-text fs-5 fw-bold">
-                      {lightMode ? <MdDarkMode /> : <MdLightMode />}
-                    </span>
-                  </Link>
-                )}
               </li>
               <li
                 className="nav-item dropdown"
@@ -208,86 +137,40 @@ function MainNavbar({ lightMode, mainBg, subBg, noStatic, curve }) {
                   <span className="rolling-text">PRODUCTOS</span>
                 </a>
                 <div className="dropdown-menu">
-                  <Link
-                    className="dropdown-item"
-                    href={`/${
-                      lightMode ? "light/page-services" : "dark/page-services"
-                    }`}
-                  >
+                  <Link className="dropdown-item" href="/services">
                     Letreros
                   </Link>
-                  <Link
-                    className="dropdown-item"
-                    href={`/${
-                      lightMode ? "light/page-services" : "dark/page-services"
-                    }`}
-                  >
+                  <Link className="dropdown-item" href="/services">
                     Señaleticas
                   </Link>
-                  <Link
-                    className="dropdown-item"
-                    href={`/${
-                      lightMode ? "light/page-services" : "dark/page-services"
-                    }`}
-                  >
+                  <Link className="dropdown-item" href="/services">
                     Adhesivos
                   </Link>
                 </div>
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  href={`/${
-                    lightMode ? "light/page-portfolio" : "dark/page-portfolio"
-                  }`}
-                >
+                <Link className="nav-link" href="/portfolio">
                   <span className="rolling-text">PORTAFOLIO</span>
                 </Link>
               </li>
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  href={`/${
-                    lightMode ? "light/page-about" : "dark/page-about"
-                  }`}
-                >
+                <Link className="nav-link" href="/about">
                   <span className="rolling-text">COTIZACIÓN</span>
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className="nav-link"
-                  href={`/${lightMode ? "light/page-shop" : "dark/page-shop"}`}
+                  href="/shop"
                 >
                   <span className="rolling-text">TIENDA</span>
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
-                <Link
-                  className="nav-link"
-                  href={`/${
-                    lightMode ? "light/page-contact" : "dark/page-contact"
-                  }`}
-                >
+                <Link className="nav-link" href="/contact">
                   <span className="rolling-text">CONTACTO</span>
                 </Link>
               </li>
-              {/* {!isMobile && (
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    href={"#"}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleThemeChange();
-                    }}
-                  >
-                    <span className="rolling-text fs-5 fw-bold">
-                      {lightMode ? <MdDarkMode /> : <MdLightMode />}
-                    </span>
-                  </Link>
-                </li>
-              )} */}
             </ul>
           </section>
           {/* <div className="search-form">

@@ -31,7 +31,7 @@ const portfolioData = [
   },
 ];
 
-function Portfolio({ lightMode }) {
+function Portfolio() {
   const handleImageClick = (imageUrl) => {
     window.open(imageUrl, "_blank");
   };

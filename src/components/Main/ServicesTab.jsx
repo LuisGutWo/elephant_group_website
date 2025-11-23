@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-function ServicesTab({ lightMode }) {
+function ServicesTab() {
   function openTab(event) {
     const elements = document.querySelectorAll(".tab-content");
     elements.forEach((element) => (element.style.display = "none"));
@@ -24,9 +24,7 @@ function ServicesTab({ lightMode }) {
                 <div className="item">
                   <div className="img">
                     <img
-                      src={`/${
-                        lightMode ? "light" : "dark"
-                      }/assets/imgs/works/casa_colibri_servicestab.webp`}
+                      src="/light/assets/imgs/works/casa_colibri_servicestab.webp"
                       alt=" Casa Colibri - Elephant Group"
                       loading="lazy"
                     />
@@ -34,9 +32,7 @@ function ServicesTab({ lightMode }) {
                   <div className="cont sub-bg">
                     <div className="icon-img-100 mb-40">
                       <img
-                        src={`/${
-                          lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/4.webp`}
+                        src="/light/assets/imgs/serv-icons/4.webp"
                         alt=" Corte CNC - Elephant Group"
                         loading="lazy"
                       />
@@ -50,9 +46,7 @@ function ServicesTab({ lightMode }) {
                         acrílicos, madera y aluminio compuesto.
                       </p>
                     </div>
-                    <Link
-                      href={`/${lightMode ? "light" : "dark"}/page-services`}
-                      className="mt-30">
+                    <Link href="/services" className="mt-30">
                       <span className="mr-15">Saber mas</span>
                       <i className="fas fa-long-arrow-alt-right"></i>
                     </Link>
@@ -63,20 +57,13 @@ function ServicesTab({ lightMode }) {
                 <div className="item">
                   <div className="img">
                     <img
-                      src={`/${
-                        lightMode ? "light" : "dark"
-                      }/assets/imgs/works/diseno_servicestab.webp`}
+                      src="/light/assets/imgs/works/diseno_servicestab.webp"
                       alt=""
                     />
                   </div>
                   <div className="cont sub-bg">
                     <div className="icon-img-100 mb-40">
-                      <img
-                        src={`/${
-                          lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/1.webp`}
-                        alt=""
-                      />
+                      <img src="/light/assets/imgs/serv-icons/1.webp" alt="" />
                     </div>
                     <h4>Diseño</h4>
                     <div className="text">
@@ -87,9 +74,7 @@ function ServicesTab({ lightMode }) {
                         ayudando a tu marca a destacar en el mercado.
                       </p>
                     </div>
-                    <Link
-                      href={`/${lightMode ? "light" : "dark"}/page-services`}
-                      className="mt-30">
+                    <Link href="/services" className="mt-30">
                       <span className="mr-15">Saber mas</span>
                       <i className="fas fa-long-arrow-alt-right"></i>
                     </Link>
@@ -100,20 +85,13 @@ function ServicesTab({ lightMode }) {
                 <div className="item">
                   <div className="img">
                     <img
-                      src={`/${
-                        lightMode ? "light" : "dark"
-                      }/assets/imgs/works/impresion_servicestab.webp`}
+                      src="/light/assets/imgs/works/impresion_servicestab.webp"
                       alt=""
                     />
                   </div>
                   <div className="cont sub-bg">
                     <div className="icon-img-100 mb-40">
-                      <img
-                        src={`/${
-                          lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/2.webp`}
-                        alt=""
-                      />
+                      <img src="/light/assets/imgs/serv-icons/2.webp" alt="" />
                     </div>
                     <h4>Impresión</h4>
                     <div className="text">
@@ -126,9 +104,7 @@ function ServicesTab({ lightMode }) {
                         excepcionales.
                       </p>
                     </div>
-                    <Link
-                      href={`/${lightMode ? "light" : "dark"}/page-services`}
-                      className="mt-30">
+                    <Link href="/services" className="mt-30">
                       <span className="mr-15">Saber mas</span>
                       <i className="fas fa-long-arrow-alt-right"></i>
                     </Link>
@@ -139,20 +115,13 @@ function ServicesTab({ lightMode }) {
                 <div className="item">
                   <div className="img">
                     <img
-                      src={`/${
-                        lightMode ? "light" : "dark"
-                      }/assets/imgs/works/desarrollo_servicestab.webp`}
+                      src="/light/assets/imgs/works/desarrollo_servicestab.webp"
                       alt=""
                     />
                   </div>
                   <div className="cont sub-bg">
                     <div className="icon-img-100 mb-40">
-                      <img
-                        src={`/${
-                          lightMode ? "light" : "dark"
-                        }/assets/imgs/serv-icons/0.webp`}
-                        alt=""
-                      />
+                      <img src="/light/assets/imgs/serv-icons/0.webp" alt="" />
                     </div>
                     <h4>Desarrollo Web</h4>
                     <div className="text">
@@ -164,9 +133,7 @@ function ServicesTab({ lightMode }) {
                         experiencia de usuario excepcional.
                       </p>
                     </div>
-                    <Link
-                      href={`/${lightMode ? "light" : "dark"}/page-services`}
-                      className="mt-30">
+                    <Link href="/services" className="mt-30">
                       <span className="mr-15">Saber mas</span>
                       <i className="fas fa-long-arrow-alt-right"></i>
                     </Link>
@@ -189,19 +156,22 @@ function ServicesTab({ lightMode }) {
                 <li
                   className="item-link mb-30"
                   data-tab="tabs-3"
-                  onClick={openTab}>
+                  onClick={openTab}
+                >
                   <span>01</span> Impresión
                 </li>
                 <li
                   className="item-link current mb-30"
                   data-tab="tabs-1"
-                  onClick={openTab}>
+                  onClick={openTab}
+                >
                   <span>02</span> Corte CNC
                 </li>
                 <li
                   className="item-link mb-30"
                   data-tab="tabs-2"
-                  onClick={openTab}>
+                  onClick={openTab}
+                >
                   <span>03</span> Diseño
                 </li>
 

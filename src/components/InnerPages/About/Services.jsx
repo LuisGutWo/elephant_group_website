@@ -5,7 +5,7 @@ const catalogoPDF = `${process.env.PUBLIC_URL || ""}/catalogo_impresion.pdf`;
 import data from "@/data/Main/services.json";
 import Link from "next/link";
 
-function Services({ lightMode }) {
+function Services() {
   return (
     <section className="serv-box section-padding pb-10">
       <div className="container">
@@ -19,7 +19,8 @@ function Services({ lightMode }) {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Catalogo"
-                  className="d-flex w-100">
+                  className="d-flex w-100"
+                >
                   <h6 className="dot-titl-non colorbg-3 mb-10 d-flex align-items-center justify-content-center gap-4">
                     <p>Catalogo</p>
                     <span className="dot">
@@ -52,7 +53,8 @@ function Services({ lightMode }) {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Catalogo"
-                  className="d-flex w-100">
+                  className="d-flex w-100"
+                >
                   <h6 className="dot-titl-non colorbg-3 mb-10 mt-40 d-flex align-items-center justify-content-center gap-4 w-75">
                     <p>Ver mas servicios</p>
                     <span className="dot">
@@ -68,13 +70,12 @@ function Services({ lightMode }) {
           {data.map((item) => (
             <div className="item-bord col-lg-4 col-md-8" key={item.id}>
               <Link
-                href={`/${
-                  lightMode ? "light/page-services" : "dark/page-services"
-                }`}
-                className="d-flex flex-wrap flex-column justify-content-center align-items-center arrow mt-40">
+                href="/services"
+                className="d-flex flex-wrap flex-column justify-content-center align-items-center arrow mt-40"
+              >
                 <div className="mb-40">
                   <img
-                    src={`/${lightMode ? "light" : "dark"}${item.image}`}
+                    src={`/light${item.image}`}
                     alt="Service Icon Image - Elephant Group"
                     className="img-fluid w-100 h-100 mb-20"
                     style={{ maxWidth: "100px", maxHeight: "100px" }}
@@ -83,21 +84,18 @@ function Services({ lightMode }) {
                 <h4
                   className="mb-15"
                   key={item.id}
-                  style={{ color: "#fca311" }}>
+                  style={{ color: "#fca311" }}
+                >
                   {item.title}
                 </h4>
-                <h6
-                  className="mb-15"
-                  style={{ color: lightMode ? "#000" : "#fff" }}>
+                <h6 className="mb-15">
                   {item.subtitle}
 
                   <span className="dot">
                     <i className="fa fa-angle-right fs-5 ms-2" />
                   </span>
                 </h6>
-                <p
-                  className="text-center"
-                  style={{ color: lightMode ? "#282828" : "#f2f0ef", fontSize: "0.9rem" }} >
+                <p className="text-center" style={{ fontSize: "0.9rem" }}>
                   {item.text}
                 </p>
               </Link>

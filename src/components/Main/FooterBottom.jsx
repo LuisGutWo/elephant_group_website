@@ -3,14 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 const FooterBottom = () => {
-  const router = useRouter();
-  const currentPath = router.asPath;
-  const isDark = currentPath.includes("/dark/");
-
-  // Determinar el logo apropiado basado en el tema
-  const logoSrc = isDark
-    ? "/dark/assets/imgs/logo-light.webp"
-    : "/light/assets/imgs/logo-light.webp";
+  const logoSrc = "/light/assets/imgs/logo-light.webp";
 
   return (
     <footer>

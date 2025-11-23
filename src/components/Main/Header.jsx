@@ -47,7 +47,7 @@ const swiperOptions = {
     prevEl: ".slider-prlx .prev-ctrl",
   },
 };
-function Header({ lightMode }) {
+function Header() {
   const [loadSwiper, setLoadSwiper] = useState(false);
 
   useEffect(() => {
@@ -55,6 +55,11 @@ function Header({ lightMode }) {
       setLoadSwiper(true);
       loadBackgroudImages();
     }
+
+    // Cleanup function
+    return () => {
+      // Si loadBackgroudImages configura event listeners, deberían limpiarse aquí
+    };
   }, [loadSwiper]);
 
   return (
@@ -96,11 +101,7 @@ function Header({ lightMode }) {
                       <div className="caption-button-container">
                         <Link
                           className="nav-link"
-                          href={`/${
-                            lightMode
-                              ? "light/page-contact"
-                              : "dark/page-contact"
-                          }`}
+                          href="/contact"
                           aria-label="Contacto - Habla con un asesor"
                         >
                           <button className="btn top__navbar-button">

@@ -3,7 +3,7 @@ import Link from "next/link";
 //= Data
 import data from "@/data/Main/services.json";
 
-function Services({ lightMode }) {
+function Services() {
   return (
     <section className="services main-bg ontop bord-thin-top bord-thin-bottom">
       <div className="container-fluid text-center">
@@ -11,14 +11,12 @@ function Services({ lightMode }) {
           {data.map((item) => (
             <div className="item-bord col-lg-4 col-md-8" key={item.id}>
               <Link
-                href={`/${
-                  lightMode ? "light/page-services" : "dark/page-services"
-                }`}
+                href="/services"
                 className="d-flex flex-wrap flex-column justify-content-center align-items-center arrow mt-40"
               >
                 <div className="mb-40">
                   <img
-                    src={`/${lightMode ? "light" : "dark"}${item.image}`}
+                    src={`/light${item.image}`}
                     alt="Service Icon Image - Elephant Group"
                     className="img-fluid w-100 h-100 mb-20"
                     style={{ maxWidth: "100px", maxHeight: "100px" }}
@@ -31,10 +29,7 @@ function Services({ lightMode }) {
                 >
                   {item.title}
                 </h4>
-                <h6
-                  className="mb-15"
-                  style={{ color: lightMode ? "#000" : "#fff" }}
-                >
+                <h6 className="mb-15">
                   {item.subtitle}
 
                   <span className="dot">

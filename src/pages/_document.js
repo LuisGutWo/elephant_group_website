@@ -46,7 +46,9 @@ export default function Document() {
         ></script>
         {/* ------ Portfolio Debug Script ------ */}
         <script async src="/assets/js/portfolio-debug.js"></script>
-        {/* ------ Plugins and Core Style Css are imported directly in the JavaScript file ------ */}
+        {/* ------ Light Theme Stylesheets ------ */}
+        <link rel="stylesheet" href="/light/assets/css/plugins.css" />
+        <link rel="stylesheet" href="/light/assets/css/style.css" />
       </Head>
       <body>
         <Main />

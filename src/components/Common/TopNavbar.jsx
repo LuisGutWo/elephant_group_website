@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { FaWhatsapp } from "react-icons/fa";
 
-const TopNavbar = ({ lightMode, mainBg, curve }) => {
+const TopNavbar = ({ mainBg, curve }) => {
   const handleWhatsAppClick = () => {
     if (window == null || window.location == null) {
       console.error(

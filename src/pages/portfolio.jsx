@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
-//= Packages
 import Head from "next/head";
-//= Layout
 import Layout from "@/layouts/default";
-//= Components
 import Loader from "@/components/Common/Loader";
 import Navbar from "@/components/Common/MainNavbar";
 import Header from "@/components/Portfolio/HeaderPortfolio";
 import GridPortfolioImages from "@/components/Portfolio/GridPortfolioImages";
 import FooterBottom from "@/components/Main/FooterBottom";
 
-function PagePortfolioLight() {
+function PortfolioPage() {
   useEffect(() => {
-    if (document) document.body.classList.add("main-bg");
+    if (document && document.body) {
+      document.body.classList.add("main-bg");
+    }
     return () => {
-      if (document) document.body.classList.remove("main-bg");
+      if (document && document.body) {
+        document.body.classList.remove("main-bg");
+      }
     };
   }, []);
 
@@ -43,16 +44,16 @@ function PagePortfolioLight() {
       </Head>
 
       <Loader />
-      <Navbar mainBg lightMode />
+      <Navbar mainBg />
       <main className="main-bg">
         <Header data={headerMetadata} />
         <GridPortfolioImages />
       </main>
-      <FooterBottom subBg lightMode />
+      <FooterBottom subBg />
     </>
   );
 }
 
-PagePortfolioLight.getLayout = (page) => <Layout lightMode>{page}</Layout>;
+PortfolioPage.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default PagePortfolioLight;
+export default PortfolioPage;

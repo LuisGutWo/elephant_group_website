@@ -19,9 +19,15 @@ function Loader() {
         ? "/dark/assets/imgs/logo2-dark.webp"
         : "/dark/assets/imgs/logo2-light.webp"
     );
+
+    return () => {
+      // Cleanup function
+    };
   }, [router.asPath]);
 
   useEffect(() => {
+    let tl = null;
+
     try {
       // Configuración inicial optimizada
       gsap.set(".loader-wrap", { zIndex: 99999, opacity: 1 });
@@ -29,7 +35,7 @@ function Loader() {
       gsap.set(".loader-progress", { width: 0 });
       gsap.set(".loader-text", { opacity: 0, y: 20 });
 
-      const tl = gsap.timeline({
+      tl = gsap.timeline({
         onComplete: () => {
           setIsLoading(false);
         },
@@ -133,6 +139,13 @@ function Loader() {
         }
       }, 2500);
     }
+
+    return () => {
+      // Cleanup: kill the timeline if it exists
+      if (tl) {
+        tl.kill();
+      }
+    };
   }, []);
 
   // Efecto para precargar la imagen
@@ -145,6 +158,12 @@ function Loader() {
     img.onerror = () => {
       console.warn("Error cargando logo, usando fallback");
       setLogoSrc("/light/assets/imgs/logo2-dark.webp");
+    };
+
+    // Cleanup function para React
+    return () => {
+      img.onload = null;
+      img.onerror = null;
     };
   }, [logoSrc]);
 

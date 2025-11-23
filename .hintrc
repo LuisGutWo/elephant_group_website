@@ -16,6 +16,7 @@
           "-ms-filter"
         ]
       }
-    ]
+    ],
+    "css-prefix-order": "off"
   }
 }

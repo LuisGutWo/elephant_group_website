@@ -48,7 +48,7 @@ const swiperOptions = {
   },
 };
 
-function Clients({ lightMode }) {
+function Clients() {
   const [loadSwiper, setLoadSwiper] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [animateStats, setAnimateStats] = useState(false);
@@ -175,7 +175,7 @@ function Clients({ lightMode }) {
                     <div className="client-card">
                       <div className="client-image-container">
                         <Image
-                          src={`/${lightMode ? "light" : "dark"}${item}`}
+                          src={`/light${item}`}
                           alt={`Logo del cliente ${
                             index + 1
                           } de Elephant Group`}

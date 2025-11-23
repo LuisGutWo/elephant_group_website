@@ -10,10 +10,11 @@ import {
 } from "@/data/icons";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import EMAIL_API from "../../config/emailApi";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Footer({ lightMode, subBg }) {
+function Footer({ subBg }) {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState({ type: "", msg: "" });
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,7 @@ function Footer({ lightMode, subBg }) {
 
       setLoading(true);
 
-      const response = await fetch("/api/send-simple-contact", {
+      const response = await fetch(EMAIL_API.sendSimpleContact, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

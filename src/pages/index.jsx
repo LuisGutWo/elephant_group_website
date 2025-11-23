@@ -10,12 +10,12 @@ export default function Index() {
   useEffect(() => {
     try {
       if (router) {
-        router.replace("/light/page-home");
+        router.replace("/home");
       } else {
         throw new Error("router is null");
       }
     } catch (error) {
-      console.error("Error redirecting to /light/page-home", error);
+      console.error("Error redirecting to /home", error);
     }
   }, [router]);
   return null;

@@ -5,6 +5,7 @@ import Head from "next/head";
 //= Common Styles
 import "swiper/css/bundle";
 import "@/styles/globals.css";
+import "@/styles/whatsapp-widget.css";
 
 function App({ Component, pageProps }) {
   const getLayout = Component?.getLayout ?? ((page) => page);

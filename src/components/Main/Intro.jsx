@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { arrowRightUpSvg } from "@/data/icons";
 
-function Intro({ lightMode }) {
+function Intro() {
   return (
     <section className="about section-padding main-bg">
       <div className="container ontop">
@@ -29,9 +29,7 @@ function Intro({ lightMode }) {
               </div>
               <div className="half-circle-img">
                 <img
-                  src={`/${
-                    lightMode ? "light" : "dark"
-                  }/assets/imgs/about/elephant_group_bg.webp`}
+                  src="/light/assets/imgs/about/elephant_group_bg.webp"
                   alt="Elephant Group - Background Image of the about section"
                   loading="lazy"
                   className="img-fluid"
@@ -61,12 +59,7 @@ function Intro({ lightMode }) {
                     </p>
                   </div>
                   <div className="underline">
-                    <Link
-                      href={`/${
-                        lightMode ? "dark/page-about" : "light/page-about"
-                      }`}
-                      className="mt-30 ls1 sub-title"
-                    >
+                    <Link href="/about" className="mt-30 ls1 sub-title">
                       Leer mas <i className="ml-5">{arrowRightUpSvg}</i>
                     </Link>
                   </div>

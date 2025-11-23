@@ -444,7 +444,7 @@ _Enviado desde el formulario web_
   const currentProducts = productsByType[details.productType] || [];
 
   return (
-    <section className="contact-crev section-padding">
+    <section id="cotizacion-form" className="contact-crev section-padding">
       <div className="container">
         <h2 className="fz-40 text-center mb-70">COTIZACIÓN EXPRESS</h2>
 

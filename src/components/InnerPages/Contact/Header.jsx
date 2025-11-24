@@ -23,23 +23,30 @@ function Header() {
       />
       <div
         className="container mt-80"
-        style={{ position: "relative", zIndex: 1 }}>
+        style={{ position: "relative", zIndex: 1 }}
+      >
         <div className="row">
           <div className="col-lg-7">
             <div className="caption">
-              <h6 className="sub-title">Contáctanos</h6>
-              <h2 className="fz-55">
-                ¡Elevemos <br /> tu marca al siguiente nivel!
-              </h2>
+              <p className="sub-title">Contáctanos</p>
+              <h1 className="fz-55">
+                Contacta con Elephant Group <br /> Implementos Publicitarios en
+                Valparaíso
+              </h1>
             </div>
           </div>
           <div className="col-lg-5 valign">
             <div className="text">
               <p>
-                Transformamos ideas en marcas memorables. Nuestro equipo te
-                acompaña en cada paso para digitalizar, potenciar y dar vida a
-                tus proyectos, asegurando que comuniques con impacto, alcances
-                tus metas y destaques en el mercado.
+                <strong>Estamos listos para tu proyecto.</strong> Comunícate con
+                nosotros por WhatsApp al <strong>+56 9 5163 1370</strong> o
+                completa el formulario. Te respondemos en menos de 24 horas con
+                una propuesta personalizada de
+                <strong>
+                  {" "}
+                  señalética, material POP, gigantografías y merchandising
+                </strong>
+                para tu empresa en la V Región.
               </p>
             </div>
           </div>

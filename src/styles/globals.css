@@ -1,8 +1,111 @@
 @import "./footer-vertical-override.css";
 @import "./modern-clients.css";
+@import "./form-elegant.css";
+@import "./portfolio-elegant.css";
 
 body {
   padding: 0 !important;
+}
+
+/* ====================== Portfolio Header Styles ====================== */
+.portfolio-eyebrow-header {
+  color: #fca311;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+.portfolio-eyebrow-header::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fca311;
+}
+
+/* Override work-header default size */
+.work-header .caption h1.portfolio-main-title,
+.portfolio-main-title {
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1.5rem !important;
+  letter-spacing: -0.02em !important;
+  color: #1a1a1a !important;
+}
+
+.portfolio-description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #666;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.portfolio-description strong {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* Responsive Portfolio Header */
+@media (max-width: 991px) {
+  .work-header .caption h1.portfolio-main-title,
+  .portfolio-main-title {
+    font-size: 2.5rem !important;
+  }
+
+  .portfolio-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .portfolio-eyebrow-header {
+    font-size: 0.75rem;
+    padding-left: 15px;
+  }
+
+  .work-header .caption h1.portfolio-main-title,
+  .portfolio-main-title {
+    font-size: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .portfolio-description {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .work-header .caption h1.portfolio-main-title,
+  .portfolio-main-title {
+    font-size: 1.75rem !important;
+  }
+
+  .portfolio-description {
+    font-size: 0.875rem;
+  }
+}
+
+/* ====================== Portfolio Section Spacing ====================== */
+.work-header.section-padding {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 60px !important;
+}
+
+.portfolio-gallery-section {
+  position: relative;
+  z-index: 2;
+  clear: both;
 }
 
 /* TopNavbar Button Styles */
@@ -28,31 +131,38 @@ body {
 @media (max-width: 767px) {
   .top__navbar {
     display: block !important;
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
   }
 
   .top__navbar-list {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 0;
     margin: 0;
     list-style: none;
   }
 
-  .top__navbar-item:first-child {
+  .top__navbar-social {
     display: flex !important;
-    justify-content: center !important;
-    width: 100%;
-    gap: 1rem;
+    justify-content: flex-start !important;
+    gap: 0.5rem;
+    flex: 0 0 auto;
   }
 
-  .top__navbar-item:last-child {
+  .top__navbar-contact {
     display: none !important;
   }
 
   .top__navbar-item .nav-link {
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .top__navbar-item .nav-link svg {
+    width: 16px;
+    height: 16px;
   }
 
   /* Logo más pequeño en mobile */
@@ -626,9 +736,10 @@ body {
   background-color: rgba(243, 115, 29, 0.15);
 }
 
-/* ====================== [ Modern Portfolio Styles ] ====================== */
+/* ====================== [ Portfolio Styles - Moved to portfolio-elegant.css ] ====================== */
+/* All portfolio styles are now in portfolio-elegant.css for better organization */
 
-.eg-portfolio {
+/* .eg-portfolio {
   position: relative;
   overflow: hidden;
 }
@@ -1087,10 +1198,6 @@ body {
   border-color: rgba(209, 213, 219, 0.3);
 }
 
-.dark .eg-portfolio-cta {
-  border-top-color: rgba(255, 255, 255, 0.08);
-}
-
 /* ====================== [ Header Improvements ] ====================== */
 
 /* Mejorar la estabilidad y responsive del header slider */
@@ -1174,13 +1281,24 @@ body {
   text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
 }
 
-.arch-slider .caption-content h2 {
+.arch-slider .caption-content h2,
+.arch-slider .caption-content .hero-subtitle {
   font-size: 1.4rem !important;
   font-weight: 400 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   color: #f0f0f0 !important;
   opacity: 0.9;
+}
+
+.arch-slider .caption-content h1,
+.arch-slider .caption-content .hero-title {
+  font-size: 3.5rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
+  margin: 0;
 }
 
 /* Contenedor del botón fuera del glass effect */
@@ -1206,21 +1324,34 @@ body {
   background: linear-gradient(135deg, #fca311, #e05b1a) !important;
   border: none !important;
   color: #ffffff !important;
-  padding: 0.8rem 2rem !important;
-  border-radius: 0.75rem !important;
-  font-size: 1rem !important;
+  padding: 0.65rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 1.1rem !important;
   font-weight: 600 !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
   box-shadow: 0 0.25rem 0.9375rem rgba(243, 115, 29, 0.3);
   text-transform: uppercase;
-  letter-spacing: 0.03125rem;
+  letter-spacing: 0.08rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arch-slider .top__navbar-button svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
 }
 
 .arch-slider .top__navbar-button:hover {
   transform: translateY(-0.125rem);
   box-shadow: 0 0.5rem 1.5625rem rgba(243, 115, 29, 0.4);
   background: linear-gradient(135deg, #e05b1a, #d44914) !important;
+}
+
+.arch-slider .top__navbar-button:hover svg {
+  transform: translate(3px, -3px);
 }
 
 /* ====================== [ Responsive Breakpoints ] ====================== */
@@ -1267,12 +1398,14 @@ body {
     border-radius: 0 1.25rem 1.25rem 0 !important;
   }
 
-  .arch-slider .caption-content h1 {
+  .arch-slider .caption-content h1,
+  .arch-slider .caption-content .hero-title {
     font-size: 1.8rem !important;
     margin-bottom: 0.8rem !important;
   }
 
-  .arch-slider .caption-content h2 {
+  .arch-slider .caption-content h2,
+  .arch-slider .caption-content .hero-subtitle {
     font-size: 1rem !important;
     margin-bottom: 0.5rem !important;
   }
@@ -1283,8 +1416,14 @@ body {
   }
 
   .arch-slider .top__navbar-button {
-    padding: 0.6rem 1.2rem !important;
-    font-size: 0.85rem !important;
+    padding: 0.55rem 1.1rem !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.05rem;
+  }
+
+  .arch-slider .top__navbar-button svg {
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -1301,18 +1440,26 @@ body {
     border-radius: 0 0.9375rem 0.9375rem 0 !important;
   }
 
-  .arch-slider .caption-content h1 {
+  .arch-slider .caption-content h1,
+  .arch-slider .caption-content .hero-title {
     font-size: 1.5rem !important;
   }
 
-  .arch-slider .caption-content h2 {
+  .arch-slider .caption-content h2,
+  .arch-slider .caption-content .hero-subtitle {
     font-size: 0.9rem !important;
   }
 
   .arch-slider .top__navbar-button {
     padding: 0.5rem 1rem !important;
-    font-size: 0.8rem !important;
+    font-size: 0.9rem !important;
     width: 100%;
+    letter-spacing: 0.04rem;
+  }
+
+  .arch-slider .top__navbar-button svg {
+    width: 14px;
+    height: 14px;
     text-align: center;
   }
 }
@@ -1746,7 +1893,7 @@ body {
 @media (max-width: 768px) {
   .modern-products-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .modern-product-card {

@@ -111,19 +111,39 @@ function Story() {
           </div>
           <div className="col-lg-4">
             <div className="sec-head mt-80">
-              <h6 className="sub-title">Nuestra Historia</h6>
+              <h2 className="sub-title">Nuestra Historia</h2>
             </div>
           </div>
           <div className="col-lg-8">
             <div className="cont mt-80">
-              <h5>
-                Iniciamos en 2018 en una pequeña oficina en la ciudad jardín.
-                Con grandes sueños, emprendimos este proyecto que ha sido una
-                gran aventura. Hoy, esos sueños han crecido, y nuestra
-                creatividad es más fuerte. Gracias a esto, hemos ayudado a
-                cientos de clientes con soluciones de PUBLICIDAD, apoyándolos a
-                integrarse exitosamente en el mercado.
-              </h5>
+              <h3 className="story-headline">
+                Desde 2018 transformando marcas en la V Región
+              </h3>
+              <p className="story-text">
+                <strong>Elephant Group</strong> nació en 2018 en Viña del Mar
+                con una visión clara:
+                <strong> revolucionar la publicidad en la región</strong>. Lo
+                que comenzó como un pequeño taller de impresión se ha convertido
+                en un referente de{" "}
+                <strong>
+                  implementos publicitarios e identidad corporativa
+                </strong>
+                .
+              </p>
+              <p className="story-text">
+                En 6 años hemos producido más de{" "}
+                <strong>500 proyectos exitosos</strong>, desde señalética
+                corporativa hasta campañas de marketing visual completas.
+                Trabajamos con empresas de todos los tamaños, ayudándolas a{" "}
+                <strong>destacar en su mercado</strong> con soluciones creativas
+                y productos de alta calidad.
+              </p>
+              <p className="story-text">
+                Nuestra fortaleza está en combinar{" "}
+                <strong>diseño innovador, producción local</strong> y un
+                servicio personalizado que entiende las necesidades reales de
+                cada negocio en Valparaíso y la región.
+              </p>
             </div>
           </div>
         </div>

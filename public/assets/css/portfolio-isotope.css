@@ -1,0 +1,131 @@
+/* Fix específico para Isotope con portfolio */
+
+/* Asegurar que el contenedor padre permita posicionamiento absoluto */
+.gallery.metro {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.gallery.metro .row {
+  position: relative !important;
+  min-height: 500px !important;
+}
+
+/* Cada item debe ser posicionado por Isotope */
+.gallery.metro .items {
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Asegurar que las imágenes se vean */
+.gallery.metro .items .item-img {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  display: block !important;
+  overflow: visible !important; /* CAMBIADO: permitir que se vea el contenido */
+  background-color: #f5f5f5;
+}
+
+.gallery.metro .items .item-img .inner {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  position: relative !important;
+  overflow: visible !important; /* CRÍTICO: eliminar overflow hidden */
+}
+
+.gallery.metro .items .item-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Alturas específicas para masonry - IMPORTANTES */
+.gallery.metro .items.height-1 {
+  height: 280px !important;
+}
+.gallery.metro .items.height-2 {
+  height: 380px !important;
+}
+.gallery.metro .items.height-3 {
+  height: 480px !important;
+}
+.gallery.metro .items.height-6 {
+  height: 680px !important;
+}
+
+/* Width para columnas - Bootstrap override */
+.gallery.metro .items.col-lg-6 {
+  width: 50% !important;
+}
+
+/* Transiciones suaves para filtros */
+.gallery.metro .items {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* CRÍTICO: Sobrescribir estilos del tema que ocultan imágenes */
+.portfolio.section-padding .gallery.metro .items .item-img.o-hidden {
+  overflow: visible !important;
+}
+
+.portfolio.section-padding .gallery.metro .items .item-img .inner.wow {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  overflow: visible !important;
+}
+
+.portfolio.section-padding .gallery.metro .items .item-img .inner.wow img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Forzar visualización de links e imágenes */
+.portfolio.section-padding .gallery.metro .items .imago {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.portfolio.section-padding .gallery.metro .items .info {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.portfolio.section-padding .gallery.metro .items:hover .info {
+  opacity: 1 !important;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .gallery.metro .items.col-lg-6 {
+    width: 100% !important;
+  }
+
+  .gallery.metro .items.height-1,
+  .gallery.metro .items.height-2,
+  .gallery.metro .items.height-3,
+  .gallery.metro .items.height-6 {
+    height: 350px !important;
+    position: relative !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery.metro .items {
+    height: 280px !important;
+    position: relative !important;
+  }
+}

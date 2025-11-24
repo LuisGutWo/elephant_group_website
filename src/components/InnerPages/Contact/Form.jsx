@@ -433,50 +433,63 @@ function Form() {
   return (
     <section
       id="cotizacion-form"
-      className="contact-crev section-padding"
+      className="contact-crev section-padding form-elegant"
       role="region"
       aria-labelledby="form-title"
+      itemScope
+      itemType="https://schema.org/ContactPage"
     >
       <div className="container">
-        <h2 id="form-title" className="fz-40 text-center mb-70">
-          COTIZACIÓN EXPRESS
-        </h2>
+        <div className="text-center mb-5">
+          <p className="form-eyebrow">Respuesta en 24 Horas</p>
+          <h1 id="form-title" className="form-title-elegant" itemProp="name">
+            Solicita tu <span className="accent-color">Cotización</span>
+          </h1>
+          <p className="form-subtitle" itemProp="description">
+            Cuéntanos tu proyecto y recibe un presupuesto personalizado de{" "}
+            <strong>implementos publicitarios</strong> en Valparaíso
+          </p>
+        </div>
 
-        {/* Indicador de progreso */}
+        {/* Indicador de progreso mejorado */}
         {progress > 0 && progress < 100 && (
-          <div className="mb-4">
+          <div className="form-progress-container mb-4">
             <div className="d-flex justify-content-between align-items-center mb-2">
-              <span className="text-muted" style={{ fontSize: "0.9rem" }}>
-                Progreso del formulario
+              <span className="progress-label">
+                {progress < 50 ? "📝 Completando información" : "✨ Casi listo"}
               </span>
-              <span className="fw-bold" style={{ color: "#eab308" }}>
-                {progress}%
-              </span>
+              <span className="progress-percentage">{progress}%</span>
             </div>
             <ProgressBar
               now={progress}
-              variant={progress < 50 ? "warning" : "success"}
-              style={{ height: "8px" }}
+              variant="warning"
+              className="form-progress-bar"
               aria-valuenow={progress}
               aria-valuemin={0}
               aria-valuemax={100}
+              aria-label={`Progreso del formulario: ${progress}%`}
             />
           </div>
         )}
 
-        {/* Mensajes de estado con anuncios ARIA */}
-        <div role="status" aria-live="polite" aria-atomic="true">
+        {/* Mensajes de estado mejorados */}
+        <div role="status" aria-live="assertive" aria-atomic="true">
           {status.type === "success" && (
             <Alert
               variant="success"
-              className="d-flex align-items-center gap-2"
+              className="form-alert form-alert-success d-flex align-items-center gap-3"
             >
-              <FaCheckCircle />
-              {status.message}
+              <FaCheckCircle size={24} className="alert-icon" />
+              <div>
+                <strong>¡Solicitud enviada!</strong>
+                <p className="mb-0 mt-1">{status.message}</p>
+              </div>
             </Alert>
           )}
           {status.type === "error" && (
-            <Alert variant="danger">{status.message}</Alert>
+            <Alert variant="danger" className="form-alert form-alert-error">
+              <strong>Error:</strong> {status.message}
+            </Alert>
           )}
         </div>
 
@@ -484,15 +497,27 @@ function Form() {
           <div className="row d-flex flex-row">
             <article className="col-lg-5">
               <div className="sec-lg-head mb-60">
-                <h2 className="fz-20">
-                  Obtén tu Cotización <b className="fst-italic">EXPRESS</b>
+                <h2 className="form-section-title">
+                  ¿Necesitas{" "}
+                  <span className="accent-color">
+                    Implementos Publicitarios
+                  </span>
+                  ?
                 </h2>
-                <p className="fz-15 mt-10">
-                  Cuéntanos tu visión y recibe una propuesta personalizada al
-                  instante. Nuestro equipo de asesores especializados está listo
-                  para transformar tu marca con soluciones gráficas innovadoras,
-                  presupuestos competitivos y entrega garantizada. ¡Lleva tu
-                  identidad visual al siguiente nivel!
+                <p className="form-section-description">
+                  Completa este formulario y recibe tu cotización en{" "}
+                  <strong>menos de 24 horas</strong>. Trabajamos con empresas en
+                  Valparaíso ofreciendo:
+                </p>
+                <ul className="benefits-list">
+                  <li>✓ Señalética corporativa</li>
+                  <li>✓ Material POP personalizado</li>
+                  <li>✓ Gigantografías y letreros</li>
+                  <li>✓ Merchandising de calidad</li>
+                </ul>
+                <p className="form-cta-text">
+                  <strong>Presupuestos competitivos</strong> y asesoría
+                  personalizada.
                 </p>
               </div>
               <div className="full-width">
@@ -527,88 +552,115 @@ function Form() {
             </article>
           </div>
 
-          {/* Botones de acción - fuera de las columnas para mejor diseño */}
+          {/* Botones de acción mejorados */}
           <div className="row">
             <div className="col-12">
-              <div
-                className="d-flex justify-content-end align-items-center mt-5"
-                style={{ gap: "1rem" }}
-              >
+              <div className="form-actions-elegant mt-5">
                 <Button
                   type="button"
-                  variant="outline-primary"
+                  variant="outline-secondary"
                   onClick={handlePreview}
                   disabled={loading || progress < 50}
-                  className="d-flex align-items-center"
-                  style={{ gap: "0.5rem" }}
+                  className="btn-elegant btn-preview"
+                  aria-label="Previsualizar mensaje antes de enviar"
+                  title="Ver cómo se verá tu mensaje"
                 >
                   <FaEye />
-                  Vista Previa
+                  <span>Vista Previa</span>
                 </Button>
                 <Button
-                  variant="secondary"
+                  variant="outline-secondary"
                   onClick={resetDetails}
                   disabled={loading}
+                  className="btn-elegant btn-reset"
+                  aria-label="Limpiar formulario"
+                  title="Limpiar todos los campos"
                 >
-                  Cancelar
+                  Limpiar
                 </Button>
                 <Button
                   type="submit"
-                  className="text-light d-flex align-items-center"
-                  variant="success"
-                  disabled={loading || isProcessing}
-                  style={{ backgroundColor: "#25D366", gap: "0.5rem" }}
+                  className="btn-elegant btn-whatsapp"
+                  disabled={loading || isProcessing || progress < 30}
+                  aria-label="Enviar cotización por WhatsApp"
+                  title="Tu solicitud será enviada por WhatsApp"
                 >
                   {loading || isProcessing ? (
-                    "Procesando..."
+                    <>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
+                      Procesando...
+                    </>
                   ) : (
                     <>
                       <FaWhatsapp size={20} />
-                      Enviar por WhatsApp
+                      <span>Enviar por WhatsApp</span>
                     </>
                   )}
                 </Button>
               </div>
+              {progress < 30 && (
+                <p
+                  className="text-center text-muted mt-3"
+                  style={{ fontSize: "0.875rem" }}
+                >
+                  Completa al menos los campos básicos para enviar tu cotización
+                </p>
+              )}
             </div>
           </div>
         </RBForm>
 
-        {/* Modal de Vista Previa */}
-        <Modal show={showPreview} onHide={handleClosePreview} size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>Vista Previa del Mensaje</Modal.Title>
+        {/* Modal de Vista Previa Mejorado */}
+        <Modal
+          show={showPreview}
+          onHide={handleClosePreview}
+          size="lg"
+          centered
+          className="preview-modal-elegant"
+        >
+          <Modal.Header closeButton className="border-0 pb-0">
+            <Modal.Title className="w-100">
+              <div className="d-flex align-items-center gap-2">
+                <FaWhatsapp size={24} color="#25D366" />
+                <span>Vista Previa - WhatsApp</span>
+              </div>
+            </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <div
-              style={{
-                whiteSpace: "pre-wrap",
-                fontFamily: "monospace",
-                backgroundColor: "#f8f9fa",
-                padding: "20px",
-                borderRadius: "8px",
-                maxHeight: "500px",
-                overflowY: "auto",
-              }}
-            >
+          <Modal.Body className="pt-2">
+            <p className="text-muted mb-3" style={{ fontSize: "0.9rem" }}>
+              Así es como se verá tu mensaje al enviarlo por WhatsApp:
+            </p>
+            <div className="whatsapp-preview-container">
               {generateWhatsAppMessage(form, {
                 ...details,
                 fileName: fileDetails.fileName,
               })}
             </div>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClosePreview}>
-              Cerrar
+          <Modal.Footer className="border-0 pt-0">
+            <Button
+              variant="outline-secondary"
+              onClick={handleClosePreview}
+              className="btn-elegant"
+            >
+              Editar
             </Button>
             <Button
-              variant="success"
+              className="btn-elegant btn-whatsapp"
               onClick={() => {
                 handleClosePreview();
-                // El formulario se enviará con el submit normal
+                document
+                  .querySelector("form")
+                  .dispatchEvent(
+                    new Event("submit", { cancelable: true, bubbles: true })
+                  );
               }}
-              style={{ backgroundColor: "#25D366" }}
             >
-              <FaWhatsapp className="me-2" />
+              <FaWhatsapp className="me-2" size={18} />
               Confirmar y Enviar
             </Button>
           </Modal.Footer>

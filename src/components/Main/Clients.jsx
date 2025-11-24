@@ -80,125 +80,88 @@ function Clients() {
     };
   }, []);
 
-  const stats = [
-    { number: "100+", label: "Empresas Confiadas", icon: "🏢" },
-    { number: "500+", label: "Proyectos Exitosos", icon: "🚀" },
-    { number: "98%", label: "Satisfacción Cliente", icon: "⭐" },
-  ];
-
   return (
-    <section className="modern-clients-section section-padding">
+    <section
+      className="elegant-clients-section section-padding"
+      aria-labelledby="clients-heading"
+      itemScope
+      itemType="https://schema.org/Organization"
+    >
       <div className="container">
-        {/* Header con estadísticas animadas */}
-        <div className="clients-header">
-          <div className="row align-items-center">
-            <div className="col-lg-6">
-              <div className="clients-intro">
-                <h2 className="clients-title">
-                  Empresas que
-                  <span className="highlight-text"> Confían </span>
-                  en Nosotros
-                </h2>
-                <p className="clients-subtitle">
-                  Más de 100 empresas en todo Chile han elegido nuestra
-                  experiencia, innovación y compromiso para hacer crecer sus
-                  negocios.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="clients-stats">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className={`stat-card ${animateStats ? "animate" : ""}`}
-                    style={{ animationDelay: `${index * 0.2}s` }}
-                  >
-                    <div className="stat-icon">{stat.icon}</div>
-                    <div className="stat-content">
-                      <div className="stat-number">{stat.number}</div>
-                      <div className="stat-label">{stat.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Header minimalista */}
+        <div className="clients-header-minimal">
+          <div className="text-center mb-5">
+            <p className="clients-eyebrow">Confianza y Experiencia</p>
+            <h2
+              id="clients-heading"
+              className="clients-title-minimal"
+              itemProp="description"
+            >
+              Empresas que <span className="accent-color">Confían</span> en
+              Nosotros
+            </h2>
+            <p className="clients-description">
+              Desde 2018, más de{" "}
+              <strong>100 empresas en Viña, Valparaíso y todo Chile</strong> han
+              elegido nuestros{" "}
+              <strong>implementos publicitarios de calidad</strong> para
+              potenciar su marca.
+            </p>
           </div>
         </div>
 
-        {/* Carousel con loading state */}
-        <div className="clients-carousel-container">
-          {/* Navigation buttons */}
-          <div className="clients-navigation">
-            <button className="clients-prev" aria-label="Cliente anterior">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-            <button className="clients-next" aria-label="Cliente siguiente">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-          </div>
-
+        {/* Carousel minimalista */}
+        <div className="clients-carousel-minimal">
           {/* Loading skeleton */}
           {isLoading && (
-            <div className="clients-loading">
+            <div className="clients-loading-minimal">
               {[...Array(6)].map((_, index) => (
-                <div key={index} className="client-skeleton" />
+                <div key={index} className="client-skeleton-minimal" />
               ))}
             </div>
           )}
 
-          {/* Swiper carousel */}
+          {/* Swiper carousel minimalista */}
           {loadSwiper && data && data.length > 0 && (
-            <div className="clients-swiper-wrapper">
+            <div
+              className="clients-swiper-minimal"
+              itemScope
+              itemType="https://schema.org/ItemList"
+            >
+              <meta itemProp="numberOfItems" content={data.length} />
               <Swiper
                 {...swiperOptions}
-                className="clients-swiper"
+                className="clients-swiper-elegant"
                 role="region"
-                aria-label="Logos de clientes"
+                aria-label="Portafolio de clientes - Empresas que confían en Elephant Group para implementos publicitarios"
               >
                 {data.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="client-card">
-                      <div className="client-image-container">
-                        <Image
-                          src={`/light${item}`}
-                          alt={`Logo del cliente ${
-                            index + 1
-                          } de Elephant Group`}
-                          width={160}
-                          height={120}
-                          className="client-image"
-                          loading={index < 6 ? "eager" : "lazy"}
-                          quality={85}
-                          sizes="(max-width: 480px) 150px, (max-width: 768px) 140px, (max-width: 1024px) 150px, 160px"
-                        />
-                        <div className="client-overlay">
-                          <div className="client-shine" />
-                        </div>
-                      </div>
+                  <SwiperSlide
+                    key={index}
+                    itemScope
+                    itemType="https://schema.org/Brand"
+                    itemProp="itemListElement"
+                  >
+                    <meta itemProp="position" content={index + 1} />
+                    <div className="client-card-minimal">
+                      <Image
+                        src={`/light${item}`}
+                        alt={`Cliente ${
+                          index + 1
+                        } - Empresa que confía en Elephant Group para implementos publicitarios y señalética en Valparaíso`}
+                        width={180}
+                        height={120}
+                        className="client-image-minimal"
+                        loading={index < 6 ? "eager" : "lazy"}
+                        quality={90}
+                        sizes="(max-width: 480px) 140px, (max-width: 768px) 160px, 180px"
+                        itemProp="logo"
+                        title={`Logo cliente ${index + 1} Elephant Group`}
+                      />
                     </div>
                   </SwiperSlide>
                 ))}
               </Swiper>
-
-              {/* Progress indicator */}
-              <div className="swiper-progress">
-                <div className="swiper-progress-fill" />
-              </div>
             </div>
           )}
         </div>

@@ -49,6 +49,9 @@ export default function Document() {
         {/* ------ Light Theme Stylesheets ------ */}
         <link rel="stylesheet" href="/light/assets/css/plugins.css" />
         <link rel="stylesheet" href="/light/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/portfolio-masonry.css" />
+        <link rel="stylesheet" href="/assets/css/portfolio-fix.css" />
+        <link rel="stylesheet" href="/assets/css/portfolio-isotope.css" />
       </Head>
       <body>
         <Main />

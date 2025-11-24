@@ -57,7 +57,7 @@
             "id": 4,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/cafeteria_violeta.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2025",
             "width": "6",
             "height": "1"
@@ -75,7 +75,7 @@
             "id": 6,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/work-1-metro.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2023",
             "width": "6",
             "height": "1"
@@ -93,7 +93,7 @@
             "id": 8,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/work-2-metro.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2023",
             "width": "6",
             "height": "3"
@@ -102,7 +102,7 @@
             "id": 9,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/work-3-metro.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2023",
             "width": "6",
             "height": "1"
@@ -111,7 +111,7 @@
             "id": 10,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/work-4-metro.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2023",
             "width": "6",
             "height": "2"
@@ -120,7 +120,7 @@
             "id": 11,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/work-5-metro.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2023",
             "width": "6",
             "height": "1"
@@ -129,7 +129,7 @@
             "id": 12,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/work-6-metro.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2023",
             "width": "6",
             "height": "3"
@@ -138,7 +138,7 @@
             "id": 13,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/work-7-metro.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2023",
             "width": "6",
             "height": "1"
@@ -147,7 +147,7 @@
             "id": 14,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/work-8-metro.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2023",
             "width": "6",
             "height": "2"
@@ -156,7 +156,7 @@
             "id": 15,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/grafica_adehesiva_cooler.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2024",
             "width": "6",
             "height": "1"
@@ -165,7 +165,7 @@
             "id": 16,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/impresion_image_covisa.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2025",
             "width": "6",
             "height": "1"
@@ -174,7 +174,7 @@
             "id": 17,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/letrero_covisa.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2024",
             "width": "6",
             "height": "1"
@@ -183,7 +183,7 @@
             "id": 18,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/letrero_emporio_la_rosa.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2024",
             "width": "6",
             "height": "3"
@@ -192,7 +192,7 @@
             "id": 19,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/letreros_muestra_varios.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2024",
             "width": "6",
             "height": "2"
@@ -201,7 +201,7 @@
             "id": 20,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/letreros_varios.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2024",
             "width": "6",
             "height": "1"
@@ -210,7 +210,7 @@
             "id": 21,
             "filter": "impresion",
             "image": "/dark/assets/imgs/works/letreros_cafeteria.webp",
-            "type": "impresion",
+            "type": "Impresión Digital",
             "year": "2024",
             "width": "6",
             "height": "1"
@@ -219,7 +219,7 @@
             "id": 22,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/letreros_happy_hour.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2023",
             "width": "6",
             "height": "1"
@@ -228,7 +228,7 @@
             "id": 23,
             "filter": "diseño",
             "image": "/dark/assets/imgs/works/letrero_restaurante.webp",
-            "type": "Diseño",
+            "type": "Diseño Gráfico",
             "year": "2024",
             "width": "6",
             "height": "1"

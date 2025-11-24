@@ -59,8 +59,9 @@ function Intro() {
                     </p>
                   </div>
                   <div className="underline">
-                    <Link href="/about" className="mt-30 ls1 sub-title">
-                      Leer mas <i className="ml-5">{arrowRightUpSvg}</i>
+                    <Link href="/quote" className="mt-30 ls1 sub-title">
+                      Solicita tu cotización{" "}
+                      <i className="ml-5">{arrowRightUpSvg}</i>
                     </Link>
                   </div>
                 </div>

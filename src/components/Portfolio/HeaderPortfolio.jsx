@@ -12,7 +12,12 @@ function HeaderPortfolio({ data }) {
   }
 
   return (
-    <header className="work-header section-padding pb-0">
+    <header
+      className="work-header section-padding pb-0"
+      role="banner"
+      aria-label="Encabezado del portafolio"
+      style={{ position: "relative", marginBottom: "0" }}
+    >
       {/* Background image with opacity */}
       <section
         style={{
@@ -31,12 +36,23 @@ function HeaderPortfolio({ data }) {
         }}
         aria-hidden="true"
       />
-      <section className="container mt-80">
+      <section
+        className="container mt-80"
+        itemScope
+        itemType="https://schema.org/WebPageElement"
+      >
         <div className="row">
           <div className="col-12">
             <div className="caption">
-              <h6 className="sub-title">{data.subTitle}</h6>
-              <h2>{data.title}</h2>
+              <p className="portfolio-eyebrow-header">{data.subTitle}</p>
+              <h1 className="portfolio-main-title" itemProp="headline">
+                {data.title}
+              </h1>
+              {data.description && (
+                <p className="portfolio-description" itemProp="description">
+                  {data.description}
+                </p>
+              )}
             </div>
           </div>
         </div>

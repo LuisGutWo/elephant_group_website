@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from "react";
 //= Modules
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -63,53 +64,98 @@ function Header() {
   }, [loadSwiper]);
 
   return (
-    <header className="slider arch-slider slider-prlx">
+    <header
+      className="slider arch-slider slider-prlx"
+      itemScope
+      itemType="https://schema.org/WPHeader"
+      role="banner"
+      aria-label="Banner principal - Elephant Group implementos publicitarios"
+    >
       {loadSwiper && data && (
-        <Swiper {...swiperOptions} className="swiper-container parallax-slider">
-          {data.map((item) => (
+        <Swiper
+          {...swiperOptions}
+          className="swiper-container parallax-slider"
+          role="region"
+          aria-label="Carrusel de servicios destacados"
+        >
+          {data.map((item, index) => (
             <SwiperSlide key={item.id}>
-              <div className="swiper-slide">
+              <div
+                className="swiper-slide"
+                itemScope
+                itemType="https://schema.org/ImageObject"
+              >
                 {/* Imagen de fondo mejorada */}
                 <div className="bg-img">
                   <img
                     src={item.background}
-                    alt="Elephant Group - Design and Print Solutions"
-                    loading="eager"
+                    alt={`Elephant Group - ${item.title} - Implementos publicitarios y señalética en Valparaíso, V Región Chile`}
+                    loading={index === 0 ? "eager" : "lazy"}
                     data-swiper-parallax="0.3"
+                    itemProp="contentUrl"
+                    title={`${item.title} - Elephant Group`}
                   />
+                  <meta itemProp="description" content={item.subtitle} />
                 </div>
 
                 {/* Contenedor principal mejorado */}
-                <div className="container">
+                <div
+                  className="container"
+                  itemScope
+                  itemType="https://schema.org/Service"
+                >
                   <div className="row">
                     <div className="col-lg-10 col-xl-12">
                       {/* Glass effect container con forma original */}
                       <div className="caption-glass">
                         <div className="caption-content">
-                          <h2>
+                          <p className="hero-subtitle" itemProp="description">
                             <StatementSplitter
                               statement={item.subtitle || ""}
                             />
-                          </h2>
-                          <h1>
+                          </p>
+                          <h1 className="hero-title" itemProp="name">
                             <StatementSplitter statement={item.title || ""} />
                           </h1>
+                          <meta itemProp="provider" content="Elephant Group" />
+                          <meta
+                            itemProp="serviceType"
+                            content="Implementos Publicitarios"
+                          />
+                          <meta
+                            itemProp="areaServed"
+                            content="Valparaíso, Chile"
+                          />
                         </div>
                       </div>
 
                       {/* Botón separado del glass effect */}
-                      <div className="caption-button-container">
+                      <div
+                        className="caption-button-container"
+                        itemScope
+                        itemType="https://schema.org/ContactPoint"
+                      >
                         <Link
                           className="nav-link"
                           href="/contact"
-                          aria-label="Contacto - Habla con un asesor"
+                          aria-label="Contactar con asesor de Elephant Group para implementos publicitarios"
+                          title="Habla con un asesor experto en publicidad"
+                          itemProp="url"
                         >
-                          <button className="btn top__navbar-button">
+                          <button
+                            className="btn top__navbar-button"
+                            type="button"
+                          >
                             <span className="rolling-text">
-                              HABLA CON UN ASESOR
+                              HABLA CON UN ASESOR {arrowRightUpSvg}
                             </span>
                           </button>
                         </Link>
+                        <meta
+                          itemProp="contactType"
+                          content="customer service"
+                        />
+                        <meta itemProp="availableLanguage" content="Spanish" />
                       </div>
                     </div>
                   </div>
@@ -119,14 +165,22 @@ function Header() {
           ))}
         </Swiper>
       )}
-      <div className="setting">
+      <div className="setting" role="group" aria-label="Controles del carrusel">
         <div className="controls">
-          <div className="swiper-button-next swiper-nav-ctrl next-ctrl cursor-pointer">
-            <i className="ion-chevron-right"></i>
-          </div>
-          <div className="swiper-button-prev swiper-nav-ctrl prev-ctrl cursor-pointer">
-            <i className="ion-chevron-left"></i>
-          </div>
+          <button
+            className="swiper-button-next swiper-nav-ctrl next-ctrl cursor-pointer"
+            aria-label="Siguiente servicio"
+            type="button"
+          >
+            <i className="ion-chevron-right" aria-hidden="true"></i>
+          </button>
+          <button
+            className="swiper-button-prev swiper-nav-ctrl prev-ctrl cursor-pointer"
+            aria-label="Servicio anterior"
+            type="button"
+          >
+            <i className="ion-chevron-left" aria-hidden="true"></i>
+          </button>
         </div>
       </div>
     </header>

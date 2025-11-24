@@ -4,6 +4,30 @@
   overflow: hidden;
 }
 
+/* Products Eyebrow */
+.products-eyebrow {
+  color: #fca311;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+/* CTA Helper Text */
+.cta-helper-text {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+.cta-helper-text strong {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
 /* Animated background pattern */
 .modern-products-section::before {
   content: "";

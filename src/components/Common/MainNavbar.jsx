@@ -121,32 +121,10 @@ function MainNavbar({ mainBg, subBg, noStatic, curve }) {
                   <span className="rolling-text">INICIO</span>
                 </Link>
               </li>
-              <li
-                className="nav-item dropdown"
-                onMouseMove={handleDropdownMouseMove}
-                onMouseLeave={handleDropdownMouseLeave}
-              >
-                <a
-                  className="nav-link dropdown-toggle"
-                  data-toggle="dropdown"
-                  href="#"
-                  role="button"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span className="rolling-text">PRODUCTOS</span>
-                </a>
-                <div className="dropdown-menu">
-                  <Link className="dropdown-item" href="/services">
-                    Letreros
-                  </Link>
-                  <Link className="dropdown-item" href="/services">
-                    Señaleticas
-                  </Link>
-                  <Link className="dropdown-item" href="/services">
-                    Adhesivos
-                  </Link>
-                </div>
+              <li className="nav-item">
+                <Link className="nav-link" href="/services">
+                  <span className="rolling-text">SERVICIOS</span>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" href="/portfolio">
@@ -154,7 +132,7 @@ function MainNavbar({ mainBg, subBg, noStatic, curve }) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/about">
+                <Link className="nav-link" href="/quote">
                   <span className="rolling-text">COTIZACIÓN</span>
                 </Link>
               </li>

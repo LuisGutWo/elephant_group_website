@@ -1,0 +1,396 @@
+/* =============================================
+   Portfolio Elegant Styles
+   Minimal design with #fca311 accent
+   ============================================= */
+
+/* ============= Section Base ============= */
+.eg-portfolio {
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* ============= Header Styles ============= */
+.portfolio-eyebrow {
+  color: #fca311;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.eg-portfolio-header {
+  position: relative;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.eg-portfolio-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.eg-portfolio-description {
+  font-size: 1.125rem;
+  color: #666;
+  margin-bottom: 0;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.eg-portfolio-description strong {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+/* ============= Grid Styles ============= */
+.eg-portfolio-grid {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+/* ============= Card Styles ============= */
+.eg-portfolio-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0;
+  height: 100%;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.eg-portfolio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: rgba(252, 163, 17, 0.2);
+}
+
+/* ============= Image Styles ============= */
+.eg-portfolio-image {
+  position: relative;
+  width: 100%;
+  height: 16rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: #f5f5f5;
+}
+
+.eg-portfolio-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.eg-portfolio-image:hover img {
+  transform: scale(1.05);
+}
+
+.eg-portfolio-image:focus {
+  outline: 2px solid #fca311;
+  outline-offset: 2px;
+}
+
+.eg-portfolio-overlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+}
+
+.eg-portfolio-category {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a1a1a;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ============= Content Styles ============= */
+.eg-portfolio-content {
+  position: relative;
+  padding: 1.5rem;
+}
+
+.eg-portfolio-header-badge {
+  margin-bottom: 1rem;
+}
+
+.eg-portfolio-card-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.eg-portfolio-card-subtitle {
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-transform: lowercase;
+  font-style: italic;
+}
+
+.eg-portfolio-card-description {
+  color: #666;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* ============= Button Styles ============= */
+.eg-portfolio-actions {
+  margin-top: auto;
+}
+
+.eg-portfolio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #1a1a1a;
+  padding: 0.625rem 1.25rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+}
+
+.eg-portfolio-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(252, 163, 17, 0.15);
+  border-color: #fca311;
+  color: #fca311;
+  text-decoration: none;
+}
+
+.eg-portfolio-btn svg {
+  transition: transform 0.3s ease;
+  width: 14px;
+  height: 14px;
+}
+
+.eg-portfolio-btn:hover svg {
+  transform: translateX(2px);
+}
+
+/* ============= Call to Action Styles ============= */
+.eg-portfolio-cta {
+  position: relative;
+  text-align: center;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.portfolio-cta-text {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.portfolio-cta-text strong {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.eg-portfolio-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #ffffff;
+  background: #fca311;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.875rem 1.75rem;
+  border: 1px solid #fca311;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  letter-spacing: -0.01em;
+}
+
+.eg-portfolio-view-all:hover {
+  background: #e59410;
+  border-color: #e59410;
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(252, 163, 17, 0.25);
+}
+
+.eg-portfolio-view-all svg {
+  transition: transform 0.3s ease;
+}
+
+.eg-portfolio-view-all:hover svg {
+  transform: translateX(3px);
+}
+
+/* ====================== Responsive Styles ====================== */
+
+/* Tablet Portrait (max-width: 991px) */
+@media (max-width: 991px) {
+  .eg-portfolio-title {
+    font-size: 2rem;
+  }
+
+  .eg-portfolio-description {
+    font-size: 1rem;
+  }
+
+  .eg-portfolio-header {
+    margin-bottom: 3rem;
+  }
+
+  .eg-portfolio-grid {
+    margin-bottom: 2.5rem;
+  }
+
+  .eg-portfolio-image {
+    height: 14rem;
+  }
+
+  .eg-portfolio-card-title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Tablet & Mobile (max-width: 767px) */
+@media (max-width: 767px) {
+  .portfolio-eyebrow {
+    font-size: 0.6875rem;
+  }
+
+  .eg-portfolio-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .eg-portfolio-description {
+    font-size: 0.9375rem;
+  }
+
+  .eg-portfolio-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .eg-portfolio-content {
+    padding: 1.25rem;
+  }
+
+  .eg-portfolio-image {
+    height: 12rem;
+  }
+
+  .eg-portfolio-card-title {
+    font-size: 1.125rem;
+  }
+
+  .eg-portfolio-card-description {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .eg-portfolio-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .portfolio-cta-text {
+    font-size: 0.9375rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .eg-portfolio-view-all {
+    font-size: 0.9375rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .eg-portfolio-cta {
+    padding-top: 2rem;
+  }
+}
+
+/* Mobile Small (max-width: 479px) */
+@media (max-width: 479px) {
+  .portfolio-eyebrow {
+    font-size: 0.625rem;
+    letter-spacing: 0.12rem;
+  }
+
+  .eg-portfolio-title {
+    font-size: 1.5rem;
+  }
+
+  .eg-portfolio-description {
+    font-size: 0.875rem;
+  }
+
+  .eg-portfolio-header {
+    margin-bottom: 2rem;
+  }
+
+  .eg-portfolio-image {
+    height: 11rem;
+  }
+
+  .eg-portfolio-content {
+    padding: 1rem;
+  }
+
+  .eg-portfolio-card-title {
+    font-size: 1rem;
+  }
+
+  .eg-portfolio-card-subtitle {
+    font-size: 0.8125rem;
+  }
+
+  .eg-portfolio-card-description {
+    font-size: 0.8125rem;
+  }
+
+  .eg-portfolio-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.625rem 1rem;
+  }
+
+  .portfolio-cta-text {
+    font-size: 0.875rem;
+  }
+
+  .eg-portfolio-view-all {
+    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  .eg-portfolio-category {
+    font-size: 0.625rem;
+    padding: 0.3125rem 0.75rem;
+  }
+}

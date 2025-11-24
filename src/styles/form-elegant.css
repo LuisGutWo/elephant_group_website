@@ -1,0 +1,331 @@
+/* Form Elegant Styles */
+
+.form-elegant {
+  position: relative;
+}
+
+/* Header Styles */
+.form-eyebrow {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #fca311;
+  margin-bottom: 0.75rem;
+}
+
+.form-title-elegant {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1.3;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.form-title-elegant .accent-color {
+  color: #fca311;
+  font-weight: 500;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* Section Title */
+.form-section-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.form-section-title .accent-color {
+  color: #fca311;
+  font-weight: 500;
+}
+
+.form-section-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* Benefits List */
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.benefits-list li {
+  font-size: 0.95rem;
+  color: #333;
+  padding: 0.5rem 0;
+  padding-left: 0.5rem;
+  position: relative;
+}
+
+.benefits-list li::before {
+  content: "✓";
+  color: #fca311;
+  font-weight: bold;
+  margin-right: 0.75rem;
+}
+
+.form-cta-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Progress Bar */
+.form-progress-container {
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.progress-label {
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.progress-percentage {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fca311;
+}
+
+.form-progress-bar {
+  height: 6px;
+  background-color: rgba(252, 163, 17, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.form-progress-bar .progress-bar {
+  background: linear-gradient(90deg, #fca311 0%, #f59e0b 100%);
+  transition: width 0.4s ease;
+}
+
+/* Alert Messages */
+.form-alert {
+  border-radius: 8px;
+  border: none;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-alert-success {
+  background-color: #f0fdf4;
+  color: #166534;
+  border-left: 4px solid #22c55e;
+}
+
+.form-alert-success .alert-icon {
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+.form-alert-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-left: 4px solid #ef4444;
+}
+
+/* Form Actions */
+.form-actions-elegant {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-elegant {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  color: #333;
+}
+
+.btn-elegant:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-elegant:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-preview {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn-preview:hover:not(:disabled) {
+  background: #f8f9fa;
+  border-color: #fca311;
+  color: #fca311;
+}
+
+.btn-reset:hover:not(:disabled) {
+  background: #f8f9fa;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  border-color: #25d366;
+  font-weight: 600;
+}
+
+.btn-whatsapp:hover:not(:disabled) {
+  background: #20ba5a;
+  border-color: #20ba5a;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:disabled {
+  background: #94d3b0;
+  border-color: #94d3b0;
+}
+
+/* Modal Preview */
+.preview-modal-elegant .modal-content {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.preview-modal-elegant .modal-header {
+  padding: 1.5rem 1.5rem 1rem;
+}
+
+.preview-modal-elegant .modal-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.preview-modal-elegant .modal-body {
+  padding: 1rem 1.5rem;
+}
+
+.whatsapp-preview-container {
+  background: #e5ddd5;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-height: 500px;
+  overflow-y: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #000;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.preview-modal-elegant .modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .form-title-elegant {
+    font-size: 2rem;
+  }
+
+  .form-section-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .form-title-elegant {
+    font-size: 1.75rem;
+  }
+
+  .form-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .form-section-title {
+    font-size: 1.15rem;
+  }
+
+  .form-section-description,
+  .benefits-list li {
+    font-size: 0.875rem;
+  }
+
+  .form-actions-elegant {
+    justify-content: stretch;
+  }
+
+  .btn-elegant {
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .form-actions-elegant {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .form-eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .form-title-elegant {
+    font-size: 1.5rem;
+  }
+
+  .btn-elegant {
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .btn-elegant span {
+    display: none;
+  }
+
+  .btn-preview::after {
+    content: "Vista Previa";
+  }
+
+  .btn-reset::after {
+    content: "Limpiar";
+  }
+
+  .btn-whatsapp::after {
+    content: "Enviar";
+  }
+}

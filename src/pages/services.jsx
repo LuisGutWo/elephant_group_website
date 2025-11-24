@@ -8,6 +8,8 @@ import Services from "@/components/InnerPages/About/Services";
 import ServicesTab from "@/components/Main/ServicesTab";
 import Contact from "@/components/Main/Contact";
 import Footer from "@/components/Main/Footer";
+import FooterBottom from "@/components/Main/FooterBottom";
+import Form from "@/components/InnerPages/Contact/Form";
 
 function ServicesPage() {
   useEffect(() => {
@@ -46,11 +48,9 @@ function ServicesPage() {
       <Navbar mainBg />
       <main>
         <Header data={headerMetadata} subBg={true} />
-        <Services />
-        <ServicesTab />
-        <Contact innerPageStyle />
+        <Form />
       </main>
-      <Footer />
+      <FooterBottom />
     </>
   );
 }

@@ -4,13 +4,11 @@ import Layout from "@/layouts/default";
 import Loader from "@/components/Common/Loader";
 import Navbar from "@/components/Common/MainNavbar";
 import Header from "@/components/InnerPages/Header";
-import Services from "@/components/InnerPages/About/Services";
-import ServicesTab from "@/components/Main/ServicesTab";
-import Footer from "@/components/Main/Footer";
-import FooterBottom from "@/components/Main/FooterBottom";
+import ImpresionDigital from "@/components/InnerPages/Services/ImpresionDigital";
 import Form from "@/components/InnerPages/Contact/Form";
+import FooterBottom from "@/components/Main/FooterBottom";
 
-function ServicesPage() {
+function ImpresionDigitalPage() {
   useEffect(() => {
     const body = document?.body;
     if (body) {
@@ -26,27 +24,34 @@ function ServicesPage() {
 
   const headerMetadata = {
     subTitle: "SERVICIOS",
-    title: "Impulsamos tu marca con soluciones creativas y personalizadas.",
-    text: "SERVICIOS",
+    title: "Impresión Digital de Alta Calidad",
+    text: "IMPRESIÓN DIGITAL",
   };
 
   return (
     <>
       <Head>
-        <title>Elephant Group - Servicios</title>
-        <meta name="description" content="Elephant Group - Servicios" />
+        <title>Elephant Group - Impresión Digital | Valparaíso</title>
+        <meta
+          name="description"
+          content="Servicio de impresión digital de alta calidad en Valparaíso. Tarjetas, flyers, catálogos y documentos corporativos con entrega rápida y precios competitivos."
+        />
         <meta
           name="keywords"
-          content="Elephant Group, Servicios, Diseño, Artes Gráficas"
+          content="impresión digital, imprenta Valparaíso, tarjetas de presentación, flyers, catálogos, impresión rápida"
         />
         <meta name="author" content="Elephant Group" />
-        <link rel="canonical" href="https://landingclientes.elephantgroup.cl" />
+        <link
+          rel="canonical"
+          href="https://landingclientes.elephantgroup.cl/services/impresion-digital"
+        />
       </Head>
 
       <Loader />
       <Navbar mainBg />
       <main>
         <Header data={headerMetadata} subBg={true} />
+        <ImpresionDigital />
         <Form />
       </main>
       <FooterBottom />
@@ -54,6 +59,6 @@ function ServicesPage() {
   );
 }
 
-ServicesPage.getLayout = (page) => <Layout>{page}</Layout>;
+ImpresionDigitalPage.getLayout = (page) => <Layout>{page}</Layout>;
 
-export default ServicesPage;
+export default ImpresionDigitalPage;

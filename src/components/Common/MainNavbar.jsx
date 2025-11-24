@@ -1,84 +1,45 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import TopNavbar from "./TopNavbar";
 
 function MainNavbar({ mainBg, subBg, noStatic, curve }) {
   useEffect(() => {
-    if (typeof window !== "undefined" && window !== null) {
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }
-  }, []);
-
-  function handleScroll() {
-    if (typeof window !== "undefined" && window !== null) {
-      const bodyScroll = window.scrollY;
+    const handleScroll = () => {
       const navbar = document.querySelector(".navbar");
+      if (!navbar) return;
 
-      if (bodyScroll > 200 && navbar) {
+      if (window.scrollY > 200) {
         navbar.classList.add("nav-scroll");
-      } else if (navbar) {
+      } else {
         navbar.classList.remove("nav-scroll");
       }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleNavbar = () => {
+    const navbarCollapse = document.querySelector(".navbar .navbar-collapse");
+    if (navbarCollapse) {
+      navbarCollapse.classList.toggle("show");
     }
-  }
+  };
 
-  function handleDropdownMouseMove(event) {
-    if (event && event.currentTarget) {
-      event.currentTarget.querySelector(".dropdown-menu").classList.add("show");
+  const handleDropdownMouseEnter = (event) => {
+    const dropdown = event.currentTarget.querySelector(".dropdown-menu");
+    if (dropdown) {
+      dropdown.classList.add("show");
     }
-  }
+  };
 
-  function handleDropdownMouseLeave(event) {
-    if (event && event.currentTarget) {
-      event.currentTarget
-        .querySelector(".dropdown-menu")
-        .classList.remove("show");
+  const handleDropdownMouseLeave = (event) => {
+    const dropdown = event.currentTarget.querySelector(".dropdown-menu");
+    if (dropdown) {
+      dropdown.classList.remove("show");
     }
-  }
-
-  function handleDropdownSideMouseMove(event) {
-    if (event && event.currentTarget) {
-      const dropdownSide = event.currentTarget.querySelector(".dropdown-side");
-      if (dropdownSide) {
-        dropdownSide.classList.add("show");
-      }
-    }
-  }
-
-  function handleDropdownSideMouseLeave(event) {
-    if (event && event.currentTarget) {
-      const dropdownSide = event.currentTarget.querySelector(".dropdown-side");
-      if (dropdownSide) {
-        dropdownSide.classList.remove("show");
-      }
-    }
-  }
-
-  function toggleNavbar() {
-    if (typeof document !== "undefined" && document !== null) {
-      document
-        .querySelector(".navbar .navbar-collapse")
-        .classList.toggle("show");
-    }
-  }
-
-  //   function toggleSearch() {
-  //     if (typeof document !== "undefined" && document !== null) {
-  //       let form = document.querySelector(".navbar .search-form");
-  //       let closeBtn = document.querySelector(".search-form .close-search");
-
-  //       if (form && closeBtn) {
-  //         form.classList.toggle("open");
-  //         if (form.classList.contains("open")) {
-  //           closeBtn.style.display = "block";
-  //         } else {
-  //           closeBtn.style.display = "none";
-  //         }
-  //       }
-  //     }
-  //   }
+  };
 
   return (
     <>
@@ -87,83 +48,148 @@ function MainNavbar({ mainBg, subBg, noStatic, curve }) {
         className={`navbar navbar-expand-lg ${curve ? "nav-crev" : ""} ${
           noStatic ? "" : "static"
         } ${mainBg ? "main-bg" : ""} ${subBg ? "sub-bg" : ""}`}
+        role="navigation"
+        aria-label="Navegación principal"
       >
-        <section className="container">
-          <Link className="logo" href="/home">
+        <div className="container">
+          <Link
+            className="logo"
+            href="/home"
+            aria-label="Elephant Group - Ir a inicio"
+          >
             <img
               src="/light/assets/imgs/logo-dark.webp"
-              alt="Elephant Group logo"
-              loading="lazy"
+              alt="Elephant Group - Imprenta y servicios gráficos en Valparaíso"
+              width="140"
+              height="auto"
               className="icon-img-140"
             />
           </Link>
+
           <button
             className="navbar-toggler"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"
+            aria-label="Abrir menú de navegación"
             onClick={toggleNavbar}
           >
             <span className="icon-bar">
               <i className="fas fa-bars"></i>
             </span>
           </button>
-          <section
+
+          <div
             className="collapse navbar-collapse justify-content-end pe-4 pt-30"
             id="navbarSupportedContent"
           >
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link" href="/home">
+            <ul className="navbar-nav" role="menubar">
+              <li className="nav-item" role="none">
+                <Link
+                  className="nav-link"
+                  href="/home"
+                  role="menuitem"
+                  aria-label="Ir a página de inicio"
+                >
                   <span className="rolling-text">INICIO</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" href="/services">
+              <li
+                className="nav-item dropdown"
+                onMouseEnter={handleDropdownMouseEnter}
+                onMouseLeave={handleDropdownMouseLeave}
+                role="none"
+              >
+                <Link
+                  className="nav-link dropdown-toggle"
+                  href="/services"
+                  role="menuitem"
+                  aria-label="Ver servicios de imprenta"
+                  aria-haspopup="true"
+                >
                   <span className="rolling-text">SERVICIOS</span>
                 </Link>
+                <ul className="dropdown-menu" role="menu">
+                  <li role="none">
+                    <Link
+                      className="dropdown-item"
+                      href="/services/impresion-digital"
+                      role="menuitem"
+                    >
+                      Impresión Digital
+                    </Link>
+                  </li>
+                  <li role="none">
+                    <Link
+                      className="dropdown-item"
+                      href="/services/impresion-offset"
+                      role="menuitem"
+                    >
+                      Impresión Offset
+                    </Link>
+                  </li>
+                  <li role="none">
+                    <Link
+                      className="dropdown-item"
+                      href="/services/gran-formato"
+                      role="menuitem"
+                    >
+                      Gran Formato
+                    </Link>
+                  </li>
+                  <li role="none">
+                    <Link
+                      className="dropdown-item"
+                      href="/services/acabados"
+                      role="menuitem"
+                    >
+                      Acabados y Terminaciones
+                    </Link>
+                  </li>
+                  <li role="none">
+                    <Link
+                      className="dropdown-item"
+                      href="/services/diseno"
+                      role="menuitem"
+                    >
+                      Diseño Gráfico
+                    </Link>
+                  </li>
+                </ul>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" href="/portfolio">
+              <li className="nav-item" role="none">
+                <Link
+                  className="nav-link"
+                  href="/portfolio"
+                  role="menuitem"
+                  aria-label="Ver portafolio de trabajos realizados"
+                >
                   <span className="rolling-text">PORTAFOLIO</span>
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" href="/quote">
+              <li className="nav-item" role="none">
+                <Link
+                  className="nav-link"
+                  href="/quote"
+                  role="menuitem"
+                  aria-label="Solicitar cotización de servicios"
+                >
                   <span className="rolling-text">COTIZACIÓN</span>
                 </Link>
               </li>
-              {/* <li className="nav-item">
+              <li className="nav-item" role="none">
                 <Link
                   className="nav-link"
-                  href="/shop"
+                  href="/contact"
+                  role="menuitem"
+                  aria-label="Contactar con Elephant Group"
                 >
-                  <span className="rolling-text">TIENDA</span>
-                </Link>
-              </li> */}
-              <li className="nav-item">
-                <Link className="nav-link" href="/contact">
                   <span className="rolling-text">CONTACTO</span>
                 </Link>
               </li>
             </ul>
-          </section>
-          {/* <div className="search-form">
-            <div className="form-group">
-              <input type="text" name="search" placeholder="Search" />
-              <button>
-                <span className="pe-7s-search"></span>
-              </button>
-            </div>
-            <div className="search-icon" onClick={toggleSearch}>
-              <span className="pe-7s-search open-search"></span>
-              <span className="pe-7s-close close-search"></span>
-            </div>
-          </div> */}
-        </section>
+          </div>
+        </div>
       </nav>
     </>
   );
